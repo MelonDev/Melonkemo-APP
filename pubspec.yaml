@@ -12,6 +12,8 @@ dependencies:
     sdk: flutter
 
   cupertino_icons: ^1.0.5
+  rive: ^0.10.3
+  auto_size_text: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -21,3 +23,12 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  assets:
+  - assets/rive/
+  fonts:
+    - family: KosugiMaru
+      fonts:
+        - asset: fonts/kosugi_maru_regular.ttf
+    - family: Itim
+      fonts:
+        - asset: fonts/itim_regular.ttf
