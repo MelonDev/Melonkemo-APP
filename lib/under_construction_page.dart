@@ -73,20 +73,21 @@ class _UnderConstructionPageState extends State<UnderConstructionPage> {
             'assets/rive/cat_translucent.riv',
           )),
           Container(
-            padding: const EdgeInsets.only(bottom: 80,left: 20,right: 20),
+            padding: const EdgeInsets.only(bottom: 40,left: 20,right: 20),
             child: Column(
               children: [
                 AutoSizeText(
                   "This page is under construction",
-                  maxFontSize: 32,
-                  maxLines: 1,
-                  minFontSize: 24,
+                  maxFontSize: 36,
+                  textAlign: TextAlign.center,
+                  maxLines: 2,
+                  minFontSize: 32,
                   style: TextStyle(
                       color: Colors.black.withOpacity(0.8),
                       fontFamily: 'Itim',
                       fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(height: 6,),
+                const SizedBox(height: 12,),
                 AutoSizeText(
                   "เพจนี้ในขั้นตอนการพัฒนา",
                   maxFontSize: 24,
