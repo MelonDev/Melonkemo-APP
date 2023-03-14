@@ -73,14 +73,14 @@ class _UnderConstructionPageState extends State<UnderConstructionPage> {
             'assets/rive/cat_translucent.riv',
           )),
           Container(
-            padding: const EdgeInsets.only(bottom: 80),
+            padding: const EdgeInsets.only(bottom: 80,left: 20,right: 20),
             child: Column(
               children: [
                 AutoSizeText(
                   "This page is under construction",
                   maxFontSize: 32,
                   maxLines: 1,
-                  minFontSize: 28,
+                  minFontSize: 24,
                   style: TextStyle(
                       color: Colors.black.withOpacity(0.8),
                       fontFamily: 'Itim',
