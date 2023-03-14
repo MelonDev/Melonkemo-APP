@@ -1,43 +1,38 @@
-name: Build and Deploy
+name: Deploy to Firebase Hosting
+
 on:
   push:
     branches:
       - web
+  pull_request:
+    branches:
+      - web
+
+  workflow_dispatch:
 
 jobs:
   build:
-    name: Build
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v3
-      - name: Install Dependencies
-        run: npm install
-      - name: Build
-        run: npm run build-prod
-        env:
-          CI: ""
-      - name: Archive Production Artifact
-        uses: actions/upload-artifact@master
+      - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - uses: subosito/flutter-action@v2.3.0
         with:
-          name: dist
-          path: dist
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Repo
-        uses: actions/checkout@master
-      - name: Download Artifact
-        uses: actions/download-artifact@master
-        with:
-          name: dist
-          path: dist
-      - name: Deploy to Firebase
+          channel: 'stable' # or: 'beta' or 'master'
+      - run: flutter --version
+      - name: 'Run flutter pub get'
+        run: flutter pub get
+      - name: Enable flutter web
+        run: flutter config --enable-web
+      - name: 'Build Web App'
+        run: flutter build web --release
+      - name: 'Deploy to Firebase Hosting'
         uses: w9jds/firebase-action@master
         with:
           args: deploy --only hosting
         env:
           GCP_SA_KEY: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_MELONKEMO_OFFICIAL }}
+
+
 
