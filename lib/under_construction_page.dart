@@ -77,7 +77,7 @@ class _UnderConstructionPageState extends State<UnderConstructionPage> {
             child: Column(
               children: [
                 AutoSizeText(
-                  "This page is under construction",
+                  "THIS PAGE IS UNDER CONSTRUCTION",
                   maxFontSize: 36,
                   textAlign: TextAlign.center,
                   maxLines: 2,
