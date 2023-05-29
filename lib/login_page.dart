@@ -49,12 +49,13 @@ class _LoginPageState extends State<LoginPage> {
                   Expanded(
                     child: Container(
                       width: 100,
-                      margin: const EdgeInsets.only(top: 30, bottom: 30),
+                      margin: EdgeInsets.only(top: 30, bottom: 30,left: MediaQuery.of(context).size.width > 1100 ? 0 :20),
+                      padding: EdgeInsets.only(left: 20),
                       height: MediaQuery.of(context).size.height * 1,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         image: DecorationImage(
-                          fit: MediaQuery.of(context).size.width < 1000 ? BoxFit.fitWidth : BoxFit.fitHeight,
+                          fit: MediaQuery.of(context).size.width < 1100 ? BoxFit.fitWidth : BoxFit.fitHeight,
                           alignment: Alignment.centerRight,
                           image: Image.network(
                             //'https://pbs.twimg.com/media/FxQoAeMaEAARLme?format=jpg&name=orig',
