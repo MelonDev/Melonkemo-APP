@@ -1,9 +1,9 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:melonkemo/pages/login/login_page.dart';
 import 'package:melonkemo/under_construction_page.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
-
-import 'login_page.dart';
 
 
 void main() {
@@ -29,11 +29,17 @@ class CoreApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final botToastBuilder = BotToastInit();  //1. call BotToastInit
+
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
+      builder: (context, child) {
+        child = botToastBuilder(context,child);
+        return child;
+      },
       routerConfig: _router,
     );
   }

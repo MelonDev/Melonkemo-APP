@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'login_provider.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -12,10 +14,12 @@ class _LoginPageState extends State<LoginPage> {
   final _unfocusNode = FocusNode();
 
   bool isObscure = true;
+  late LoginProvider _provider;
 
   @override
   void initState() {
     super.initState();
+    _provider = LoginProvider();
     //_model = createModel(context, () => Login09Model());
 
     //_model.emailAddressFieldController ??= TextEditingController();
@@ -33,143 +37,148 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
-      child: WillPopScope(
-        onWillPop: () async => false,
-        child: Scaffold(
-          key: scaffoldKey,
-          backgroundColor: Colors.white,
-          body: SafeArea(
-            top: true,
-            child: Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                if (MediaQuery.of(context).size.width > 900)
-                  Expanded(
-                    child: Container(
-                      width: 100,
-                      margin: EdgeInsets.only(top: 30, bottom: 30,left: MediaQuery.of(context).size.width > 1100 ? 0 :20),
-                      padding: EdgeInsets.only(left: 20),
-                      height: MediaQuery.of(context).size.height * 1,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        image: DecorationImage(
-                          fit: MediaQuery.of(context).size.width < 1100 ? BoxFit.fitWidth : BoxFit.fitHeight,
-                          alignment: Alignment.centerRight,
-                          image: Image.network(
-                            //'https://pbs.twimg.com/media/FxQoAeMaEAARLme?format=jpg&name=orig',
-                            'https://firebasestorage.googleapis.com/v0/b/meloncloud-d2fb8.appspot.com/o/MelonCloud%2Fmelonkemo%2Fcover%2FFxQoAeMaEAARLme.jpeg?alt=media&token=5584688c-76cb-4823-bcee-374c2b746a22',
-                          ).image,
-                        ),
-                      ),
-                    ),
-                  ),
-                Expanded(
-                    child: Material(
-                  color: Colors.white,
-                  elevation: 0,
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(0),
-                      bottomRight: Radius.circular(0),
-                      topLeft: Radius.circular(2),
-                      topRight: Radius.circular(0),
-                    ),
-                  ),
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 1,
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(0),
-                        bottomRight: Radius.circular(0),
-                        topLeft: Radius.circular(2),
-                        topRight: Radius.circular(0),
-                      ),
-                      shape: BoxShape.rectangle,
-                    ),
-                    child: Align(
-                      alignment: AlignmentDirectional(0, 0),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+    return ChangeNotifierProvider(
+      create: (_) => _provider,
+      builder: (BuildContext ct,Widget? widget){
+        return GestureDetector(
+          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+          child: WillPopScope(
+            onWillPop: () async => false,
+            child: Scaffold(
+              key: scaffoldKey,
+              backgroundColor: Colors.white,
+              body: SafeArea(
+                top: true,
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    if (MediaQuery.of(context).size.width > 900)
+                      Expanded(
                         child: Container(
-                          constraints: BoxConstraints(
-                            maxWidth: 320,
-                          ),
+                          width: 100,
+                          margin: EdgeInsets.only(top: 30, bottom: 30,left: MediaQuery.of(context).size.width > 1100 ? 0 :20),
+                          padding: const EdgeInsets.only(left: 20),
+                          height: MediaQuery.of(context).size.height * 1,
                           decoration: BoxDecoration(
-                          ),
-                          child: Align(
-                            alignment: AlignmentDirectional(0, 0),
-                            child: Column(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.center,
-                              children: [
-                                ..._titleArea(),
-                                _formArea(),
-                                _forgetPasswordArea(),
-
-                                _loginButton(),
-                                // Padding(
-                                //   padding: EdgeInsetsDirectional.fromSTEB(
-                                //       0, 24, 0, 0),
-                                //   child: FFButtonWidget(
-                                //     onPressed: () async {
-                                //       // if (_model.formKey.currentState ==
-                                //       //     null ||
-                                //       //     !_model.formKey.currentState!
-                                //       //         .validate()) {
-                                //       //   return;
-                                //       // }
-                                //     },
-                                //     text: 'Log in',
-                                //     options: FFButtonOptions(
-                                //       width: double.infinity,
-                                //       height: 44,
-                                //       padding: EdgeInsetsDirectional.fromSTEB(
-                                //           0, 0, 0, 0),
-                                //       iconPadding:
-                                //       EdgeInsetsDirectional.fromSTEB(
-                                //           0, 0, 0, 0),
-                                //       // color: FlutterFlowTheme.of(context)
-                                //       //     .primary,
-                                //       // textStyle: FlutterFlowTheme.of(context)
-                                //       //     .titleSmall
-                                //       //     .override(
-                                //       //   fontFamily: 'Inter',
-                                //       //   color: Colors.white,
-                                //       // ),
-                                //       elevation: 0,
-                                //       borderSide: BorderSide(
-                                //         color: Colors.transparent,
-                                //         width: 1,
-                                //       ),
-                                //       borderRadius: BorderRadius.circular(12),
-                                //     ),
-                                //   ),
-                                // ),
-                                _registerArea()
-                              ],
+                            color: Colors.white,
+                            image: DecorationImage(
+                              fit: MediaQuery.of(context).size.width < 1100 ? BoxFit.fitWidth : BoxFit.fitHeight,
+                              alignment: Alignment.centerRight,
+                              image: Image.network(
+                                //'https://pbs.twimg.com/media/FxQoAeMaEAARLme?format=jpg&name=orig',
+                                'https://firebasestorage.googleapis.com/v0/b/meloncloud-d2fb8.appspot.com/o/MelonCloud%2Fmelonkemo%2Fcover%2FFxQoAeMaEAARLme.jpeg?alt=media&token=5584688c-76cb-4823-bcee-374c2b746a22',
+                              ).image,
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                ))
-              ],
+                    Expanded(
+                        child: Material(
+                          color: Colors.white,
+                          elevation: 0,
+                          shape: const RoundedRectangleBorder(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(0),
+                              bottomRight: Radius.circular(0),
+                              topLeft: Radius.circular(2),
+                              topRight: Radius.circular(0),
+                            ),
+                          ),
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * 1,
+                            decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(0),
+                                bottomRight: Radius.circular(0),
+                                topLeft: Radius.circular(2),
+                                topRight: Radius.circular(0),
+                              ),
+                              shape: BoxShape.rectangle,
+                            ),
+                            child: Align(
+                              alignment: AlignmentDirectional(0, 0),
+                              child: Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                                child: Container(
+                                  constraints: BoxConstraints(
+                                    maxWidth: 320,
+                                  ),
+                                  decoration: BoxDecoration(
+                                  ),
+                                  child: Align(
+                                    alignment: AlignmentDirectional(0, 0),
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.max,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.center,
+                                      children: [
+                                        ..._titleArea(ct),
+                                        _formArea(),
+                                        _forgetPasswordArea(),
+
+                                        _loginButton(),
+                                        // Padding(
+                                        //   padding: EdgeInsetsDirectional.fromSTEB(
+                                        //       0, 24, 0, 0),
+                                        //   child: FFButtonWidget(
+                                        //     onPressed: () async {
+                                        //       // if (_model.formKey.currentState ==
+                                        //       //     null ||
+                                        //       //     !_model.formKey.currentState!
+                                        //       //         .validate()) {
+                                        //       //   return;
+                                        //       // }
+                                        //     },
+                                        //     text: 'Log in',
+                                        //     options: FFButtonOptions(
+                                        //       width: double.infinity,
+                                        //       height: 44,
+                                        //       padding: EdgeInsetsDirectional.fromSTEB(
+                                        //           0, 0, 0, 0),
+                                        //       iconPadding:
+                                        //       EdgeInsetsDirectional.fromSTEB(
+                                        //           0, 0, 0, 0),
+                                        //       // color: FlutterFlowTheme.of(context)
+                                        //       //     .primary,
+                                        //       // textStyle: FlutterFlowTheme.of(context)
+                                        //       //     .titleSmall
+                                        //       //     .override(
+                                        //       //   fontFamily: 'Inter',
+                                        //       //   color: Colors.white,
+                                        //       // ),
+                                        //       elevation: 0,
+                                        //       borderSide: BorderSide(
+                                        //         color: Colors.transparent,
+                                        //         width: 1,
+                                        //       ),
+                                        //       borderRadius: BorderRadius.circular(12),
+                                        //     ),
+                                        //   ),
+                                        // ),
+                                        _registerArea()
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ))
+                  ],
+                ),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      },
     );
   }
 
-  List<Widget> _titleArea() {
+  List<Widget> _titleArea(BuildContext context) {
     return [
       SelectionArea(
           child: Text(
-        'ยินดีต้อนรับกลับ',
+        'ยินดีต้อนรับกลับ ${context.watch<LoginProvider>().index}',
         style: TextStyle(
             color: Colors.black.withOpacity(0.9),
             fontSize: 32,
@@ -407,6 +416,7 @@ class _LoginPageState extends State<LoginPage> {
         height: 44, // <-- Your height
         child: ElevatedButton(
           onPressed: () {
+            _provider.test();
           },
           child: Text('ล็อกอิน',
               style: TextStyle(
