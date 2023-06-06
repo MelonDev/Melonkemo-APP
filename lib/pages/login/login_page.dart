@@ -186,7 +186,7 @@ class _LoginPageState extends State<LoginPage> {
     return [
       SelectionArea(
           child: Text(
-        'ยินดีต้อนรับกลับ ${context.watch<LoginProvider>().index}',
+        'ยินดีต้อนรับกลับ',
         style: TextStyle(
             color: Colors.black.withOpacity(0.9),
             fontSize: 32,
