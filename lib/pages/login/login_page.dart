@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'login_provider.dart';
@@ -16,15 +17,22 @@ class _LoginPageState extends State<LoginPage> {
   bool isObscure = true;
   late LoginProvider _provider;
 
+  late final TextEditingController _usernameController;
+  late final TextEditingController _passwordController;
+
   @override
   void initState() {
     super.initState();
     _provider = LoginProvider();
+
+    _usernameController = TextEditingController();
+    _passwordController = TextEditingController();
+
     //_model = createModel(context, () => Login09Model());
 
     //_model.emailAddressFieldController ??= TextEditingController();
     //_model.passwordFieldController ??= TextEditingController();
-    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+    //WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -251,6 +259,8 @@ class _LoginPageState extends State<LoginPage> {
       child: TextFormField(
         // controller: _model
         //     .emailAddressFieldController,
+        controller: _usernameController,
+
         cursorColor: Colors.grey,
         obscureText: false,
         decoration: InputDecoration(
@@ -321,6 +331,7 @@ class _LoginPageState extends State<LoginPage> {
         cursorColor: Colors.grey,
 
         obscureText: isObscure,
+        controller: _passwordController,
         decoration: InputDecoration(
           labelStyle: TextStyle(
               color: Colors.black.withOpacity(0.9),
@@ -416,14 +427,12 @@ class _LoginPageState extends State<LoginPage> {
         height: 44, // <-- Your height
         child: ElevatedButton(
           onPressed: () {
-            _provider.test();
+            if(_usernameController.text.isNotEmpty && _passwordController.text.isNotEmpty){
+              _provider.login(username: _usernameController.text,password: _passwordController.text,);
+            }else {
+              BotToast.showSimpleNotification(titleStyle: const TextStyle(color: Colors.white),title: "กรุณากรอกข้อมูลให้ครบถ้วน",backgroundColor: Colors.redAccent);
+            }
           },
-          child: Text('ล็อกอิน',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontFamily: 'Itim',
-                  fontWeight: FontWeight.w600)),
           style: ElevatedButton.styleFrom(
             elevation: 0,
             backgroundColor: Colors.blueAccent,
@@ -431,6 +440,12 @@ class _LoginPageState extends State<LoginPage> {
               borderRadius: BorderRadius.circular(12),
             ),
           ),
+          child: const Text('ล็อกอิน',
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontFamily: 'Itim',
+                  fontWeight: FontWeight.w600)),
         ),
       ),
     );

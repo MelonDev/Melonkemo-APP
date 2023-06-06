@@ -80,6 +80,7 @@ class HttpHelper {
       DioHelper dio = await DioHelper.init();
 
       var response = await dio.post(path, data: formData);
+      print(response);
 
       return response;
     } on Exception catch (e) {
