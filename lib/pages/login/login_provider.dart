@@ -12,29 +12,43 @@ class LoginProvider with ChangeNotifier {
   FlutterSecureStorage storage = const FlutterSecureStorage();
 
 
-  test() {
-    index += 1;
-    notifyListeners();
-    login();
-  }
+  // test() {
+  //   index += 1;
+  //   notifyListeners();
+  //   login();
+  // }
 
-  login() async {
+  login({required String username,required String password}) async {
+    // Map<String, String> body = {
+    //   "username": "melondev",
+    //   "password": "Melon05012015"
+    // };
+    print("HELLO");
     Map<String, String> body = {
-      "username": "melondev",
-      "password": "Melon05012015"
+      "username": username,
+      "password": password
     };
-    var response = await HttpHelper.postForm(path: '/core/login', body: body);
-    // print("A");
-    if (response != null) {
-      if (response.statusCode == 200) {
-        LoginResponseModel? result = LoginResponseModel.fromJson(response.data);
-        await storage.write(key: "access_token".toUpperCase(), value: result.access_token);
+    print("$body");
+    try {
+      var response = await HttpHelper.postForm(path: '/core/login', body: body);
+      print("${response}");
+      if (response != null) {
+        print(response.statusCode);
+        if (response.statusCode == 200) {
+          LoginResponseModel? result = LoginResponseModel.fromJson(response.data);
+          await storage.write(key: "access_token".toUpperCase(), value: result.access_token);
 
-        var response1 = await HttpHelper.getForm(path: '/core/me');
-        print(response1?.data);
-        BotToast.showSimpleNotification(titleStyle: TextStyle(color: Colors.white),title: "Welcome: ${response1?.data['username']}",backgroundColor: Colors.blueAccent);
+          var response1 = await HttpHelper.getForm(path: '/core/me');
+          print(response1?.data);
+          BotToast.showSimpleNotification(titleStyle: const TextStyle(color: Colors.white),title: "Welcome: ${response1?.data['username']}",backgroundColor: Colors.blueAccent);
 
+        }else {
+          BotToast.showSimpleNotification(titleStyle: const TextStyle(color: Colors.white),title: "Error: $response.data",backgroundColor: Colors.redAccent);
+        }
       }
+    } catch (e) {
+      print(e);
     }
+
   }
 }

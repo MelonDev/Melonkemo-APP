@@ -115,7 +115,9 @@ class DioHelper {
           Response? newRes = await _callNewRequest(dio, error.requestOptions);
           if (newRes == null) return null;
           return handler.resolve(newRes);
-        } else if (response.statusCode == 418) {}
+        } else if (response.statusCode == 418) {
+
+        }
       }
       return handler.next(error);
     } catch (e) {
@@ -172,6 +174,8 @@ class DioHelper {
     try {
       final response =
           await dio.post(url, data: data, options: Options(headers: headers));
+
+      print(response);
 
       return response;
     } on DioError catch (e) {
