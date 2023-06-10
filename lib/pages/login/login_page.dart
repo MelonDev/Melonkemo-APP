@@ -215,10 +215,10 @@ class _LoginPageState extends State<LoginPage> {
         //key: _model.formKey,
         autovalidateMode: AutovalidateMode.disabled,
         child: Container(
-          constraints: BoxConstraints(
+          constraints: const BoxConstraints(
             maxWidth: 320,
           ),
-          decoration: BoxDecoration(
+          decoration: const BoxDecoration(
             shape: BoxShape.rectangle,
           ),
           child: Column(
@@ -240,7 +240,7 @@ class _LoginPageState extends State<LoginPage> {
             children: [
               SelectionArea(
                   child: Text(
-                'อีเมล',
+                'ชื่อผู้ใช้',
                 style: TextStyle(
                     color: Colors.black.withOpacity(0.9),
                     fontSize: 16,
@@ -269,7 +269,7 @@ class _LoginPageState extends State<LoginPage> {
               fontSize: 16,
               fontFamily: 'Itim',
               fontWeight: FontWeight.w500),
-          hintText: 'ป้อนอีเมลของคุณ',
+          hintText: 'ป้อนชื่อผู้ใช้',
           hintStyle: TextStyle(
               color: Colors.black.withOpacity(0.5),
               fontSize: 16,
@@ -322,7 +322,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _passwordTextField() {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0, 6, 0, 0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0, 6, 0, 0),
       child: TextFormField(
         // controller: _model
         //     .passwordFieldController,
@@ -338,7 +338,7 @@ class _LoginPageState extends State<LoginPage> {
               fontSize: 16,
               fontFamily: 'Itim',
               fontWeight: FontWeight.w500),
-          hintText: isObscure ? '••••••••' : 'ป้อนรหัสผ่านของคุณ',
+          hintText: 'ป้อนรหัสผ่าน',
           hintStyle: TextStyle(
               color: Colors.black.withOpacity(0.5),
               fontSize: 16,
@@ -385,9 +385,9 @@ class _LoginPageState extends State<LoginPage> {
             child: Icon(
               isObscure
                   ? Icons.visibility_off_outlined
-                  : Icons.visibility_outlined,
-              color: Colors.black.withOpacity(0.7),
-              size: 16,
+                  : Icons.visibility_rounded,
+              color: isObscure ? Colors.black.withOpacity(0.5) : Colors.blueAccent,
+              size: 20,
             ),
           ),
         ),
