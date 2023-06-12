@@ -29,17 +29,12 @@ class CoreApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final botToastBuilder = BotToastInit();  //1. call BotToastInit
-
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.blueAccent,
       ),
-      builder: (context, child) {
-        child = botToastBuilder(context,child);
-        return child;
-      },
+      builder: (context, child) => BotToastInit()(context,child),
       routerConfig: _router,
     );
   }
