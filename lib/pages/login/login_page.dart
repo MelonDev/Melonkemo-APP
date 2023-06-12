@@ -74,7 +74,7 @@ class _LoginPageState extends State<LoginPage> {
                                 bottom: 30,
                                 left: MediaQuery.of(context).size.width > 1100
                                     ? 0
-                                    : 20),
+                                    : 50),
                             padding: const EdgeInsets.only(left: 20),
                             height: MediaQuery.of(context).size.height * 1,
                             decoration: BoxDecoration(
@@ -138,44 +138,6 @@ class _LoginPageState extends State<LoginPage> {
                                       _forgetPasswordArea(),
 
                                       _loginButton(context),
-                                      // Padding(
-                                      //   padding: EdgeInsetsDirectional.fromSTEB(
-                                      //       0, 24, 0, 0),
-                                      //   child: FFButtonWidget(
-                                      //     onPressed: () async {
-                                      //       // if (_model.formKey.currentState ==
-                                      //       //     null ||
-                                      //       //     !_model.formKey.currentState!
-                                      //       //         .validate()) {
-                                      //       //   return;
-                                      //       // }
-                                      //     },
-                                      //     text: 'Log in',
-                                      //     options: FFButtonOptions(
-                                      //       width: double.infinity,
-                                      //       height: 44,
-                                      //       padding: EdgeInsetsDirectional.fromSTEB(
-                                      //           0, 0, 0, 0),
-                                      //       iconPadding:
-                                      //       EdgeInsetsDirectional.fromSTEB(
-                                      //           0, 0, 0, 0),
-                                      //       // color: FlutterFlowTheme.of(context)
-                                      //       //     .primary,
-                                      //       // textStyle: FlutterFlowTheme.of(context)
-                                      //       //     .titleSmall
-                                      //       //     .override(
-                                      //       //   fontFamily: 'Inter',
-                                      //       //   color: Colors.white,
-                                      //       // ),
-                                      //       elevation: 0,
-                                      //       borderSide: BorderSide(
-                                      //         color: Colors.transparent,
-                                      //         width: 1,
-                                      //       ),
-                                      //       borderRadius: BorderRadius.circular(12),
-                                      //     ),
-                                      //   ),
-                                      // ),
                                       _registerArea()
                                     ],
                                   ),

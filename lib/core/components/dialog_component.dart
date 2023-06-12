@@ -6,6 +6,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/core/extensions/color_extension.dart';
 
+import 'animations/custom_offset_animation.dart';
+
 class DialogComponent {
   loadingSimple() {
     BotToast.showLoading();
@@ -63,7 +65,31 @@ class DialogComponent {
   }
 
   dialog(String value, {Color? color, bool fullscreenMode = false}) {
-    BotToast.showWidget(
+    BotToast.showAnimationWidget(
+      wrapToastAnimation: (controller, cancel, child) => Stack(
+        children: <Widget>[
+          GestureDetector(
+            onTap: () {
+              //cancel();
+            },
+            child: AnimatedBuilder(
+              builder: (_, child) => Opacity(
+                opacity: controller.value,
+                child: child,
+              ),
+              animation: controller,
+              child: const DecoratedBox(
+                decoration: BoxDecoration(color: Colors.black26),
+                child: SizedBox.expand(),
+              ),
+            ),
+          ),
+          CustomOffsetAnimation(
+            controller: controller,
+            child: child,
+          )
+        ],
+      ),
       toastBuilder: (CancelFunc cancelFunc) {
         return GestureDetector(
           onTap: cancelFunc,
@@ -76,7 +102,7 @@ class DialogComponent {
                     cancelFunc: cancelFunc)),
           ),
         );
-      },
+      }, animationDuration: const Duration(milliseconds: 300),
     );
   }
 
