@@ -26,27 +26,25 @@ class DialogComponent {
                           borderRadius: BorderRadius.circular(14)),
                       height: 200,
                       width: double.infinity,
-                      child: Column(
+                      child: const Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          const SpinKitThreeBounce(
+                          SpinKitThreeBounce(
                               size: 40, color: Colors.white),
-                          const SizedBox(
+                          SizedBox(
                             height: 30,
                           ),
                           Material(
                               color: Colors.transparent,
-                              child: Shimmer.fromColors(
-                                baseColor: Colors.white,
-                                highlightColor: Colors.white.withOpacity(0.1),
-                                child: const Text(
-                                  'กำลังโหลดข้อมูล..',
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                    fontSize: 18.0,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                              child: Text(
+                                'กำลังโหลดข้อมูล..',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(
+                                  fontSize: 18.0,
+                                  color: Colors.white,
+                                  fontFamily: 'Itim',
+                                  fontWeight: FontWeight.bold,
                                 ),
                               )),
                         ],

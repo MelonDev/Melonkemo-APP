@@ -17,11 +17,11 @@ class CoreApp extends StatelessWidget {
   final _router = GoRouter(
     routes: [
       GoRoute(
-        path: '/',
+        path: '/uc',
         builder: (context, state) => const UnderConstructionPage(),
       ),
       GoRoute(
-        path: '/login',
+        path: '/',
         builder: (context, state) => const LoginPage(),
       ),
     ],
