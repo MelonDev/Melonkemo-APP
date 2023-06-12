@@ -25,7 +25,7 @@ class LoginProvider with ChangeNotifier {
               key: "access_token".toUpperCase(), value: result.access_token);
 
           var responseMe = await HttpHelper.get(path: '/core/me');
-          BotToast().component.notify("Welcome: ${responseMe?.data['username']}");
+          BotToast().component.notify("ยินดีต้อนรับ: ${responseMe?.data['username']}");
         } else {
           BotToast().component.error("Error: ${response.data}");
         }
