@@ -466,7 +466,7 @@ class _LoginPageState extends State<LoginPage> {
         MelonBouncingButton.text(
             enabledHover: true,
             callback:(){
-              BotToast().component.test("ฟังก์ชันไม่พร้อมใช้งาน");
+              BotToast().component.dialog("ฟังก์ชันไม่พร้อมใช้งาน",color: Colors.redAccent);
             },
             text: "ลืมรหัสผ่าน?",
             textColor: Colors.blueAccent,
