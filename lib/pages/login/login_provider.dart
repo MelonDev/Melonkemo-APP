@@ -13,6 +13,7 @@ class LoginProvider with ChangeNotifier {
   login({required String username, required String password}) async {
     Map<String, String> body = {"username": username, "password": password};
     try {
+      //BotToast().component.loadingSimple();
       BotToast().component.loading();
       var response =
           await HttpHelper.postUrlEncode(path: '/core/login', body: body);
