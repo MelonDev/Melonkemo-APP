@@ -1,5 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
+import 'package:melonkemo/core/extensions/bot_toast_extension.dart';
 import 'package:provider/provider.dart';
 import 'login_provider.dart';
 
@@ -45,140 +47,152 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => _provider,
-      builder: (BuildContext ct,Widget? widget){
-        return GestureDetector(
-          onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
-          child: WillPopScope(
-            onWillPop: () async => false,
-            child: Scaffold(
-              key: scaffoldKey,
-              backgroundColor: Colors.white,
-              body: SafeArea(
-                top: true,
-                child: Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    if (MediaQuery.of(context).size.width > 900)
-                      Expanded(
-                        child: Container(
-                          width: 100,
-                          margin: EdgeInsets.only(top: 30, bottom: 30,left: MediaQuery.of(context).size.width > 1100 ? 0 :20),
-                          padding: const EdgeInsets.only(left: 20),
-                          height: MediaQuery.of(context).size.height * 1,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            image: DecorationImage(
-                              fit: MediaQuery.of(context).size.width < 1100 ? BoxFit.fitWidth : BoxFit.fitHeight,
-                              alignment: Alignment.centerRight,
-                              image: Image.network(
-                                //'https://pbs.twimg.com/media/FxQoAeMaEAARLme?format=jpg&name=orig',
-                                'https://firebasestorage.googleapis.com/v0/b/meloncloud-d2fb8.appspot.com/o/MelonCloud%2Fmelonkemo%2Fcover%2FFxQoAeMaEAARLme.jpeg?alt=media&token=5584688c-76cb-4823-bcee-374c2b746a22',
-                              ).image,
+    return Title(
+      color: Colors.white,
+      title: "ลงชื่อเข้าใช้",
+      child: ChangeNotifierProvider(
+        create: (_) => _provider,
+        builder: (BuildContext ct, Widget? widget) {
+          return GestureDetector(
+            onTap: () => FocusScope.of(context).requestFocus(_unfocusNode),
+            child: WillPopScope(
+              onWillPop: () async => false,
+              child: Scaffold(
+                key: scaffoldKey,
+                backgroundColor: Colors.white,
+                body: SafeArea(
+                  top: true,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      if (MediaQuery.of(context).size.width > 900)
+                        Expanded(
+                          child: Container(
+                            width: 100,
+                            margin: EdgeInsets.only(
+                                top: 30,
+                                bottom: 30,
+                                left: MediaQuery.of(context).size.width > 1100
+                                    ? 0
+                                    : 20),
+                            padding: const EdgeInsets.only(left: 20),
+                            height: MediaQuery.of(context).size.height * 1,
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              image: DecorationImage(
+                                fit: MediaQuery.of(context).size.width < 1100
+                                    ? BoxFit.fitWidth
+                                    : BoxFit.fitHeight,
+                                alignment: Alignment.centerRight,
+                                image: Image.network(
+                                  //'https://pbs.twimg.com/media/FxQoAeMaEAARLme?format=jpg&name=orig',
+                                  'https://firebasestorage.googleapis.com/v0/b/meloncloud-d2fb8.appspot.com/o/MelonCloud%2Fmelonkemo%2Fcover%2FFxQoAeMaEAARLme.jpeg?alt=media&token=5584688c-76cb-4823-bcee-374c2b746a22',
+                                ).image,
+                              ),
                             ),
                           ),
                         ),
-                      ),
-                    Expanded(
-                        child: Material(
-                          color: Colors.white,
-                          elevation: 0,
-                          shape: const RoundedRectangleBorder(
+                      Expanded(
+                          child: Material(
+                        color: Colors.white,
+                        elevation: 0,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(0),
+                            bottomRight: Radius.circular(0),
+                            topLeft: Radius.circular(2),
+                            topRight: Radius.circular(0),
+                          ),
+                        ),
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 1,
+                          decoration: const BoxDecoration(
                             borderRadius: BorderRadius.only(
                               bottomLeft: Radius.circular(0),
                               bottomRight: Radius.circular(0),
                               topLeft: Radius.circular(2),
                               topRight: Radius.circular(0),
                             ),
+                            shape: BoxShape.rectangle,
                           ),
-                          child: Container(
-                            height: MediaQuery.of(context).size.height * 1,
-                            decoration: const BoxDecoration(
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(0),
-                                bottomRight: Radius.circular(0),
-                                topLeft: Radius.circular(2),
-                                topRight: Radius.circular(0),
-                              ),
-                              shape: BoxShape.rectangle,
-                            ),
-                            child: Align(
-                              alignment: AlignmentDirectional(0, 0),
-                              child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
-                                child: Container(
-                                  constraints: BoxConstraints(
-                                    maxWidth: 320,
-                                  ),
-                                  decoration: BoxDecoration(
-                                  ),
-                                  child: Align(
-                                    alignment: AlignmentDirectional(0, 0),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children: [
-                                        ..._titleArea(ct),
-                                        _formArea(),
-                                        _forgetPasswordArea(),
+                          child: Align(
+                            alignment: AlignmentDirectional(0, 0),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                              child: Container(
+                                constraints: BoxConstraints(
+                                  maxWidth: 320,
+                                ),
+                                decoration: BoxDecoration(),
+                                child: Align(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
+                                    children: [
+                                      ..._titleArea(ct),
+                                      _formArea(),
+                                      _forgetPasswordArea(),
 
-                                        _loginButton(),
-                                        // Padding(
-                                        //   padding: EdgeInsetsDirectional.fromSTEB(
-                                        //       0, 24, 0, 0),
-                                        //   child: FFButtonWidget(
-                                        //     onPressed: () async {
-                                        //       // if (_model.formKey.currentState ==
-                                        //       //     null ||
-                                        //       //     !_model.formKey.currentState!
-                                        //       //         .validate()) {
-                                        //       //   return;
-                                        //       // }
-                                        //     },
-                                        //     text: 'Log in',
-                                        //     options: FFButtonOptions(
-                                        //       width: double.infinity,
-                                        //       height: 44,
-                                        //       padding: EdgeInsetsDirectional.fromSTEB(
-                                        //           0, 0, 0, 0),
-                                        //       iconPadding:
-                                        //       EdgeInsetsDirectional.fromSTEB(
-                                        //           0, 0, 0, 0),
-                                        //       // color: FlutterFlowTheme.of(context)
-                                        //       //     .primary,
-                                        //       // textStyle: FlutterFlowTheme.of(context)
-                                        //       //     .titleSmall
-                                        //       //     .override(
-                                        //       //   fontFamily: 'Inter',
-                                        //       //   color: Colors.white,
-                                        //       // ),
-                                        //       elevation: 0,
-                                        //       borderSide: BorderSide(
-                                        //         color: Colors.transparent,
-                                        //         width: 1,
-                                        //       ),
-                                        //       borderRadius: BorderRadius.circular(12),
-                                        //     ),
-                                        //   ),
-                                        // ),
-                                        _registerArea()
-                                      ],
-                                    ),
+                                      _loginButton(context),
+                                      // Padding(
+                                      //   padding: EdgeInsetsDirectional.fromSTEB(
+                                      //       0, 24, 0, 0),
+                                      //   child: FFButtonWidget(
+                                      //     onPressed: () async {
+                                      //       // if (_model.formKey.currentState ==
+                                      //       //     null ||
+                                      //       //     !_model.formKey.currentState!
+                                      //       //         .validate()) {
+                                      //       //   return;
+                                      //       // }
+                                      //     },
+                                      //     text: 'Log in',
+                                      //     options: FFButtonOptions(
+                                      //       width: double.infinity,
+                                      //       height: 44,
+                                      //       padding: EdgeInsetsDirectional.fromSTEB(
+                                      //           0, 0, 0, 0),
+                                      //       iconPadding:
+                                      //       EdgeInsetsDirectional.fromSTEB(
+                                      //           0, 0, 0, 0),
+                                      //       // color: FlutterFlowTheme.of(context)
+                                      //       //     .primary,
+                                      //       // textStyle: FlutterFlowTheme.of(context)
+                                      //       //     .titleSmall
+                                      //       //     .override(
+                                      //       //   fontFamily: 'Inter',
+                                      //       //   color: Colors.white,
+                                      //       // ),
+                                      //       elevation: 0,
+                                      //       borderSide: BorderSide(
+                                      //         color: Colors.transparent,
+                                      //         width: 1,
+                                      //       ),
+                                      //       borderRadius: BorderRadius.circular(12),
+                                      //     ),
+                                      //   ),
+                                      // ),
+                                      _registerArea()
+                                    ],
                                   ),
                                 ),
                               ),
                             ),
                           ),
-                        ))
-                  ],
+                        ),
+                      ))
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-        );
-      },
+          );
+        },
+      ),
     );
   }
 
@@ -386,7 +400,8 @@ class _LoginPageState extends State<LoginPage> {
               isObscure
                   ? Icons.visibility_off_outlined
                   : Icons.visibility_rounded,
-              color: isObscure ? Colors.black.withOpacity(0.5) : Colors.blueAccent,
+              color:
+                  isObscure ? Colors.black.withOpacity(0.5) : Colors.blueAccent,
               size: 20,
             ),
           ),
@@ -419,39 +434,46 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  Widget _loginButton() {
+  Widget _loginButton(BuildContext context) {
     return Padding(
       padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
-      child: SizedBox(
-        width: double.infinity, // <-- Your width
-        height: 44, // <-- Your height
-        child: ElevatedButton(
-          onPressed: () {
-            if(_usernameController.text.isNotEmpty && _passwordController.text.isNotEmpty){
-              _provider.login(username: _usernameController.text,password: _passwordController.text,);
-            }else {
-              BotToast.showSimpleNotification(titleStyle: const TextStyle(color: Colors.white),title: "กรุณากรอกข้อมูลให้ครบถ้วน",backgroundColor: Colors.redAccent);
+      child: MelonBouncingButton.text(
+          enabledHover: true,
+          callback:(){
+            if (_usernameController.text.isNotEmpty &&
+                _passwordController.text.isNotEmpty) {
+              _provider.login(
+                username: _usernameController.text,
+                password: _passwordController.text,
+              );
+            } else {
+              //BotToast().component.test("กรุณากรอกข้อมูลให้ครบถ้วน");
+              BotToast().component.error("กรุณากรอกข้อมูลให้ครบถ้วน");
             }
           },
-          style: ElevatedButton.styleFrom(
-            elevation: 0,
-            backgroundColor: Colors.blueAccent,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-          child: const Text('ล็อกอิน',
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 18,
-                  fontFamily: 'Itim',
-                  fontWeight: FontWeight.w600)),
-        ),
-      ),
+          text: "ล็อกอิน",
+          textColor: Colors.white,
+          fontSize: 18,
+          height: 44,
+          color: Colors.blueAccent),
     );
   }
 
   Widget _forgetPasswordArea() {
+    return Padding(
+        padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+        child:
+        MelonBouncingButton.text(
+            enabledHover: true,
+            callback:(){
+              BotToast().component.test("ฟังก์ชันไม่พร้อมใช้งาน");
+            },
+            text: "ลืมรหัสผ่าน?",
+            textColor: Colors.blueAccent,
+            fontSize: 16,
+            height: 26,
+            color: Colors.transparent)
+    );
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
       child: SelectionArea(
@@ -472,23 +494,19 @@ class _LoginPageState extends State<LoginPage> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           SelectionArea(
-              child: Text(
-            'ไม่มีบัญชีผู้ใช้? ',
+              child: Text('ไม่มีบัญชีผู้ใช้? ',
                   style: TextStyle(
                       color: Colors.black.withOpacity(0.7),
                       fontSize: 16,
                       fontFamily: 'Itim',
-                      fontWeight: FontWeight.w300)
-          )),
+                      fontWeight: FontWeight.w300))),
           SelectionArea(
-              child: Text(
-            'ลงทะเบียน',
+              child: Text('ลงทะเบียน',
                   style: TextStyle(
                       color: Colors.blueAccent.withOpacity(0.9),
                       fontSize: 16,
                       fontFamily: 'Itim',
-                      fontWeight: FontWeight.w600)
-          )),
+                      fontWeight: FontWeight.w600))),
         ],
       ),
     );
