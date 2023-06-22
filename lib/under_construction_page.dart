@@ -29,6 +29,7 @@ class _UnderConstructionPageState extends State<UnderConstructionPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       appBar: AppBar(
         toolbarHeight: 80,
         title: Column(
