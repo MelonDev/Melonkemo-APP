@@ -63,92 +63,94 @@ class _LoginPageState extends State<LoginPage> {
                 backgroundColor: Colors.white,
                 body: SafeArea(
                   top: true,
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      if (MediaQuery.of(context).size.width > 900)
-                        Expanded(
-                          child: Container(
-                            width: 100,
-                            margin: EdgeInsets.only(
-                                top: 30,
-                                bottom: 30,
-                                left: MediaQuery.of(context).size.width > 1100
-                                    ? 0
-                                    : 50),
-                            padding: const EdgeInsets.only(left: 20),
-                            height: MediaQuery.of(context).size.height * 1,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              image: DecorationImage(
-                                fit: MediaQuery.of(context).size.width < 1100
-                                    ? BoxFit.fitWidth
-                                    : BoxFit.fitHeight,
-                                alignment: Alignment.centerRight,
-                                image: Image.network(
-                                  //'https://pbs.twimg.com/media/FxQoAeMaEAARLme?format=jpg&name=orig',
-                                  'https://firebasestorage.googleapis.com/v0/b/meloncloud-d2fb8.appspot.com/o/MelonCloud%2Fmelonkemo%2Fcover%2FFxQoAeMaEAARLme.jpeg?alt=media&token=5584688c-76cb-4823-bcee-374c2b746a22',
-                                ).image,
+                  child: SingleChildScrollView(
+                    child:Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        if (MediaQuery.of(context).size.width > 900)
+                          Expanded(
+                            child: Container(
+                              width: 100,
+                              margin: EdgeInsets.only(
+                                  top: 30,
+                                  bottom: 30,
+                                  left: MediaQuery.of(context).size.width > 1100
+                                      ? 0
+                                      : 50),
+                              padding: const EdgeInsets.only(left: 20),
+                              height: MediaQuery.of(context).size.height * 1,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                image: DecorationImage(
+                                  fit: MediaQuery.of(context).size.width < 1100
+                                      ? BoxFit.fitWidth
+                                      : BoxFit.fitHeight,
+                                  alignment: Alignment.centerRight,
+                                  image: Image.network(
+                                    //'https://pbs.twimg.com/media/FxQoAeMaEAARLme?format=jpg&name=orig',
+                                    'https://firebasestorage.googleapis.com/v0/b/meloncloud-d2fb8.appspot.com/o/MelonCloud%2Fmelonkemo%2Fcover%2FFxQoAeMaEAARLme.jpeg?alt=media&token=5584688c-76cb-4823-bcee-374c2b746a22',
+                                  ).image,
+                                ),
                               ),
                             ),
                           ),
-                        ),
-                      Expanded(
-                          child: Material(
-                        color: Colors.white,
-                        elevation: 0,
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.only(
-                            bottomLeft: Radius.circular(0),
-                            bottomRight: Radius.circular(0),
-                            topLeft: Radius.circular(2),
-                            topRight: Radius.circular(0),
-                          ),
-                        ),
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 1,
-                          decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              bottomLeft: Radius.circular(0),
-                              bottomRight: Radius.circular(0),
-                              topLeft: Radius.circular(2),
-                              topRight: Radius.circular(0),
-                            ),
-                            shape: BoxShape.rectangle,
-                          ),
-                          child: Align(
-                            alignment: AlignmentDirectional(0, 0),
-                            child: Padding(
-                              padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
-                              child: Container(
-                                constraints: BoxConstraints(
-                                  maxWidth: 320,
+                        Expanded(
+                            child: Material(
+                              color: Colors.white,
+                              elevation: 0,
+                              shape: const RoundedRectangleBorder(
+                                borderRadius: BorderRadius.only(
+                                  bottomLeft: Radius.circular(0),
+                                  bottomRight: Radius.circular(0),
+                                  topLeft: Radius.circular(2),
+                                  topRight: Radius.circular(0),
                                 ),
-                                decoration: BoxDecoration(),
+                              ),
+                              child: Container(
+                                height: MediaQuery.of(context).size.height * 1,
+                                decoration: const BoxDecoration(
+                                  borderRadius: BorderRadius.only(
+                                    bottomLeft: Radius.circular(0),
+                                    bottomRight: Radius.circular(0),
+                                    topLeft: Radius.circular(2),
+                                    topRight: Radius.circular(0),
+                                  ),
+                                  shape: BoxShape.rectangle,
+                                ),
                                 child: Align(
                                   alignment: AlignmentDirectional(0, 0),
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: [
-                                      ..._titleArea(ct),
-                                      _formArea(),
-                                      _forgetPasswordArea(),
+                                  child: Padding(
+                                    padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                                    child: Container(
+                                      constraints: BoxConstraints(
+                                        maxWidth: 320,
+                                      ),
+                                      decoration: BoxDecoration(),
+                                      child: Align(
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.max,
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                          CrossAxisAlignment.center,
+                                          children: [
+                                            ..._titleArea(ct),
+                                            _formArea(),
+                                            _forgetPasswordArea(),
 
-                                      _loginButton(context),
-                                      _registerArea()
-                                    ],
+                                            _loginButton(context),
+                                            _registerArea()
+                                          ],
+                                        ),
+                                      ),
+                                    ),
                                   ),
                                 ),
                               ),
-                            ),
-                          ),
-                        ),
-                      ))
-                    ],
+                            ))
+                      ],
+                    )
                   ),
                 ),
               ),
