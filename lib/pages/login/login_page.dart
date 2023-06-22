@@ -59,6 +59,7 @@ class _LoginPageState extends State<LoginPage> {
               onWillPop: () async => false,
               child: Scaffold(
                 key: scaffoldKey,
+                resizeToAvoidBottomInset: false,
                 backgroundColor: Colors.white,
                 body: SafeArea(
                   top: true,
