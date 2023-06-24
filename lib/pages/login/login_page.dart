@@ -117,17 +117,17 @@ class _LoginPageState extends State<LoginPage> {
                                 shape: BoxShape.rectangle,
                               ),
                               child: Align(
-                                alignment: AlignmentDirectional(0, 0),
+                                alignment: const AlignmentDirectional(0, 0),
                                 child: Padding(
                                   padding:
-                                  EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
+                                  const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
                                   child: Container(
-                                    constraints: BoxConstraints(
+                                    constraints: const BoxConstraints(
                                       maxWidth: 320,
                                     ),
-                                    decoration: BoxDecoration(),
+                                    decoration: const BoxDecoration(),
                                     child: Align(
-                                      alignment: AlignmentDirectional(0, 0),
+                                      alignment: const AlignmentDirectional(0, 0),
                                       child: Column(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment: MainAxisAlignment.center,
