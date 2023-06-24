@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:layout/layout.dart';
 import 'package:melonkemo/pages/login/login_page.dart';
+import 'package:melonkemo/pages/me/me_profile_page.dart';
 import 'package:melonkemo/pages/router/login_router.dart';
 import 'package:melonkemo/under_construction_page.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -21,6 +22,10 @@ class CoreApp extends StatelessWidget {
       GoRoute(
         path: '/',
         builder: (context, state) => const UnderConstructionPage(),
+      ),
+      GoRoute(
+        path: '/me',
+        builder: (context, state) => const MeProfilePage(),
       ),
       GoRoute(
         path: '/login',
