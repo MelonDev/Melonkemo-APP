@@ -46,13 +46,18 @@ class MelonBouncingButton extends StatelessWidget {
       Color? color,
       Color? textColor,
       double height = 36,
+      double? width,
+      double x = -5.0,
+      double y = -1.0,
+      double z = 1.04,
       double? fontSize,
       bool fakeLongEnable = true,
+        EdgeInsetsGeometry? padding,
       double? borderRadius}) {
     return OnHover(
-      x: -5.0,
-      y: -1.0,
-      z: 1.04,
+      x: x,
+      y: y,
+      z: z,
       disableScale: !enabledHover,
       builder: (isHover) {
         return MelonBouncingButton(
@@ -64,9 +69,11 @@ class MelonBouncingButton extends StatelessWidget {
             isHover: isHover,
             child: Container(
               height: height,
+              width: width,
+                padding: padding,
               decoration: BoxDecoration(
                   color: color ?? Colors.white,
-                  borderRadius: BorderRadius.circular(10)),
+                  borderRadius: BorderRadius.circular(borderRadius ?? 10)),
               child:
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                 Text(
