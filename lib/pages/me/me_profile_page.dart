@@ -20,8 +20,8 @@ class _MeProfilePageState extends State<MeProfilePage> {
   //final Color topColor =  const Color(0xFFD3CCE3);
   //final Color bottomColor =  const Color(0xFFE9E4F0);
   final Color topColor = const Color(0xFF2BC0E4);
-  //final Color bottomColor = const Color(0xFFEAECC6);
-  final Color bottomColor = const Color(0xFF45B649);
+  final Color bottomColor = const Color(0xFFEAECC6);
+  //final Color bottomColor = const Color(0xFF45B649);
 
   //final Color? buttonTextColor = Colors.white;
   final Color? buttonTextColor = null;
@@ -87,7 +87,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
                               borderRadius: 20,
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16.0),
-                              color: bottomColor.withOpacity(0.17))
+                              color: bottomColor.withOpacity(0.47))
                         ],
                       ),
                     ),
