@@ -29,7 +29,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Title(
-        color: Colors.white,
+        color: Colors.black,
         title: "メロンけも",
         child: Container(
           decoration: BoxDecoration(

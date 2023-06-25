@@ -44,6 +44,7 @@ class CoreApp extends StatelessWidget {
       format: FluidLayoutFormat(),
       child: MaterialApp.router(
         debugShowCheckedModeBanner: false,
+        color: Colors.black,
         theme: ThemeData(
           primaryColor: Colors.blueAccent,
         ),
