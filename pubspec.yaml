@@ -44,3 +44,6 @@ flutter:
     - family: Itim
       fonts:
         - asset: fonts/itim_regular.ttf
+    - family: MochiyPopOne
+      fonts:
+        - asset: fonts/mochiy_pop_one_regular.ttf
