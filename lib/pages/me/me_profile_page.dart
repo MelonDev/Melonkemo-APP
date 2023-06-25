@@ -61,9 +61,11 @@ class _MeProfilePageState extends State<MeProfilePage> {
                     Container(
                       decoration: const BoxDecoration(
                           //color:Color(0xFFf1edf5)
-                          color: Colors.white),
+                          //color: Colors.white
+                        color: Colors.black
+                      ),
                       alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.only(left: 14, right: 14),
+                      padding: const EdgeInsets.only(left: 14, right: 12),
                       height: 46,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -71,7 +73,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
                           Text(
                             "メロンけも",
                             style: TextStyle(
-                                color: topColor.darken(.24),
+                                color: topColor.lighten(.24),
                                 fontSize: 21,
                                 //fontFamily: 'KosugiMaru',
                                 fontFamily: 'MochiyPopOne',
@@ -79,15 +81,17 @@ class _MeProfilePageState extends State<MeProfilePage> {
                           ),
                           MelonBouncingButton.text(
                               enabledHover: true,
-                              text: "เปิดแอป",
-                              textColor: buttonTextColor ?? topColor.darken(.24),
-                              fontSize: 16,
+                              text: "ล็อคอิน",
+                              textColor: buttonTextColor ?? bottomColor.darken(.64),
+                              fontSize: 18,
                               height: 34,
                               x: -2,
                               borderRadius: 20,
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16.0),
-                              color: bottomColor.withOpacity(0.47))
+                              //color: bottomColor.withOpacity(0.47)
+                            color: bottomColor
+                          )
                         ],
                       ),
                     ),
