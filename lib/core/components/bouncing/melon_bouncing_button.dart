@@ -50,6 +50,7 @@ class MelonBouncingButton extends StatelessWidget {
       double x = -5.0,
       double y = -1.0,
       double z = 1.04,
+        String? fontFamily = "Itim",
       double? fontSize,
       bool fakeLongEnable = true,
         EdgeInsetsGeometry? padding,
@@ -81,7 +82,7 @@ class MelonBouncingButton extends StatelessWidget {
                   style: TextStyle(
                     color: textColor ?? Colors.black,
                     fontSize: fontSize,
-                    fontFamily: 'Itim',
+                    fontFamily: fontFamily,
                     fontWeight: FontWeight.bold,
                   ),
                 )
