@@ -80,10 +80,10 @@ class _MeProfilePageState extends State<MeProfilePage> {
                             style: TextStyle(
                                 color: topColor.lighten(.24),
                                 fontSize: 22,
+                                letterSpacing: 0.0,
                                 //fontFamily: 'KosugiMaru',
                                 //fontFamily: 'MochiyPopOne',
-                                fontFamily: 'MPlus',
-                                fontWeight: FontWeight.bold),
+                                fontFamily: 'MPlus'),
                           ),
                           MelonBouncingButton.text(
                               enabledHover: true,
@@ -171,8 +171,8 @@ class _MeProfilePageState extends State<MeProfilePage> {
               style: TextStyle(
                 color: Colors.black.withOpacity(0.7),
                 fontSize: 20,
+                letterSpacing: 0.0,
                 fontFamily: 'Itim',
-                fontWeight: FontWeight.bold,
               ),
             ),
           )
