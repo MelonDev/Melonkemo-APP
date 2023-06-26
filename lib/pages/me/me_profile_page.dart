@@ -81,6 +81,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
                                 color: topColor.lighten(.24),
                                 fontSize: 22,
                                 letterSpacing: 0.0,
+                                fontWeight: FontWeight.bold,
                                 //fontFamily: 'KosugiMaru',
                                 //fontFamily: 'MochiyPopOne',
                                 fontFamily: 'MPlus'),
@@ -90,7 +91,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
                               text: "เปิดแอป",
                               fontFamily: "Itim",
                               textColor:
-                                  buttonTextColor ?? bottomColor.darken(.64),
+                                  buttonTextColor ?? bottomColor.darken(.74),
                               fontSize: 16,
                               height: 34,
                               x: -2,
@@ -169,7 +170,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
             child: Text(
               title,
               style: TextStyle(
-                color: Colors.black.withOpacity(0.7),
+                color: Colors.black.withOpacity(0.75),
                 fontSize: 20,
                 letterSpacing: 0.0,
                 fontFamily: 'Itim',
