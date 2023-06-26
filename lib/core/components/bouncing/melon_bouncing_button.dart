@@ -82,9 +82,9 @@ class MelonBouncingButton extends StatelessWidget {
                   style: TextStyle(
                     color: textColor ?? Colors.black,
                     fontSize: fontSize,
-                    letterSpacing: -0.2,
+                    letterSpacing: 0.0,
                     fontFamily: fontFamily,
-                    fontWeight: FontWeight.bold,
+                    //fontWeight: FontWeight.bold,
                   ),
                 )
               ]),
