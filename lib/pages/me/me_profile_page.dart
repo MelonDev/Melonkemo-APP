@@ -117,7 +117,8 @@ class _MeProfilePageState extends State<MeProfilePage> {
                   children: [
                     //profile(context, betweenBottom: 10),
                     card(context, betweenBottom: 10, title: "เกี่ยวกับ"),
-                    card(context, betweenBottom: 10, title: "บัญชี")
+                    card(context,
+                        betweenBottom: 10, title: "บัญชี", children: account())
                   ],
                 ),
               ),
@@ -126,7 +127,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
         ));
   }
 
-  Widget profile(BuildContext context,{double betweenBottom = 0}) {
+  Widget profile(BuildContext context, {double betweenBottom = 0}) {
     return Container(
       width: cardWidth.resolve(context),
       margin: EdgeInsets.only(bottom: betweenBottom),
@@ -135,24 +136,70 @@ class _MeProfilePageState extends State<MeProfilePage> {
           Container(
             width: 100,
             height: 100,
-            decoration: BoxDecoration(color: Colors.green),
+            decoration: const BoxDecoration(color: Colors.green),
           ),
-          Expanded(child: Container(
+          Expanded(
+              child: Container(
             height: 100,
-            decoration: BoxDecoration(color: Colors.red),
+            decoration: const BoxDecoration(color: Colors.red),
           ))
         ],
       ),
     );
   }
 
+  List<Widget> account() {
+    return [linkCard("Twitter","CKMelonDev",serviceTextColor: Colors.blue), linkCard("Instagram","CKMelonDev",serviceTextColor:Colors.purpleAccent)];
+  }
+
+  Widget linkCard(String serviceName, String linkMessage,
+      {Color? serviceTextColor,double betweenBottom = 10}) {
+    return Container(
+      decoration: BoxDecoration(
+        color: Colors.white.withOpacity(.65),
+        borderRadius: BorderRadius.circular(10),
+      ),
+      width: cardWidth.resolve(context),
+      constraints: const BoxConstraints(minHeight: 40),
+      margin: EdgeInsets.only(left: 10, right: 10, bottom: betweenBottom),
+      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 10),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            serviceName,
+            style: TextStyle(
+                color: (serviceTextColor ?? Colors.black).withOpacity(0.95),
+                fontSize: 16,
+                letterSpacing: 0.0,
+                fontFamily: 'Itim',
+                fontWeight: FontWeight.w700),
+          ),
+          const SizedBox(height: 6),
+          Text(
+            linkMessage,
+            style: TextStyle(
+                color: Colors.black.withOpacity(0.85),
+                fontSize: 18,
+                letterSpacing: 0.0,
+                fontFamily: 'Itim',
+                fontWeight: FontWeight.normal),
+          ),
+        ],
+      ),
+    );
+  }
+
   Widget card(BuildContext context,
-      {required String title, double betweenBottom = 0}) {
+      {required String title,
+      double betweenBottom = 0,
+      List<Widget>? children}) {
     return Container(
       decoration: BoxDecoration(
           color: Colors.white.withOpacity(.6),
           borderRadius: BorderRadius.circular(10)),
-      constraints: const BoxConstraints(maxHeight: 100),
+      constraints: const BoxConstraints(minHeight: 100),
       width: cardWidth.resolve(context),
       margin: EdgeInsets.only(bottom: betweenBottom),
       child: Column(
@@ -176,7 +223,9 @@ class _MeProfilePageState extends State<MeProfilePage> {
                 fontFamily: 'Itim',
               ),
             ),
-          )
+          ),
+          if (children != null) SizedBox(height: 10),
+          for (Widget widget in children ?? []) widget
         ],
       ),
     );
