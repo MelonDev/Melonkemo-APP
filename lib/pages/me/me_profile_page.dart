@@ -20,8 +20,11 @@ class _MeProfilePageState extends State<MeProfilePage> {
 
   //final Color topColor =  const Color(0xFFD3CCE3);
   //final Color bottomColor =  const Color(0xFFE9E4F0);
-  final Color topColor = const Color(0xFF2BC0E4);
-  final Color bottomColor = const Color(0xFFEAECC6);
+  //final Color topColor = const Color(0xFF2BC0E4);
+  //final Color bottomColor = const Color(0xFFEAECC6);
+  final Color topColor = const Color(0xFF000000);
+  final Color bottomColor = const Color(0xFFBFBFBF);
+
 
   //final Color bottomColor = const Color(0xFF45B649);
 
@@ -35,18 +38,20 @@ class _MeProfilePageState extends State<MeProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Title(
-        color: Colors.black,
+        color: Colors.white,
         title: "メロンけも",
         child: Container(
-          decoration: BoxDecoration(
-              gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              topColor,
-              bottomColor,
-            ],
-          )),
+          decoration: const BoxDecoration(
+          //     gradient: LinearGradient(
+          //   begin: Alignment.topCenter,
+          //   end: Alignment.bottomCenter,
+          //   colors: [
+          //     topColor,
+          //     bottomColor,
+          //   ],
+          // ),
+            color: Colors.black,
+          ),
           child: Scaffold(
             appBar: PreferredSize(
                 preferredSize: const Size.fromHeight(46.0),
@@ -57,18 +62,21 @@ class _MeProfilePageState extends State<MeProfilePage> {
                       width: context.layout.width,
                       decoration: BoxDecoration(boxShadow: [
                         BoxShadow(
-                          spreadRadius: 3,
+                          //spreadRadius: 3,
+                          spreadRadius: 0.0,
                           color: topColor.darken(.24).withOpacity(0.5),
                           offset: const Offset(0, 0.0),
-                          blurRadius: 8.0,
+                          //blurRadius: 8.0,
+                          blurRadius: 0.0
                         )
                       ]),
                     ),
                     Container(
                       decoration: const BoxDecoration(
                           //color:Color(0xFFf1edf5)
-                          //color: Colors.white
-                          color: Colors.black),
+                          color: Colors.white
+                          //color: Colors.black
+                      ),
                       alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.only(left: 14, right: 12),
                       height: 56,
@@ -78,7 +86,8 @@ class _MeProfilePageState extends State<MeProfilePage> {
                           Text(
                             "メロンけも",
                             style: TextStyle(
-                                color: topColor.lighten(.24),
+                                //color: topColor.lighten(.24),
+                              color: Colors.black.withOpacity(0.8),
                                 fontSize: 22,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.bold,
@@ -90,8 +99,9 @@ class _MeProfilePageState extends State<MeProfilePage> {
                               enabledHover: true,
                               text: "เปิดแอป",
                               fontFamily: "Itim",
-                              textColor:
-                                  buttonTextColor ?? bottomColor.darken(.74),
+                              textColor: Colors.white,
+                              // textColor:
+                              //     buttonTextColor ?? bottomColor.darken(.74),
                               fontSize: 16,
                               height: 34,
                               x: -2,
@@ -99,7 +109,9 @@ class _MeProfilePageState extends State<MeProfilePage> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 16.0),
                               //color: bottomColor.withOpacity(0.47)
-                              color: bottomColor)
+                              //color: bottomColor
+                            color: Colors.black.withOpacity(0.8)
+                          )
                         ],
                       ),
                     ),
@@ -197,7 +209,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
       List<Widget>? children}) {
     return Container(
       decoration: BoxDecoration(
-          color: Colors.white.withOpacity(.6),
+          color: Colors.white.withOpacity(.28),
           borderRadius: BorderRadius.circular(10)),
       constraints: const BoxConstraints(minHeight: 100),
       width: cardWidth.resolve(context),
@@ -206,7 +218,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
         children: [
           Container(
             decoration: BoxDecoration(
-              color: Colors.white.withOpacity(.65),
+              color: Colors.white.withOpacity(.15),
               borderRadius: const BorderRadius.only(
                   topLeft: Radius.circular(10), topRight: Radius.circular(10)),
             ),
@@ -217,7 +229,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
             child: Text(
               title,
               style: TextStyle(
-                color: Colors.black.withOpacity(0.75),
+                color: Colors.white.withOpacity(0.85),
                 fontSize: 20,
                 letterSpacing: 0.0,
                 fontFamily: 'Itim',
