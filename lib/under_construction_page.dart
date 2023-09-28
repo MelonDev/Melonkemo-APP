@@ -31,7 +31,7 @@ class _UnderConstructionPageState extends State<UnderConstructionPage> {
     return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: AppBar(
-        toolbarHeight: 80,
+        toolbarHeight: 72,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
@@ -42,7 +42,7 @@ class _UnderConstructionPageState extends State<UnderConstructionPage> {
               "メロンけも",
               style: TextStyle(
                   color: Color(0xFFFFB920),
-                  fontSize: 32,
+                  fontSize: 28,
                   fontFamily: 'KosugiMaru',
                   fontWeight: FontWeight.bold),
             ),
@@ -53,7 +53,7 @@ class _UnderConstructionPageState extends State<UnderConstructionPage> {
               "melonkemo.com",
               style: TextStyle(
                   color: Color(0xFFFFB920).withOpacity(0.9),
-                  fontSize: 22,
+                  fontSize: 18,
                   fontFamily: 'Itim',
                   fontWeight: FontWeight.bold),
             ),
