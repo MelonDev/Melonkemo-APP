@@ -39,12 +39,14 @@ class _MePageState extends State<MePage> {
         child: AppBar(
           elevation: 0,
           backgroundColor: Colors.transparent,
-          systemOverlayStyle: kIsWeb ? null :Platform.isAndroid
-              ? const SystemUiOverlayStyle(
-              statusBarColor: Colors.transparent,
-              systemNavigationBarColor: Colors.transparent,
-              statusBarIconBrightness: Brightness.light)
-              : null,
+          systemOverlayStyle: kIsWeb
+              ? null
+              : Platform.isAndroid
+                  ? const SystemUiOverlayStyle(
+                      statusBarColor: Colors.transparent,
+                      systemNavigationBarColor: Colors.transparent,
+                      statusBarIconBrightness: Brightness.light)
+                  : null,
         ),
       ),
       resizeToAvoidBottomInset: false,
@@ -56,57 +58,61 @@ class _MePageState extends State<MePage> {
   }
 
   Widget _content(BuildContext context) {
-    return ListView(
-      padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top + 50,bottom: MediaQuery.of(context).viewPadding.bottom + 50),
-      physics: const BouncingScrollPhysics(),
+    double mediaWidth = MediaQuery.of(context).size.width;
+    double mediaHeight = MediaQuery.of(context).size.height;
 
+    return ListView(
+      padding: EdgeInsets.only(
+          top: MediaQuery.of(context).viewPadding.top + 50,
+          bottom: MediaQuery.of(context).viewPadding.bottom + 50),
+      physics: const BouncingScrollPhysics(),
       children: [
-        Column(
-          children: [
-            Align(
-              alignment: Alignment.center,
-              child: Container(
-                constraints: const BoxConstraints(maxWidth: 560,minHeight: 700),
-                //width: mediaWidth <= 100 ? mediaWidth : 100,
-                // decoration: BoxDecoration(
-                //     borderRadius: BorderRadius.circular(30),
-                //     color: Colors.black.withOpacity(0.25),
-                //     boxShadow: [
-                //       BoxShadow(
-                //         //spreadRadius: 3,
-                //           spreadRadius: 6.0,
-                //           color: Colors.black.withOpacity(0.4),
-                //           offset: const Offset(0.0, 0.0),
-                //           //blurRadius: 8.0,
-                //           blurRadius: 10.0)
-                //     ]),
-                //margin: const EdgeInsets.all(20),
-                //padding: const EdgeInsets.all(8),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(26),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.orange.withOpacity(0.020),
+        Align(
+          alignment: Alignment.center,
+          child: Padding(
+            padding: const EdgeInsets.all(20),
+            child: Container(
+              constraints: const BoxConstraints(maxWidth: 560, minHeight: 700),
+              // width: mediaWidth <= 560 ? mediaWidth : 560,
+              // height: mediaHeight <= 700 ? mediaHeight : 700,
+              decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(30),
+                  color: Colors.black.withOpacity(0.25),
+                  boxShadow: [
+                    BoxShadow(
+                        //spreadRadius: 3,
+                        spreadRadius: 6.0,
+                        color: Colors.black.withOpacity(0.4),
+                        offset: const Offset(0.0, 0.0),
+                        //blurRadius: 8.0,
+                        blurRadius: 10.0)
+                  ]),
+              //padding: EdgeInsets.all(8),
+
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(26),
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    color: Colors.orange.withOpacity(0.020),
+                  ),
+                  child: BackdropFilter(
+                    filter: ui.ImageFilter.blur(
+                      sigmaX: 12.0,
+                      sigmaY: 12.0,
                     ),
-                    child: BackdropFilter(
-                      filter: ui.ImageFilter.blur(
-                        sigmaX: 12.0,
-                        sigmaY: 12.0,
-                      ),
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: const Text('Hello World'),
-                      ),
+                    child: Container(
+                      alignment: Alignment.center,
+                      child: const Text('Hello World'),
                     ),
-                  ).animate().fadeIn(duration: const Duration(milliseconds: 300)),
-                ),
-              )
-                  .animate()
-                  .fadeIn(delay: Duration(seconds: 0))
-                  .move(delay: const Duration(milliseconds: 300),begin: const Offset(0, 100), end: const Offset(0, 0)),
-            )
-          ],
+                  ),
+                ).animate().fadeIn(duration: const Duration(milliseconds: 300)),
+              ),
+            ).animate().fadeIn(delay: const Duration(seconds: 0)).move(
+                delay: const Duration(milliseconds: 300),
+                begin: const Offset(0, 100),
+                end: const Offset(0, 0)),
+          ),
         )
       ],
     );
