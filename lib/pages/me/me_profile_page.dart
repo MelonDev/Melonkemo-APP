@@ -20,10 +20,8 @@ class _MeProfilePageState extends State<MeProfilePage> {
 
   //final Color topColor =  const Color(0xFFD3CCE3);
   //final Color bottomColor =  const Color(0xFFE9E4F0);
-  //final Color topColor = const Color(0xFF2BC0E4);
-  //final Color bottomColor = const Color(0xFFEAECC6);
-  final Color topColor = const Color(0xFF000000);
-  final Color bottomColor = const Color(0xFFBFBFBF);
+  final Color topColor = const Color(0xFF2BC0E4);
+  final Color bottomColor = const Color(0xFFEAECC6);
 
 
   //final Color bottomColor = const Color(0xFF45B649);
@@ -41,16 +39,16 @@ class _MeProfilePageState extends State<MeProfilePage> {
         color: Colors.white,
         title: "メロンけも",
         child: Container(
-          decoration: const BoxDecoration(
-          //     gradient: LinearGradient(
-          //   begin: Alignment.topCenter,
-          //   end: Alignment.bottomCenter,
-          //   colors: [
-          //     topColor,
-          //     bottomColor,
-          //   ],
-          // ),
-            color: Colors.black,
+          decoration:  BoxDecoration(
+              gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              topColor,
+              bottomColor,
+            ],
+          ),
+            //color: Colors.black,
           ),
           child: Scaffold(
             appBar: PreferredSize(
@@ -229,7 +227,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
             child: Text(
               title,
               style: TextStyle(
-                color: Colors.white.withOpacity(0.85),
+                color: Colors.black.withOpacity(0.85),
                 fontSize: 20,
                 letterSpacing: 0.0,
                 fontFamily: 'Itim',
