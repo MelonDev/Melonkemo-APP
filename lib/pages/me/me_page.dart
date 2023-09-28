@@ -68,20 +68,20 @@ class _MePageState extends State<MePage> {
               child: Container(
                 constraints: const BoxConstraints(maxWidth: 560,minHeight: 700),
                 //width: mediaWidth <= 100 ? mediaWidth : 100,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    color: Colors.black.withOpacity(0.25),
-                    boxShadow: [
-                      BoxShadow(
-                        //spreadRadius: 3,
-                          spreadRadius: 6.0,
-                          color: Colors.black.withOpacity(0.4),
-                          offset: const Offset(0.0, 0.0),
-                          //blurRadius: 8.0,
-                          blurRadius: 10.0)
-                    ]),
-                margin: const EdgeInsets.all(20),
-                padding: const EdgeInsets.all(8),
+                // decoration: BoxDecoration(
+                //     borderRadius: BorderRadius.circular(30),
+                //     color: Colors.black.withOpacity(0.25),
+                //     boxShadow: [
+                //       BoxShadow(
+                //         //spreadRadius: 3,
+                //           spreadRadius: 6.0,
+                //           color: Colors.black.withOpacity(0.4),
+                //           offset: const Offset(0.0, 0.0),
+                //           //blurRadius: 8.0,
+                //           blurRadius: 10.0)
+                //     ]),
+                //margin: const EdgeInsets.all(20),
+                //padding: const EdgeInsets.all(8),
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(26),
                   child: Container(
