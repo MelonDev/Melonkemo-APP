@@ -1,4 +1,8 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'dart:ui' as ui;
 
 import 'package:flutter_animate/flutter_animate.dart';
@@ -25,9 +29,26 @@ class _MePageState extends State<MePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: Colors.black,
-      child: Stack(
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
+
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      extendBody: true,
+      appBar: PreferredSize(
+        preferredSize: Size.zero,
+        child: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          systemOverlayStyle: kIsWeb ? null :Platform.isAndroid
+              ? const SystemUiOverlayStyle(
+              statusBarColor: Colors.transparent,
+              systemNavigationBarColor: Colors.transparent,
+              statusBarIconBrightness: Brightness.light)
+              : null,
+        ),
+      ),
+      resizeToAvoidBottomInset: false,
+      body: Stack(
         //fit: StackFit.expand,
         children: [_background(context), _content(context)],
       ),
@@ -36,7 +57,7 @@ class _MePageState extends State<MePage> {
 
   Widget _content(BuildContext context) {
     return ListView(
-      padding: EdgeInsets.only(top: 50,bottom: 50),
+      padding: EdgeInsets.only(top: MediaQuery.of(context).viewPadding.top + 50,bottom: MediaQuery.of(context).viewPadding.bottom + 50),
       physics: const BouncingScrollPhysics(),
 
       children: [
@@ -78,12 +99,12 @@ class _MePageState extends State<MePage> {
                         child: const Text('Hello World'),
                       ),
                     ),
-                  ).animate().fadeIn(duration: Duration(milliseconds: 300)),
+                  ).animate().fadeIn(duration: const Duration(milliseconds: 300)),
                 ),
               )
                   .animate()
                   .fadeIn(delay: Duration(seconds: 0))
-                  .move(delay: Duration(milliseconds: 300),begin: const Offset(0, 100), end: const Offset(0, 0)),
+                  .move(delay: const Duration(milliseconds: 300),begin: const Offset(0, 100), end: const Offset(0, 0)),
             )
           ],
         )
