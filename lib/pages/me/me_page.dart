@@ -32,6 +32,7 @@ class _MePageState extends State<MePage> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
     return Scaffold(
+      backgroundColor: Colors.black,
       extendBodyBehindAppBar: true,
       extendBody: true,
       appBar: PreferredSize(
@@ -82,29 +83,28 @@ class _MePageState extends State<MePage> {
                     BoxShadow(
                         //spreadRadius: 3,
                         spreadRadius: 6.0,
-                        color: Colors.black.withOpacity(0.4),
+                        color: Colors.black.withOpacity(0.3),
                         offset: const Offset(0.0, 0.0),
                         //blurRadius: 8.0,
-                        blurRadius: 10.0)
-                  ]),
+                        blurRadius: 6.0)
+                  ],
+                ),
               //padding: EdgeInsets.all(8),
 
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(26),
-                child: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
+                child: BackdropFilter(
+                  filter: ui.ImageFilter.blur(
+                    sigmaX: 12.0,
+                    sigmaY: 12.0,
+                  ),
+                  child: Container(decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(26),
+                    border: Border.all(width: 8,color: Colors.black.withOpacity(0.2)),
                     color: Colors.orange.withOpacity(0.020),
                   ),
-                  child: BackdropFilter(
-                    filter: ui.ImageFilter.blur(
-                      sigmaX: 12.0,
-                      sigmaY: 12.0,
-                    ),
-                    child: Container(
-                      alignment: Alignment.center,
-                      child: const Text('Hello World'),
-                    ),
+                    alignment: Alignment.center,
+                    child: const Text('Hello World'),
                   ),
                 ).animate().fadeIn(duration: const Duration(milliseconds: 300)),
               ),
