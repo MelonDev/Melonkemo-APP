@@ -1,9 +1,12 @@
+import 'dart:js' as js;
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:layout/layout.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/core/extensions/color_extension.dart';
-import 'package:melonkemo/core/extensions/context_extension.dart';
+import 'package:melonkemo/core/extensions/widget_extension.dart';
 
 class MeProfilePage extends StatefulWidget {
   const MeProfilePage({Key? key}) : super(key: key);
@@ -16,6 +19,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
   @override
   void initState() {
     super.initState();
+
   }
 
   //final Color topColor =  const Color(0xFFD3CCE3);
@@ -32,8 +36,16 @@ class _MeProfilePageState extends State<MeProfilePage> {
     return layout.width <= 400 ? layout.width : 400;
   });
 
+  void openInWindow(String uri, String name) {
+    if(kIsWeb){
+      js.context.callMethod('open', ['https://melonkemo.carrd.co','_self']);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    openInWindow("www.google.com","Google");
+    return Container();
     return Title(
         color: Colors.black,
         title: "メロンけも",
@@ -85,7 +97,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
                                 //fontFamily: 'KosugiMaru',
                                 //fontFamily: 'MochiyPopOne',
                                 fontFamily: 'MPlus'),
-                          ),
+                          ).hover(x: -2),
                           MelonBouncingButton.text(
                               enabledHover: true,
                               text: "เปิดแอป",
@@ -156,7 +168,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
       {Color? serviceTextColor,double betweenBottom = 10}) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white.withOpacity(.65),
+        color: Colors.white.withOpacity(.45),
         borderRadius: BorderRadius.circular(10),
       ),
       width: cardWidth.resolve(context),
@@ -188,7 +200,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
           ),
         ],
       ),
-    );
+    ).hover(x: -4.0,z: 1.02);
   }
 
   Widget card(BuildContext context,
@@ -224,8 +236,10 @@ class _MeProfilePageState extends State<MeProfilePage> {
               ),
             ),
           ),
-          if (children != null) SizedBox(height: 10),
-          for (Widget widget in children ?? []) widget
+          if (children != null) const SizedBox(height: 12),
+          for (Widget widget in children ?? []) widget,
+          if (children != null) const SizedBox(height: 6),
+
         ],
       ),
     );
