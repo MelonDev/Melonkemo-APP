@@ -37,7 +37,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
     return layout.width <= 400 ? layout.width : 400;
   });
 
-  void openInWindow(String uri, String name) {
+  void openInWindow() {
     if(kIsWeb){
       js.context.callMethod('open', ['https://melonkemo.carrd.co','_self']);
     }
@@ -45,7 +45,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
 
   @override
   Widget build(BuildContext context) {
-    openInWindow("www.google.com","Google");
+    openInWindow();
     return Container();
     return Title(
         color: Colors.white,
