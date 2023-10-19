@@ -6,6 +6,7 @@ import 'package:layout/layout.dart';
 import 'package:melonkemo/pages/login/login_page.dart';
 import 'package:melonkemo/pages/me/me_page.dart';
 import 'package:melonkemo/pages/me/me_profile_page.dart';
+import 'package:melonkemo/pages/me/redirect_me_page.dart';
 import 'package:melonkemo/pages/router/login_router.dart';
 import 'package:melonkemo/under_construction_page.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -32,6 +33,10 @@ class CoreApp extends StatelessWidget {
       // ),
       GoRoute(
         path: '/me',
+        builder: (context, state) => const RedirectMePage(),
+      ),
+      GoRoute(
+        path: '/me-dev',
         builder: (context, state) => const MePage(),
       ),
       GoRoute(

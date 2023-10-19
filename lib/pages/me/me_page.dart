@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:js' as js;
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -28,43 +27,35 @@ class _MePageState extends State<MePage> {
     });
   }
 
-  void openInWindow() {
-    if (kIsWeb) {
-      js.context.callMethod('open', ['https://melonkemo.carrd.co', '_self']);
-    }
-  }
-
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
-    openInWindow();
-    return Container();
-    // return Scaffold(
-    //   backgroundColor: Colors.black,
-    //   extendBodyBehindAppBar: true,
-    //   extendBody: true,
-    //   appBar: PreferredSize(
-    //     preferredSize: Size.zero,
-    //     child: AppBar(
-    //       elevation: 0,
-    //       backgroundColor: Colors.transparent,
-    //       systemOverlayStyle: kIsWeb
-    //           ? null
-    //           : Platform.isAndroid
-    //               ? const SystemUiOverlayStyle(
-    //                   statusBarColor: Colors.transparent,
-    //                   systemNavigationBarColor: Colors.transparent,
-    //                   statusBarIconBrightness: Brightness.light)
-    //               : null,
-    //     ),
-    //   ),
-    //   resizeToAvoidBottomInset: false,
-    //   body: Stack(
-    //     //fit: StackFit.expand,
-    //     children: [_background(context), _content(context)],
-    //   ),
-    // );
+    return Scaffold(
+      backgroundColor: Colors.black,
+      extendBodyBehindAppBar: true,
+      extendBody: true,
+      appBar: PreferredSize(
+        preferredSize: Size.zero,
+        child: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          systemOverlayStyle: kIsWeb
+              ? null
+              : Platform.isAndroid
+                  ? const SystemUiOverlayStyle(
+                      statusBarColor: Colors.transparent,
+                      systemNavigationBarColor: Colors.transparent,
+                      statusBarIconBrightness: Brightness.light)
+                  : null,
+        ),
+      ),
+      resizeToAvoidBottomInset: false,
+      body: Stack(
+        //fit: StackFit.expand,
+        children: [_background(context), _content(context)],
+      ),
+    );
   }
 
   Widget _content(BuildContext context) {
