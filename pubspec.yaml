@@ -27,6 +27,9 @@ dependencies:
   pull_down_button: ^0.9.3
   adaptive_action_sheet: ^2.0.2
   modal_bottom_sheet: ^3.0.0-pre
+  custom_clippers: ^2.0.0
+  url_launcher: ^6.2.1
+  file_picker: ^6.0.0
 
 dev_dependencies:
   flutter_test:
