@@ -43,9 +43,13 @@ class _MeProfilePageState extends State<MeProfilePage> {
     return layout.width <= 420 ? layout.width : 420;
   });
 
+  final LayoutValue<double> realCardWidth = LayoutValue.builder((layout) {
+    return layout.width;
+  });
+
   List<Widget> _accounts(BuildContext context) {
     return [
-      const SizedBox(height:2),
+      const SizedBox(height: 2),
       _linkCard("Twitter", "https://twitter.com/melonkemo"),
       _linkCard("Facebook", "https://www.facebook.com/melonkemo"),
       _linkCard("Telegram", "https://t.me/melonkemo"),
@@ -54,6 +58,8 @@ class _MeProfilePageState extends State<MeProfilePage> {
     ];
   }
 
+
+
   List<Widget> _menus(BuildContext context) {
     return [
       _profileWidget(context, betweenBottom: 12),
@@ -61,6 +67,21 @@ class _MeProfilePageState extends State<MeProfilePage> {
           betweenBottom: 10, title: "แนะนำตัว", children: _about(context)),
       _card(context,
           betweenBottom: 10, title: "บัญชี", children: _accounts(context))
+    ];
+  }
+
+  List<Widget> _smallMenus(BuildContext context) {
+    return [
+      _card(context,
+          betweenBottom: 10, title: "บัญชี", children: _accounts(context))
+    ];
+  }
+
+  List<Widget> _largeMenus(BuildContext context) {
+    return [
+      _profileWidget(context, betweenBottom: 12),
+      _card(context,
+          betweenBottom: 10, title: "แนะนำตัว", children: _about(context)),
     ];
   }
 
@@ -160,23 +181,70 @@ class _MeProfilePageState extends State<MeProfilePage> {
                   ],
                 )),
             backgroundColor: Colors.transparent,
-            body: SingleChildScrollView(
-              physics: const BouncingScrollPhysics(),
-              padding: const EdgeInsets.only(
-                  left: 16, right: 16, top: 50, bottom: 20),
-              child: Container(
-                width: context.layout.width,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: _menus(context),
-                ),
-              ).animate().fadeIn(delay: const Duration(milliseconds: 300)).move(
-                  delay: const Duration(milliseconds: 300),
-                  begin: const Offset(0, 100),
-                  end: const Offset(0, 0)),
-            ),
+            body: realCardWidth.resolve(context) < 880
+                ? _smallLayout(context)
+                : _largeLayout(context),
           ),
         ));
+  }
+
+  Widget _largeLayout(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      mainAxisSize: MainAxisSize.max,
+      children: [
+        SizedBox(
+          width: 420,
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            padding:
+            const EdgeInsets.only(left: 16, right: 16, top: 00, bottom: 20),
+            child: Column(
+
+              children: _largeMenus(context),
+            ).animate().fadeIn(delay: const Duration(milliseconds: 300)).move(
+                delay: const Duration(milliseconds: 300),
+                begin: const Offset(0, 100),
+                end: const Offset(0, 0)),
+          ),
+        ),
+        SizedBox(
+          width: 420,
+          child: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
+            padding:
+                const EdgeInsets.only(left: 16, right: 16, top: 50, bottom: 20),
+            child: Container(
+              width: context.layout.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: _smallMenus(context),
+              ),
+            ).animate().fadeIn(delay: const Duration(milliseconds: 300)).move(
+                delay: const Duration(milliseconds: 300),
+                begin: const Offset(0, 100),
+                end: const Offset(0, 0)),
+          ),
+        )
+      ],
+    );
+  }
+
+  Widget _smallLayout(BuildContext context) {
+    return SingleChildScrollView(
+      physics: const BouncingScrollPhysics(),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: 50, bottom: 20),
+      child: Container(
+        width: context.layout.width,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: _menus(context),
+        ),
+      ).animate().fadeIn(delay: const Duration(milliseconds: 300)).move(
+          delay: const Duration(milliseconds: 300),
+          begin: const Offset(0, 100),
+          end: const Offset(0, 0)),
+    );
   }
 
   Widget _profileWidget(BuildContext context, {double betweenBottom = 0}) {
@@ -210,36 +278,35 @@ class _MeProfilePageState extends State<MeProfilePage> {
           Expanded(
               child: Container(
             height: 160,
-            padding: const EdgeInsets.only(left:16),
+            padding: const EdgeInsets.only(left: 16),
             decoration: const BoxDecoration(color: Colors.transparent),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'メロン | Melon',
-                      style: TextStyle(
-                          color: Colors.black.withOpacity(0.75),
-                          fontSize: 32,
-                          letterSpacing: 0.0,
-                          fontFamily: 'Itim',
-                          fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height:10),
-                    Text(
-                      '26 • Male • INFJ • Pan ${Demoji.rainbow_flag}\nThai ${Demoji.thailand} & English ${Demoji.england}\nSoftware Engineer',
-                      style: TextStyle(
-                          color: Colors.black.withOpacity(0.75),
-                          fontSize: 16,
-                          letterSpacing: 0.0,
-                          fontFamily: 'Itim',
-                          //fontFamilyFallback: const [ 'Itim','Apple Color Emoji', ],
-                          fontWeight: FontWeight.normal),
-                    ),
-                    const SizedBox(height:4),
-
-                  ],
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'メロン | Melon',
+                  style: TextStyle(
+                      color: Colors.black.withOpacity(0.75),
+                      fontSize: 32,
+                      letterSpacing: 0.0,
+                      fontFamily: 'Itim',
+                      fontWeight: FontWeight.bold),
                 ),
+                const SizedBox(height: 10),
+                Text(
+                  '26 • Male • INFJ • Pan • Thai & English • Software Engineer',
+                  style: TextStyle(
+                      color: Colors.black.withOpacity(0.75),
+                      fontSize: 16,
+                      letterSpacing: 0.0,
+                      fontFamily: 'Itim',
+                      //fontFamilyFallback: const [ 'Itim','Apple Color Emoji', ],
+                      fontWeight: FontWeight.normal),
+                ),
+                const SizedBox(height: 14),
+              ],
+            ),
           ))
         ],
       ),

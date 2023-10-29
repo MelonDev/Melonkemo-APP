@@ -26,8 +26,12 @@ class CoreApp extends StatelessWidget {
     routes: [
       GoRoute(
         path: '/',
-        builder: (context, state) => const UnderConstructionPage(),
+        builder: (context, state) => const MeProfilePage(),
       ),
+      // GoRoute(
+      //   path: '/',
+      //   builder: (context, state) => const UnderConstructionPage(),
+      // ),
       GoRoute(
         path: '/legacy-dev',
         builder: (context, state) => const HomePage(),
@@ -44,10 +48,10 @@ class CoreApp extends StatelessWidget {
       //   path: '/legacy-me',
       //   builder: (context, state) => const MeProfilePage(),
       // ),
-      GoRoute(
-        path: '/dev',
-        builder: (context, state) => const MeProfilePage(),
-      ),
+      // GoRoute(
+      //   path: '/dev',
+      //   builder: (context, state) => const MeProfilePage(),
+      // ),
       GoRoute(
         path: '/login',
         builder: (context, state) => const LoginPage(),
