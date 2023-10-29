@@ -1,6 +1,7 @@
 import 'dart:js' as js;
 
 import 'package:bot_toast/bot_toast.dart';
+import 'package:demoji/demoji.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -44,17 +45,22 @@ class _MeProfilePageState extends State<MeProfilePage> {
 
   List<Widget> _accounts(BuildContext context) {
     return [
-      _linkCard("Twitter", "melonkemo", serviceTextColor: Colors.black),
-      _linkCard("Instagram", "CKMelonDev",
-          serviceTextColor: Colors.black)
+      const SizedBox(height:2),
+      _linkCard("Twitter", "https://twitter.com/melonkemo"),
+      _linkCard("Facebook", "https://www.facebook.com/melonkemo"),
+      _linkCard("Telegram", "https://t.me/melonkemo"),
+      _linkCard("Mastadon", "https://kemonodon.club/@melonkemo"),
+      _linkCard("Bluesky", "https://bsky.app/profile/melonkemo.bsky.social"),
     ];
   }
 
   List<Widget> _menus(BuildContext context) {
     return [
       _profileWidget(context, betweenBottom: 12),
-      _card(context, betweenBottom: 10, title: "เกี่ยวกับ",children: _about(context) ),
-      _card(context, betweenBottom: 10, title: "บัญชี", children: _accounts(context))
+      _card(context,
+          betweenBottom: 10, title: "แนะนำตัว", children: _about(context)),
+      _card(context,
+          betweenBottom: 10, title: "บัญชี", children: _accounts(context))
     ];
   }
 
@@ -185,7 +191,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
             decoration: const BoxDecoration(color: Colors.transparent),
             child: CupertinoCard(
               elevation: 0,
-              color: Colors.white.withOpacity(.28),
+              color: Colors.white.withOpacity(.48),
               margin: const EdgeInsets.all(0),
               padding: const EdgeInsets.all(7),
               radius: BorderRadius.circular(80),
@@ -194,14 +200,42 @@ class _MeProfilePageState extends State<MeProfilePage> {
                 color: Colors.transparent,
                 margin: const EdgeInsets.all(0),
                 radius: BorderRadius.circular(66),
-                child: Image.asset("assets/images/profile_29-oct-2023.webp",fit: BoxFit.cover,),
+                child: Image.asset(
+                  "assets/images/profile_29-oct-2023.webp",
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
           ),
           Expanded(
               child: Container(
             height: 160,
+            padding: const EdgeInsets.only(left:16),
             decoration: const BoxDecoration(color: Colors.transparent),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'メロン | Melon',
+                      style: TextStyle(
+                          color: Colors.black.withOpacity(0.75),
+                          fontSize: 16,
+                          letterSpacing: 0.0,
+                          fontFamily: 'Itim',
+                          fontWeight: FontWeight.normal),
+                    ),
+                    Text(
+                      '26 • Male • INFJ • Pan ${Demoji.rainbow_flag} • Thai ${Demoji.thailand} & English ${Demoji.england} • Software Engineer •  Fan • I love coding and am passionate about furries and fursuits',
+                      style: TextStyle(
+                          color: Colors.black.withOpacity(0.75),
+                          fontSize: 16,
+                          letterSpacing: 0.0,
+                          fontFamilyFallback: const [ 'Itim','Apple Color Emoji', ],
+                          fontWeight: FontWeight.normal),
+                    )
+                  ],
+                ),
           ))
         ],
       ),
@@ -215,7 +249,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
       focusColor: Colors.transparent,
       highlightColor: Colors.transparent,
       hoverColor: Colors.transparent,
-      onTap: (){
+      onTap: () {
         _launchUrl(link);
       },
       child: Container(
@@ -226,7 +260,8 @@ class _MeProfilePageState extends State<MeProfilePage> {
         width: cardWidth.resolve(context),
         constraints: const BoxConstraints(minHeight: 40),
         margin: EdgeInsets.only(left: 10, right: 10, bottom: betweenBottom),
-        padding: const EdgeInsets.only(left: 14, right: 14, bottom: 14, top: 14),
+        padding:
+            const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -234,11 +269,11 @@ class _MeProfilePageState extends State<MeProfilePage> {
             Text(
               serviceName,
               style: TextStyle(
-                  color: (serviceTextColor ?? Colors.black).withOpacity(0.95),
-                  fontSize: 16,
+                  color: (serviceTextColor ?? Colors.black).withOpacity(0.75),
+                  fontSize: 18,
                   letterSpacing: 0.0,
                   fontFamily: 'Itim',
-                  fontWeight: FontWeight.w700),
+                  fontWeight: FontWeight.w600),
             ),
             // const SizedBox(height: 6),
             // Text(
@@ -262,12 +297,12 @@ class _MeProfilePageState extends State<MeProfilePage> {
       List<Widget>? children}) {
     return CupertinoCard(
       elevation: 0,
-      margin: const EdgeInsets.only(bottom:14),
+      margin: const EdgeInsets.only(bottom: 14),
       color: Colors.white.withOpacity(.28),
       radius: BorderRadius.circular(40),
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.transparent,
+            color: Colors.transparent,
             //color: Colors.white.withOpacity(.28),
             borderRadius: BorderRadius.circular(10)),
         constraints: const BoxConstraints(minHeight: 100),
@@ -279,7 +314,8 @@ class _MeProfilePageState extends State<MeProfilePage> {
               decoration: BoxDecoration(
                 color: Colors.white.withOpacity(.15),
                 borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+                    topLeft: Radius.circular(10),
+                    topRight: Radius.circular(10)),
               ),
               width: cardWidth.resolve(context),
               alignment: Alignment.centerLeft,
@@ -288,12 +324,11 @@ class _MeProfilePageState extends State<MeProfilePage> {
               child: Text(
                 title,
                 style: TextStyle(
-                  color: Colors.black.withOpacity(0.65),
-                  fontSize: 20,
-                  letterSpacing: 0.0,
-                  fontFamily: 'Itim',
-                  fontWeight: FontWeight.bold
-                ),
+                    color: Colors.black.withOpacity(0.65),
+                    fontSize: 20,
+                    letterSpacing: 0.0,
+                    fontFamily: 'Itim',
+                    fontWeight: FontWeight.bold),
               ),
             ),
             if (children != null) const SizedBox(height: 12),
@@ -305,7 +340,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
     );
   }
 
-  List<Widget> _about(BuildContext context){
+  List<Widget> _about(BuildContext context) {
     return [
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -318,9 +353,8 @@ class _MeProfilePageState extends State<MeProfilePage> {
               fontFamily: 'Itim',
               fontWeight: FontWeight.normal),
         ),
-
       ),
-      const SizedBox(height:16),
+      const SizedBox(height: 16),
       Padding(
         padding: const EdgeInsets.symmetric(horizontal: 16.0),
         child: Text(
@@ -332,10 +366,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
               fontFamily: 'Itim',
               fontWeight: FontWeight.normal),
         ),
-
       ),
     ];
   }
-
-
 }
