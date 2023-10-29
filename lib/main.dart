@@ -29,7 +29,7 @@ class CoreApp extends StatelessWidget {
         builder: (context, state) => const UnderConstructionPage(),
       ),
       GoRoute(
-        path: '/dev',
+        path: '/legacy-dev',
         builder: (context, state) => const HomePage(),
       ),
       GoRoute(
@@ -40,8 +40,12 @@ class CoreApp extends StatelessWidget {
         path: '/me-dev',
         builder: (context, state) => const MePage(),
       ),
+      // GoRoute(
+      //   path: '/legacy-me',
+      //   builder: (context, state) => const MeProfilePage(),
+      // ),
       GoRoute(
-        path: '/legacy_me',
+        path: '/dev',
         builder: (context, state) => const MeProfilePage(),
       ),
       GoRoute(

@@ -1,12 +1,19 @@
 import 'dart:js' as js;
 
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:layout/layout.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
+import 'package:melonkemo/core/extensions/bot_toast_extension.dart';
 import 'package:melonkemo/core/extensions/color_extension.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
+
+import 'package:melonkemo/core/components/cupertino_card/cupertino_rounded_corners.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class MeProfilePage extends StatefulWidget {
   const MeProfilePage({Key? key}) : super(key: key);
@@ -19,14 +26,12 @@ class _MeProfilePageState extends State<MeProfilePage> {
   @override
   void initState() {
     super.initState();
-
   }
 
   //final Color topColor =  const Color(0xFFD3CCE3);
   //final Color bottomColor =  const Color(0xFFE9E4F0);
   final Color topColor = const Color(0xFF2BC0E4);
   final Color bottomColor = const Color(0xFFEAECC6);
-
 
   //final Color bottomColor = const Color(0xFF45B649);
 
@@ -37,30 +42,52 @@ class _MeProfilePageState extends State<MeProfilePage> {
     return layout.width <= 400 ? layout.width : 400;
   });
 
-  void openInWindow() {
-    if(kIsWeb){
-      js.context.callMethod('open', ['https://melonkemo.carrd.co','_self']);
+  List<Widget> _accounts(BuildContext context) {
+    return [
+      _linkCard("Twitter", "melonkemo", serviceTextColor: Colors.black),
+      _linkCard("Instagram", "CKMelonDev",
+          serviceTextColor: Colors.black)
+    ];
+  }
+
+  List<Widget> _menus(BuildContext context) {
+    return [
+      _profileWidget(context, betweenBottom: 12),
+      _card(context, betweenBottom: 10, title: "เกี่ยวกับ",children: _about(context) ),
+      _card(context, betweenBottom: 10, title: "บัญชี", children: _accounts(context))
+    ];
+  }
+
+  Future<void> _launchUrl(String url) async {
+    Uri uri = Uri.parse(url);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(
+        uri,
+        mode: LaunchMode.platformDefault,
+        webOnlyWindowName: '_blank',
+      );
+    } else {
+      BotToast().component.error('Could not launch $url');
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    openInWindow();
+    SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
 
-    return Container();
     return Title(
         color: Colors.white,
         title: "メロンけも",
         child: Container(
-          decoration:  BoxDecoration(
-              gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              topColor,
-              bottomColor,
-            ],
-          ),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                topColor,
+                bottomColor,
+              ],
+            ),
             //color: Colors.black,
           ),
           child: Scaffold(
@@ -73,13 +100,12 @@ class _MeProfilePageState extends State<MeProfilePage> {
                       width: context.layout.width,
                       decoration: BoxDecoration(boxShadow: [
                         BoxShadow(
-                          //spreadRadius: 3,
-                          spreadRadius: 0.0,
-                          color: topColor.darken(.24).withOpacity(0.5),
-                          offset: const Offset(0, 0.0),
-                          //blurRadius: 8.0,
-                          blurRadius: 0.0
-                        )
+                            //spreadRadius: 3,
+                            spreadRadius: 0.0,
+                            color: topColor.darken(.24).withOpacity(0.5),
+                            offset: const Offset(0, 0.0),
+                            //blurRadius: 8.0,
+                            blurRadius: 0.0)
                       ]),
                     ),
                     Container(
@@ -87,7 +113,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
                           //color:Color(0xFFf1edf5)
                           color: Colors.white
                           //color: Colors.black
-                      ),
+                          ),
                       alignment: Alignment.centerLeft,
                       padding: const EdgeInsets.only(left: 14, right: 12),
                       height: 56,
@@ -98,7 +124,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
                             "メロンけも",
                             style: TextStyle(
                                 //color: topColor.lighten(.24),
-                              color: Colors.black.withOpacity(0.8),
+                                color: Colors.black.withOpacity(0.8),
                                 fontSize: 22,
                                 letterSpacing: 0.0,
                                 fontWeight: FontWeight.bold,
@@ -108,7 +134,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
                           ).hover(x: -2),
                           MelonBouncingButton.text(
                               enabledHover: true,
-                              text: "เปิดแอป",
+                              text: "ลงชื่อเข้าใช้",
                               fontFamily: "Itim",
                               textColor: Colors.white,
                               // textColor:
@@ -121,8 +147,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
                                   const EdgeInsets.symmetric(horizontal: 16.0),
                               //color: bottomColor.withOpacity(0.47)
                               //color: bottomColor
-                            color: Colors.black.withOpacity(0.8)
-                          )
+                              color: Colors.black.withOpacity(0.8))
                         ],
                       ),
                     ),
@@ -132,127 +157,185 @@ class _MeProfilePageState extends State<MeProfilePage> {
             body: SingleChildScrollView(
               physics: const BouncingScrollPhysics(),
               padding: const EdgeInsets.only(
-                  left: 16, right: 16, top: 20, bottom: 20),
+                  left: 16, right: 16, top: 50, bottom: 20),
               child: Container(
                 width: context.layout.width,
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    //profile(context, betweenBottom: 10),
-                    card(context, betweenBottom: 10, title: "เกี่ยวกับ"),
-                    card(context,
-                        betweenBottom: 10, title: "บัญชี", children: account())
-                  ],
+                  children: _menus(context),
                 ),
-              ),
+              ).animate().fadeIn(delay: const Duration(milliseconds: 300)).move(
+                  delay: const Duration(milliseconds: 300),
+                  begin: const Offset(0, 100),
+                  end: const Offset(0, 0)),
             ),
           ),
         ));
   }
 
-  Widget profile(BuildContext context, {double betweenBottom = 0}) {
+  Widget _profileWidget(BuildContext context, {double betweenBottom = 0}) {
     return Container(
       width: cardWidth.resolve(context),
       margin: EdgeInsets.only(bottom: betweenBottom),
       child: Row(
         children: [
           Container(
-            width: 100,
-            height: 100,
-            decoration: const BoxDecoration(color: Colors.green),
+            width: 160,
+            height: 160,
+            decoration: const BoxDecoration(color: Colors.transparent),
+            child: CupertinoCard(
+              elevation: 0,
+              color: Colors.white.withOpacity(.28),
+              margin: const EdgeInsets.all(0),
+              padding: const EdgeInsets.all(7),
+              radius: BorderRadius.circular(80),
+              child: CupertinoCard(
+                elevation: 0,
+                color: Colors.transparent,
+                margin: const EdgeInsets.all(0),
+                radius: BorderRadius.circular(66),
+                child: Image.asset("assets/images/profile_29-oct-2023.webp",fit: BoxFit.cover,),
+              ),
+            ),
           ),
           Expanded(
               child: Container(
-            height: 100,
-            decoration: const BoxDecoration(color: Colors.red),
+            height: 160,
+            decoration: const BoxDecoration(color: Colors.transparent),
           ))
         ],
       ),
     );
   }
 
-  List<Widget> account() {
-    return [linkCard("Twitter","CKMelonDev",serviceTextColor: Colors.blue), linkCard("Instagram","CKMelonDev",serviceTextColor:Colors.purpleAccent)];
+  Widget _linkCard(String serviceName, String link,
+      {Color? serviceTextColor, double betweenBottom = 10}) {
+    return InkWell(
+      splashColor: Colors.transparent,
+      focusColor: Colors.transparent,
+      highlightColor: Colors.transparent,
+      hoverColor: Colors.transparent,
+      onTap: (){
+        _launchUrl(link);
+      },
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white.withOpacity(.45),
+          borderRadius: BorderRadius.circular(10),
+        ),
+        width: cardWidth.resolve(context),
+        constraints: const BoxConstraints(minHeight: 40),
+        margin: EdgeInsets.only(left: 10, right: 10, bottom: betweenBottom),
+        padding: const EdgeInsets.only(left: 14, right: 14, bottom: 14, top: 14),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              serviceName,
+              style: TextStyle(
+                  color: (serviceTextColor ?? Colors.black).withOpacity(0.95),
+                  fontSize: 16,
+                  letterSpacing: 0.0,
+                  fontFamily: 'Itim',
+                  fontWeight: FontWeight.w700),
+            ),
+            // const SizedBox(height: 6),
+            // Text(
+            //   linkMessage,
+            //   style: TextStyle(
+            //       color: Colors.black.withOpacity(0.85),
+            //       fontSize: 18,
+            //       letterSpacing: 0.0,
+            //       fontFamily: 'Itim',
+            //       fontWeight: FontWeight.normal),
+            // ),
+          ],
+        ),
+      ).hover(x: -4.0, z: 1.02),
+    );
   }
 
-  Widget linkCard(String serviceName, String linkMessage,
-      {Color? serviceTextColor,double betweenBottom = 10}) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white.withOpacity(.45),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      width: cardWidth.resolve(context),
-      constraints: const BoxConstraints(minHeight: 40),
-      margin: EdgeInsets.only(left: 10, right: 10, bottom: betweenBottom),
-      padding: const EdgeInsets.only(left: 10, right: 10, bottom: 10, top: 10),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            serviceName,
-            style: TextStyle(
-                color: (serviceTextColor ?? Colors.black).withOpacity(0.95),
-                fontSize: 16,
-                letterSpacing: 0.0,
-                fontFamily: 'Itim',
-                fontWeight: FontWeight.w700),
-          ),
-          const SizedBox(height: 6),
-          Text(
-            linkMessage,
-            style: TextStyle(
-                color: Colors.black.withOpacity(0.85),
-                fontSize: 18,
-                letterSpacing: 0.0,
-                fontFamily: 'Itim',
-                fontWeight: FontWeight.normal),
-          ),
-        ],
-      ),
-    ).hover(x: -4.0,z: 1.02);
-  }
-
-  Widget card(BuildContext context,
+  Widget _card(BuildContext context,
       {required String title,
       double betweenBottom = 0,
       List<Widget>? children}) {
-    return Container(
-      decoration: BoxDecoration(
-          color: Colors.white.withOpacity(.28),
-          borderRadius: BorderRadius.circular(10)),
-      constraints: const BoxConstraints(minHeight: 100),
-      width: cardWidth.resolve(context),
-      margin: EdgeInsets.only(bottom: betweenBottom),
-      child: Column(
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              color: Colors.white.withOpacity(.15),
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(10), topRight: Radius.circular(10)),
-            ),
-            width: cardWidth.resolve(context),
-            alignment: Alignment.centerLeft,
-            padding:
-                const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-            child: Text(
-              title,
-              style: TextStyle(
-                color: Colors.black.withOpacity(0.85),
-                fontSize: 20,
-                letterSpacing: 0.0,
-                fontFamily: 'Itim',
+    return CupertinoCard(
+      elevation: 0,
+      margin: const EdgeInsets.only(bottom:14),
+      color: Colors.white.withOpacity(.28),
+      radius: BorderRadius.circular(40),
+      child: Container(
+        decoration: BoxDecoration(
+          color: Colors.transparent,
+            //color: Colors.white.withOpacity(.28),
+            borderRadius: BorderRadius.circular(10)),
+        constraints: const BoxConstraints(minHeight: 100),
+        width: cardWidth.resolve(context),
+        margin: EdgeInsets.only(bottom: betweenBottom),
+        child: Column(
+          children: [
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white.withOpacity(.15),
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(10), topRight: Radius.circular(10)),
+              ),
+              width: cardWidth.resolve(context),
+              alignment: Alignment.centerLeft,
+              padding:
+                  const EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+              child: Text(
+                title,
+                style: TextStyle(
+                  color: Colors.black.withOpacity(0.65),
+                  fontSize: 20,
+                  letterSpacing: 0.0,
+                  fontFamily: 'Itim',
+                  fontWeight: FontWeight.bold
+                ),
               ),
             ),
-          ),
-          if (children != null) const SizedBox(height: 12),
-          for (Widget widget in children ?? []) widget,
-          if (children != null) const SizedBox(height: 6),
-
-        ],
+            if (children != null) const SizedBox(height: 12),
+            for (Widget widget in children ?? []) widget,
+            if (children != null) const SizedBox(height: 6),
+          ],
+        ),
       ),
     );
   }
+
+  List<Widget> _about(BuildContext context){
+    return [
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Text(
+          'สวัสดีครับ! ชื่อ “เมล่อน” เรียกสั้นๆ "เม" ก็ได้ หวังว่าจะได้พบทุกคนในอีเว้นท์เร็ว ๆ นี้ ฝากตัวด้วยนะครับ',
+          style: TextStyle(
+              color: Colors.black.withOpacity(0.75),
+              fontSize: 16,
+              letterSpacing: 0.0,
+              fontFamily: 'Itim',
+              fontWeight: FontWeight.normal),
+        ),
+
+      ),
+      const SizedBox(height:16),
+      Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+        child: Text(
+          'Hello everyone! My name is Melon, Hope to meet everyone at the event soon See ya!',
+          style: TextStyle(
+              color: Colors.black.withOpacity(0.75),
+              fontSize: 16,
+              letterSpacing: 0.0,
+              fontFamily: 'Itim',
+              fontWeight: FontWeight.normal),
+        ),
+
+      ),
+    ];
+  }
+
+
 }
