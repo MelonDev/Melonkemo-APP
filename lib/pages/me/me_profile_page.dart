@@ -40,7 +40,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
   final Color? buttonTextColor = null;
 
   final LayoutValue<double> cardWidth = LayoutValue.builder((layout) {
-    return layout.width <= 400 ? layout.width : 400;
+    return layout.width <= 420 ? layout.width : 420;
   });
 
   List<Widget> _accounts(BuildContext context) {
@@ -220,20 +220,23 @@ class _MeProfilePageState extends State<MeProfilePage> {
                       'メロン | Melon',
                       style: TextStyle(
                           color: Colors.black.withOpacity(0.75),
-                          fontSize: 16,
+                          fontSize: 32,
                           letterSpacing: 0.0,
                           fontFamily: 'Itim',
-                          fontWeight: FontWeight.normal),
+                          fontWeight: FontWeight.bold),
                     ),
+                    const SizedBox(height:10),
                     Text(
-                      '26 • Male • INFJ • Pan ${Demoji.rainbow_flag} • Thai ${Demoji.thailand} & English ${Demoji.england} • Software Engineer •  Fan • I love coding and am passionate about furries and fursuits',
+                      '26 • Male • INFJ • Pan ${Demoji.rainbow_flag}\nThai ${Demoji.thailand} & English ${Demoji.england}\nSoftware Engineer',
                       style: TextStyle(
                           color: Colors.black.withOpacity(0.75),
                           fontSize: 16,
                           letterSpacing: 0.0,
                           fontFamilyFallback: const [ 'Itim','Apple Color Emoji', ],
                           fontWeight: FontWeight.normal),
-                    )
+                    ),
+                    const SizedBox(height:4),
+
                   ],
                 ),
           ))
