@@ -16,6 +16,10 @@ import 'package:flutter_web_plugins/url_strategy.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
+  SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      systemNavigationBarColor: Colors.white.withOpacity(0.02),
+      systemNavigationBarContrastEnforced: true,
+      systemNavigationBarIconBrightness: Brightness.dark));
   runApp(CoreApp());
 }
 
@@ -38,7 +42,10 @@ class CoreApp extends StatelessWidget {
       ),
       GoRoute(
         path: '/me',
-        builder: (context, state) => const RedirectMePage(),
+        redirect: (BuildContext context,GoRouterState state) => "/",
+        builder: (context, state) => Container(),
+
+        //builder: (context, state) => const RedirectMePage(),
       ),
       GoRoute(
         path: '/me-dev',

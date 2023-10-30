@@ -1,7 +1,5 @@
-import 'dart:js' as js;
 
 import 'package:bot_toast/bot_toast.dart';
-import 'package:demoji/demoji.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
@@ -117,74 +115,82 @@ class _MeProfilePageState extends State<MeProfilePage> {
             ),
             //color: Colors.black,
           ),
-          child: Scaffold(
-            appBar: PreferredSize(
-                preferredSize: const Size.fromHeight(46.0),
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    Container(
-                      width: context.layout.width,
-                      decoration: BoxDecoration(boxShadow: [
-                        BoxShadow(
+          child: AnnotatedRegion<SystemUiOverlayStyle>(
+            value: const SystemUiOverlayStyle(
+              statusBarColor: Colors.white,
+              systemNavigationBarColor: Colors.transparent,
+              statusBarIconBrightness: Brightness.dark,
+              systemNavigationBarIconBrightness: Brightness.dark,
+            ),
+            child: Scaffold(
+              appBar: PreferredSize(
+                  preferredSize: const Size.fromHeight(46.0),
+                  child: Stack(
+                    alignment: Alignment.bottomCenter,
+                    children: [
+                      Container(
+                        width: context.layout.width,
+                        decoration: BoxDecoration(boxShadow: [
+                          BoxShadow(
                             //spreadRadius: 3,
-                            spreadRadius: 0.0,
-                            color: topColor.darken(.24).withOpacity(0.5),
-                            offset: const Offset(0, 0.0),
-                            //blurRadius: 8.0,
-                            blurRadius: 0.0)
-                      ]),
-                    ),
-                    Container(
-                      decoration: const BoxDecoration(
-                          //color:Color(0xFFf1edf5)
-                          color: Colors.white
-                          //color: Colors.black
-                          ),
-                      alignment: Alignment.centerLeft,
-                      padding: const EdgeInsets.only(left: 14, right: 12),
-                      height: 56,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "メロンけも",
-                            style: TextStyle(
-                                //color: topColor.lighten(.24),
-                                color: Colors.black.withOpacity(0.8),
-                                fontSize: 22,
-                                letterSpacing: 0.0,
-                                fontWeight: FontWeight.bold,
-                                //fontFamily: 'KosugiMaru',
-                                //fontFamily: 'MochiyPopOne',
-                                fontFamily: 'MPlus'),
-                          ).hover(x: -2),
-                          MelonBouncingButton.text(
-                              enabledHover: true,
-                              text: "ลงชื่อเข้าใช้",
-                              fontFamily: "Itim",
-                              textColor: Colors.white,
-                              // textColor:
-                              //     buttonTextColor ?? bottomColor.darken(.74),
-                              fontSize: 16,
-                              height: 34,
-                              x: -2,
-                              borderRadius: 20,
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 16.0),
-                              //color: bottomColor.withOpacity(0.47)
-                              //color: bottomColor
-                              color: Colors.black.withOpacity(0.8))
-                        ],
+                              spreadRadius: 0.0,
+                              color: topColor.darken(.24).withOpacity(0.5),
+                              offset: const Offset(0, 0.0),
+                              //blurRadius: 8.0,
+                              blurRadius: 0.0)
+                        ]),
                       ),
-                    ),
-                  ],
-                )),
-            backgroundColor: Colors.transparent,
-            body: realCardWidth.resolve(context) < 880
-                ? _smallLayout(context)
-                : _largeLayout(context),
-          ),
+                      Container(
+                        decoration: const BoxDecoration(
+                          //color:Color(0xFFf1edf5)
+                            color: Colors.white
+                          //color: Colors.black
+                        ),
+                        alignment: Alignment.centerLeft,
+                        padding: const EdgeInsets.only(left: 14, right: 12),
+                        height: 46,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              "メロンけも",
+                              style: TextStyle(
+                                //color: topColor.lighten(.24),
+                                  color: Colors.black.withOpacity(0.8),
+                                  fontSize: 22,
+                                  letterSpacing: 0.0,
+                                  fontWeight: FontWeight.bold,
+                                  //fontFamily: 'KosugiMaru',
+                                  //fontFamily: 'MochiyPopOne',
+                                  fontFamily: 'MPlus'),
+                            ).hover(x: -2),
+                            MelonBouncingButton.text(
+                                enabledHover: true,
+                                text: "ลงชื่อเข้าใช้",
+                                fontFamily: "Itim",
+                                textColor: Colors.white,
+                                // textColor:
+                                //     buttonTextColor ?? bottomColor.darken(.74),
+                                fontSize: 16,
+                                height: 34,
+                                x: -2,
+                                borderRadius: 20,
+                                padding:
+                                const EdgeInsets.symmetric(horizontal: 16.0),
+                                //color: bottomColor.withOpacity(0.47)
+                                //color: bottomColor
+                                color: Colors.black.withOpacity(0.8))
+                          ],
+                        ),
+                      ),
+                    ],
+                  )),
+              backgroundColor: Colors.transparent,
+              body: realCardWidth.resolve(context) < 880
+                  ? _smallLayout(context)
+                  : _largeLayout(context),
+            ),
+          )
         ));
   }
 
@@ -233,7 +239,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
   Widget _smallLayout(BuildContext context) {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
-      padding: const EdgeInsets.only(left: 16, right: 16, top: 50, bottom: 20),
+      padding: const EdgeInsets.only(left: 16, right: 16, top: kIsWeb ? 50 :20, bottom: 20),
       child: Container(
         width: context.layout.width,
         child: Column(
