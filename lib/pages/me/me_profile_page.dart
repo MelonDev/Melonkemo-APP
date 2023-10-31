@@ -262,17 +262,17 @@ class _MeProfilePageState extends State<MeProfilePage> {
       SegmentItem<AboutLanguage>("English", value: AboutLanguage.english),
       SegmentItem<AboutLanguage>("日本語",
           value: AboutLanguage.japanese,
-          config: SegmentConfigItem(fontSize: 14)),
+          config: SegmentConfigItem(fontSize: 12)),
     ];
     return DefaultTabController(
       length: langItems.length,
       child: SizedBox(
         height: 30,
-        width: 246,
+        width: 230,
         child: TabSegmentWidget(
           height: 20,
           backgroundColor: Colors.black.withOpacity(0.05),
-          itemFontSize: 16,
+          itemFontSize: 14,
           minWidth: 30,
           items: langItems,
           onChanged: (int index) {
