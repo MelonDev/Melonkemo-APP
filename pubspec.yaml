@@ -31,6 +31,7 @@ dependencies:
   url_launcher: ^6.2.1
   file_picker: ^6.0.0
   demoji: ^2.0.0
+  simple_icons: ^7.10.0
 
 dev_dependencies:
   flutter_test:
@@ -48,6 +49,9 @@ flutter:
     - family: KosugiMaru
       fonts:
         - asset: fonts/kosugi_maru_regular.ttf
+    - family: VarelaRound
+      fonts:
+        - asset: fonts/VarelaRound-Regular.ttf
     - family: Itim
       fonts:
         - asset: fonts/itim_regular.ttf

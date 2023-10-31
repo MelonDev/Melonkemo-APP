@@ -332,13 +332,13 @@ class _MeProfilePageState extends State<MeProfilePage> {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white.withOpacity(.45),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: BorderRadius.circular(14),
         ),
         width: cardWidth.resolve(context),
         constraints: const BoxConstraints(minHeight: 40),
         margin: EdgeInsets.only(left: 10, right: 10, bottom: betweenBottom),
         padding:
-            const EdgeInsets.only(left: 16, right: 16, bottom: 16, top: 16),
+            const EdgeInsets.only(left: 22, right: 22, bottom: 18, top: 18),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -346,11 +346,11 @@ class _MeProfilePageState extends State<MeProfilePage> {
             Text(
               serviceName,
               style: TextStyle(
-                  color: (serviceTextColor ?? Colors.black).withOpacity(0.75),
-                  fontSize: 18,
+                  color: (serviceTextColor ?? Colors.black).withOpacity(0.60),
+                  fontSize: 16,
                   letterSpacing: 0.0,
-                  fontFamily: 'Itim',
-                  fontWeight: FontWeight.w600),
+                  fontFamily: 'VarelaRound',
+                  fontWeight: FontWeight.bold),
             ),
             // const SizedBox(height: 6),
             // Text(
