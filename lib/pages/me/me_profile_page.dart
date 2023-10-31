@@ -262,7 +262,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
       SegmentItem<AboutLanguage>("English", value: AboutLanguage.english),
       SegmentItem<AboutLanguage>("日本語",
           value: AboutLanguage.japanese,
-          config: SegmentConfigItem(fontSize: 14)),
+          config: SegmentConfigItem(fontSize: 15,fontFamily: "KosugiMaru")),
     ];
     return DefaultTabController(
       length: langItems.length,
