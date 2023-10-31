@@ -25,7 +25,8 @@ class MeProfilePage extends StatefulWidget {
 
 class _MeProfilePageState extends State<MeProfilePage> {
   PageController controller = PageController();
-  final ItemScrollController _scrollController = ItemScrollController();
+
+  AboutLanguage _aboutLanguage = AboutLanguage.thai;
 
   @override
   void initState() {
@@ -71,7 +72,10 @@ class _MeProfilePageState extends State<MeProfilePage> {
   List<Widget> _menus(BuildContext context) => [
         _profileWidget(context, betweenBottom: 12),
         _card(context,
-            betweenBottom: 16, title: "แนะนำตัว", children: _about(context)),
+            betweenBottom: 0,
+            title: "แนะนำตัว",
+            leadingTitle: _langSegment(context),
+            children: _about(context)),
         const SizedBox(
           height: 6,
         ),
@@ -98,7 +102,10 @@ class _MeProfilePageState extends State<MeProfilePage> {
   List<Widget> _largeMenus(BuildContext context) => [
         _profileWidget(context, betweenBottom: 12),
         _card(context,
-            betweenBottom: 16, title: "แนะนำตัว", children: _about(context)),
+            betweenBottom: 0,
+            title: "แนะนำตัว",
+            children: _about(context),
+            leadingTitle: _langSegment(context)),
       ];
 
   Future<void> _launchUrl(String url) async {
@@ -211,8 +218,8 @@ class _MeProfilePageState extends State<MeProfilePage> {
                 //       : _largeLayout(context),
                 // ),
                 body: realCardWidth.resolve(context) < 880
-                      ? _smallLayout(context)
-                      : _largeLayout(context),
+                    ? _smallLayout(context)
+                    : _largeLayout(context),
               ),
             )));
   }
@@ -249,6 +256,37 @@ class _MeProfilePageState extends State<MeProfilePage> {
     );
   }
 
+  Widget _langSegment(BuildContext context) {
+    List<SegmentItem> langItems = [
+      SegmentItem<AboutLanguage>("ไทย", value: AboutLanguage.thai),
+      SegmentItem<AboutLanguage>("English", value: AboutLanguage.english),
+      SegmentItem<AboutLanguage>("日本語",
+          value: AboutLanguage.japanese,
+          config: SegmentConfigItem(fontSize: 14)),
+    ];
+    return DefaultTabController(
+      length: langItems.length,
+      child: SizedBox(
+        height: 30,
+        width: 246,
+        child: TabSegmentWidget(
+          height: 20,
+          backgroundColor: Colors.black.withOpacity(0.05),
+          itemFontSize: 16,
+          minWidth: 30,
+          items: langItems,
+          onChanged: (int index) {
+            _aboutLanguage = langItems[index].value;
+            setState(() {});
+            // controller.animateToPage(index,
+            //     duration: const Duration(milliseconds: 200),
+            //     curve: Curves.linear);
+          },
+        ),
+      ),
+    );
+  }
+
   Widget _largeLayout(BuildContext context) {
     return Row(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -260,7 +298,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             padding:
-                const EdgeInsets.only(left: 16, right: 16, top: 40, bottom: 20),
+                const EdgeInsets.only(left: 16, right: 16, top: 40, bottom: 80),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -276,7 +314,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
           child: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             padding:
-                const EdgeInsets.only(left: 16, right: 16, top: 50, bottom: 20),
+                const EdgeInsets.only(left: 16, right: 16, top: 50, bottom: 80),
             child: SizedBox(
               width: context.layout.width,
               child: Column(
@@ -298,7 +336,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
     return SingleChildScrollView(
       physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.only(
-          left: 16, right: 16, top: kIsWeb ? 40 : 20, bottom: 20),
+          left: 16, right: 16, top: kIsWeb ? 40 : 20, bottom: 80),
       child: Container(
         width: context.layout.width,
         child: Column(
@@ -434,7 +472,10 @@ class _MeProfilePageState extends State<MeProfilePage> {
   }
 
   Widget _card(BuildContext context,
-      {String? title, double betweenBottom = 0, List<Widget>? children}) {
+      {String? title,
+      double betweenBottom = 0,
+      List<Widget>? children,
+      Widget? leadingTitle}) {
     return CupertinoCard(
       elevation: 0,
       margin: const EdgeInsets.only(bottom: 14),
@@ -464,14 +505,20 @@ class _MeProfilePageState extends State<MeProfilePage> {
                 alignment: Alignment.centerLeft,
                 padding: const EdgeInsets.only(
                     left: 16, right: 16, top: 12, bottom: 8),
-                child: Text(
-                  title,
-                  style: TextStyle(
-                      color: Colors.black.withOpacity(0.65),
-                      fontSize: 20,
-                      letterSpacing: 0.0,
-                      fontFamily: 'Itim',
-                      fontWeight: FontWeight.bold),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      title,
+                      style: TextStyle(
+                          color: Colors.black.withOpacity(0.65),
+                          fontSize: 20,
+                          letterSpacing: 0.0,
+                          fontFamily: 'Itim',
+                          fontWeight: FontWeight.bold),
+                    ),
+                    leadingTitle ?? const SizedBox()
+                  ],
                 ),
               ),
             if (children != null) const SizedBox(height: 14),
@@ -489,31 +536,52 @@ class _MeProfilePageState extends State<MeProfilePage> {
 
   List<Widget> _about(BuildContext context) {
     return [
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Text(
-          'สวัสดีครับ! ชื่อ “เมล่อน” เรียกสั้นๆ "เม" ก็ได้ หวังว่าจะได้พบทุกคนในอีเว้นท์เร็ว ๆ นี้ ฝากตัวด้วยนะครับ',
-          style: TextStyle(
-              color: Colors.black.withOpacity(0.75),
-              fontSize: 16,
-              letterSpacing: 0.0,
-              fontFamily: 'Itim',
-              fontWeight: FontWeight.normal),
-        ),
-      ),
-      const SizedBox(height: 16),
-      Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 16.0),
-        child: Text(
-          'Hello everyone! My name is Melon, Hope to meet everyone at the event soon See ya!',
-          style: TextStyle(
-              color: Colors.black.withOpacity(0.75),
-              fontSize: 16,
-              letterSpacing: 0.0,
-              fontFamily: 'Itim',
-              fontWeight: FontWeight.normal),
-        ),
-      ),
+      if (_aboutLanguage == AboutLanguage.thai)
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(
+            'สวัสดีครับ! ผมชื่อ “เมล่อน” เรียกสั้นๆ “เม” เป็นเผ่าจิ้งจอกอาร์กติก ชื่นชอบการเขียนโค้ด หลงไหลในเฟอร์รี่และเฟอร์สูท หวังว่าจะได้พบทุกคนในอีเว้นท์เร็ว ๆ นี้ ฝากตัวด้วยนะครับ!',
+            style: TextStyle(
+                color: Colors.black.withOpacity(0.75),
+                fontSize: 17,
+                letterSpacing: 0.0,
+                fontFamily: 'Itim',
+                height: 1.4,
+                fontWeight: FontWeight.normal),
+          ),
+        ).animate().fadeIn(delay: const Duration(milliseconds: 100)),
+      if (_aboutLanguage == AboutLanguage.thai) const SizedBox(height: 16),
+      if (_aboutLanguage == AboutLanguage.english)
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(
+            'Hello everyone! My name is “Melon” and I’m arctic fox species, love coding and am passionate about furries and fursuits, Hope to meet everyone at the event soon See ya!',
+            style: TextStyle(
+                color: Colors.black.withOpacity(0.75),
+                fontSize: 17,
+                letterSpacing: 0.0,
+                height: 1.4,
+                fontFamily: 'Itim',
+                fontWeight: FontWeight.normal),
+          )
+        ).animate().fadeIn(delay: const Duration(milliseconds: 100)),
+      if (_aboutLanguage == AboutLanguage.english) const SizedBox(height: 16),
+      if (_aboutLanguage == AboutLanguage.japanese)
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(
+            'こんばんは！はじめまして、僕は「メロン」と申します。北極ギツネです！僕の趣味はコーディングです！そして僕はファーリーとファースーツ憧れています。イベントで皆さんにお会いできるのを楽しみにしています！よろしくお願いいたします！',
+            style: TextStyle(
+                color: Colors.black.withOpacity(0.75),
+                fontSize: 14,
+                height: 1.5,
+                letterSpacing: 0.0,
+                fontFamily: 'KosugiMaru',
+                fontWeight: FontWeight.normal),
+          )
+        ).animate().fadeIn(delay: const Duration(milliseconds: 100)),
+      if (_aboutLanguage == AboutLanguage.japanese) const SizedBox(height: 16),
+
     ];
   }
 
@@ -538,3 +606,5 @@ class _MeProfilePageState extends State<MeProfilePage> {
     );
   }
 }
+
+enum AboutLanguage { thai, english, japanese }

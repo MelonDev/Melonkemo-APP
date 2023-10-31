@@ -14,14 +14,29 @@ import 'base_segment_widget.dart';
 
 class TabSegmentWidget extends StatefulWidget {
   TabSegmentWidget(
-      {Key? key, required this.items, bool isScrollable = false, this.color,this.onChanged})
+      {Key? key,
+      required this.items,
+      bool isScrollable = false,
+      this.color,
+      this.onChanged,
+      this.backgroundColor,
+      this.borderRadius = 40,
+        this.itemFontSize = 18,
+        this.minWidth = 100,
+      this.height = 30})
       : super(key: key) {
     this.isScrollable = items.length > 3 ? true : isScrollable;
   }
 
   final List<SegmentItem> items;
   final Color? color;
+  final Color? backgroundColor;
+
   late bool isScrollable;
+  final double borderRadius;
+  final double height;
+  final double itemFontSize;
+  final double minWidth;
 
   Function(int)? onChanged;
 
@@ -35,17 +50,17 @@ class _TabSegmentWidgetState extends State<TabSegmentWidget> {
   @override
   Widget build(BuildContext context) {
     return PreferredSize(
-      preferredSize: const Size.fromHeight(30),
+      preferredSize: Size.fromHeight(widget.height),
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(40),
+          borderRadius: BorderRadius.circular(widget.borderRadius),
           // border: Border.all(
           //   color: Colors.black.withOpacity(0.05),
           //   width: 2,
           // ),
         ),
         child: ClipRRect(
-          borderRadius: BorderRadius.circular(40),
+          borderRadius: BorderRadius.circular(widget.borderRadius),
           child: _tabBar(context),
         ),
       ),
@@ -54,8 +69,8 @@ class _TabSegmentWidgetState extends State<TabSegmentWidget> {
 
   Widget _tabBar(BuildContext context) {
     return Container(
-      color: Colors.white.withOpacity(.28),
-      height: 42,
+      color: widget.backgroundColor ?? Colors.white.withOpacity(.28),
+      height: widget.borderRadius + 2,
       child: TabBar(
         isScrollable: widget.isScrollable,
         unselectedLabelColor: (widget.color ?? Colors.black).withOpacity(0.6),
@@ -64,7 +79,7 @@ class _TabSegmentWidgetState extends State<TabSegmentWidget> {
         physics: const BouncingScrollPhysics(),
         //indicatorSize: TabBarIndicatorSize.label,
         indicator: BoxDecoration(
-            borderRadius: BorderRadius.circular(40),
+            borderRadius: BorderRadius.circular(widget.borderRadius),
             color: widget.color ?? (widget.color ?? Colors.black)),
         onTap: (int index) {
           widget.onChanged?.call(index);
@@ -86,7 +101,7 @@ class _TabSegmentWidgetState extends State<TabSegmentWidget> {
     return Tab(
       child: Container(
         padding: const EdgeInsets.only(top: 2),
-        constraints: const BoxConstraints(minWidth: 100),
+        constraints: BoxConstraints(minWidth: widget.minWidth),
         alignment: Alignment.center,
         child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -94,7 +109,7 @@ class _TabSegmentWidgetState extends State<TabSegmentWidget> {
           children: [
             Text(
               item.name,
-              style: const TextStyle(fontSize: 18, fontFamily: "Itim"),
+              style: TextStyle(fontSize: item.config?.fontSize ?? widget.itemFontSize, fontFamily: item.config?.fontFamily ?? "Itim"),
             )
           ],
         ),
@@ -103,8 +118,17 @@ class _TabSegmentWidgetState extends State<TabSegmentWidget> {
   }
 }
 
-class SegmentItem {
+class SegmentItem<T>{
   final String name;
+  final SegmentConfigItem? config;
+  final T? value;
 
-  SegmentItem(this.name);
+  SegmentItem(this.name,{this.config,this.value});
+}
+
+class SegmentConfigItem {
+  final double? fontSize;
+  final String? fontFamily;
+
+  SegmentConfigItem({this.fontSize, this.fontFamily});
 }
