@@ -26,6 +26,7 @@ void main() {
 class CoreApp extends StatelessWidget {
 
   CoreApp({super.key});
+
   final _router = GoRouter(
     routes: [
       GoRoute(

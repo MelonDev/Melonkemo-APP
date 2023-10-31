@@ -27,7 +27,6 @@ class _MeProfilePageState extends State<MeProfilePage> {
   PageController controller = PageController();
   final ItemScrollController _scrollController = ItemScrollController();
 
-
   @override
   void initState() {
     super.initState();
@@ -76,41 +75,24 @@ class _MeProfilePageState extends State<MeProfilePage> {
         const SizedBox(
           height: 6,
         ),
-        Container(
-          width: cardWidth.resolve(context),
-          height: 1.8,
-          decoration: BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.centerLeft,
-              end: Alignment.centerRight,
-              colors: [
-                Colors.white.withOpacity(.0),
-                Colors.white.withOpacity(.38),
-                Colors.white.withOpacity(.38),
-                Colors.white.withOpacity(.38),
-                Colors.white.withOpacity(.0),
-              ],
-            ),
-          ),
-          margin: const EdgeInsets.symmetric(horizontal: 80),
-        ),
+        _divider(context),
         const SizedBox(
           height: 26,
         ),
-        _segment(context),
-        const SizedBox(
-          height: 16,
-        ),
+        //_segment(context),
+        // const SizedBox(
+        //   height: 16,
+        // ),
 
-    _card(context, children: _accounts(context))
+        _card(context, title: "บัญชีโซเชียล", children: _accounts(context))
       ];
 
   List<Widget> _smallMenus(BuildContext context) => [
-        _segment(context),
+        //_segment(context),
         const SizedBox(
           height: 16,
         ),
-    _card(context, children: _accounts(context))
+        _card(context, title: "บัญชีโซเชียล", children: _accounts(context))
       ];
 
   List<Widget> _largeMenus(BuildContext context) => [
@@ -222,17 +204,20 @@ class _MeProfilePageState extends State<MeProfilePage> {
                       ],
                     )),
                 backgroundColor: Colors.transparent,
-                body: DefaultTabController(
-                  length: _tabItems(context).length,
-                  child: realCardWidth.resolve(context) < 880
+                // body: DefaultTabController(
+                //   length: _tabItems(context).length,
+                //   child: realCardWidth.resolve(context) < 880
+                //       ? _smallLayout(context)
+                //       : _largeLayout(context),
+                // ),
+                body: realCardWidth.resolve(context) < 880
                       ? _smallLayout(context)
                       : _largeLayout(context),
-                ),
               ),
             )));
   }
 
-  Widget _pageView(BuildContext context,List<Widget> children) {
+  Widget _pageView(BuildContext context, List<Widget> children) {
     return Container(
       width: cardWidth.resolve(context),
       height: 100,
@@ -463,7 +448,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
         constraints: const BoxConstraints(minHeight: 50),
         width: cardWidth.resolve(context),
         padding:
-            EdgeInsets.only(top: 4, bottom: title != null ? betweenBottom : 4),
+            EdgeInsets.only(top: 0, bottom: title != null ? betweenBottom : 4),
         //margin: EdgeInsets.only(bottom: betweenBottom),
         child: Column(
           children: [
@@ -478,7 +463,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
                 width: cardWidth.resolve(context),
                 alignment: Alignment.centerLeft,
                 padding: const EdgeInsets.only(
-                    left: 16, right: 16, top: 8, bottom: 8),
+                    left: 16, right: 16, top: 12, bottom: 8),
                 child: Text(
                   title,
                   style: TextStyle(
@@ -532,35 +517,24 @@ class _MeProfilePageState extends State<MeProfilePage> {
     ];
   }
 
-  Widget _buildCarousel(BuildContext context, int carouselIndex) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: <Widget>[
-        Text('Carousel $carouselIndex'),
-        SizedBox(
-          // you may want to use an aspect ratio here for tablet support
-          height: 200.0,
-          child: PageView.builder(
-            // store this controller in a State to save the carousel scroll position
-            controller: controller,
-            itemBuilder: (BuildContext context, int itemIndex) {
-              return _buildCarouselItem(context, carouselIndex, itemIndex);
-            },
-          ),
-        )
-      ],
-    );
-  }
-
-  Widget _buildCarouselItem(BuildContext context, int carouselIndex, int itemIndex) {
-    return Padding(
-      padding: EdgeInsets.symmetric(horizontal: 4.0),
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.grey,
-          borderRadius: BorderRadius.all(Radius.circular(4.0)),
+  Widget _divider(BuildContext context) {
+    return Container(
+      width: cardWidth.resolve(context),
+      height: 1.8,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [
+            Colors.white.withOpacity(.0),
+            Colors.white.withOpacity(.38),
+            Colors.white.withOpacity(.38),
+            Colors.white.withOpacity(.38),
+            Colors.white.withOpacity(.0),
+          ],
         ),
       ),
+      margin: const EdgeInsets.symmetric(horizontal: 80),
     );
   }
 }
