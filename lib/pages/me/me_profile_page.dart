@@ -268,12 +268,13 @@ class _MeProfilePageState extends State<MeProfilePage> {
       length: langItems.length,
       child: SizedBox(
         height: 30,
-        width: 230,
+        width: 200,
         child: TabSegmentWidget(
           height: 20,
+          isScrollable: true,
           backgroundColor: Colors.black.withOpacity(0.05),
           itemFontSize: 14,
-          minWidth: 30,
+          minWidth: 20,
           items: langItems,
           onChanged: (int index) {
             _aboutLanguage = langItems[index].value;
