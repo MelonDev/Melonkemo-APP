@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 Path squirclePath(Rect rect, BorderRadius? radius) {
@@ -163,17 +165,20 @@ class CupertinoCard extends StatelessWidget {
         shape: shapeborder,
         child: ClipPath.shape(
           shape: shapeborder,
-          child: Material(
-            color: color,
-            child: Ink(
-              decoration: decoration,
-              child: InkWell(
-                customBorder: shapeborder,
-                onTap: onPressed,
-                splashColor: splashColor,
-                child: Padding(
-                  padding: padding,
-                  child: child,
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            child: Material(
+              color: color,
+              child: Ink(
+                decoration: decoration,
+                child: InkWell(
+                  customBorder: shapeborder,
+                  onTap: onPressed,
+                  splashColor: splashColor,
+                  child: Padding(
+                    padding: padding,
+                    child: child,
+                  ),
                 ),
               ),
             ),
