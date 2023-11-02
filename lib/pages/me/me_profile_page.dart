@@ -128,100 +128,127 @@ class _MeProfilePageState extends State<MeProfilePage> {
     return Title(
         color: Colors.white,
         title: "メロンけも",
-        child: Container(
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [
-                  topColor,
-                  bottomColor,
-                ],
-              ),
-              //color: Colors.black,
-            ),
-            child: AnnotatedRegion<SystemUiOverlayStyle>(
-              value: const SystemUiOverlayStyle(
-                statusBarColor: Colors.white,
-                systemNavigationBarColor: Colors.transparent,
-                statusBarIconBrightness: Brightness.dark,
-                systemNavigationBarIconBrightness: Brightness.dark,
-              ),
-              child: Scaffold(
-                appBar: PreferredSize(
-                    preferredSize: const Size.fromHeight(46.0),
-                    child: Stack(
-                      alignment: Alignment.bottomCenter,
-                      children: [
-                        Container(
-                          width: context.layout.width,
-                          decoration: BoxDecoration(boxShadow: [
-                            BoxShadow(
-                                //spreadRadius: 3,
-                                spreadRadius: 0.0,
-                                color: topColor.darken(.24).withOpacity(0.5),
-                                offset: const Offset(0, 0.0),
-                                //blurRadius: 8.0,
-                                blurRadius: 0.0)
-                          ]),
-                        ),
-                        Container(
-                          decoration: const BoxDecoration(
-                              //color:Color(0xFFf1edf5)
-                              color: Colors.white
-                              //color: Colors.black
+        child: Stack(
+          children: [
+            _background(context),
+            Container(
+                decoration: BoxDecoration(
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.black.withOpacity(0.60),
+                      Colors.black.withOpacity(0.1),
+                      Colors.black.withOpacity(0.0),
+
+                    ],
+                  ),
+                  // gradient: LinearGradient(
+                  //   begin: Alignment.topCenter,
+                  //   end: Alignment.bottomCenter,
+                  //   colors: [
+                  //     topColor,
+                  //     bottomColor,
+                  //   ],
+                  // ),
+                  //color: Colors.black,
+                ),
+                child: AnnotatedRegion<SystemUiOverlayStyle>(
+                  value: const SystemUiOverlayStyle(
+                    statusBarColor: Colors.white,
+                    systemNavigationBarColor: Colors.transparent,
+                    statusBarIconBrightness: Brightness.dark,
+                    systemNavigationBarIconBrightness: Brightness.dark,
+                  ),
+                  child: Scaffold(
+                    appBar: PreferredSize(
+                        preferredSize: const Size.fromHeight(46.0),
+                        child: Stack(
+                          alignment: Alignment.bottomCenter,
+                          children: [
+                            Container(
+                              width: context.layout.width,
+                              decoration: BoxDecoration(boxShadow: [
+                                BoxShadow(
+                                    //spreadRadius: 3,
+                                    spreadRadius: 0.0,
+                                    color: topColor.darken(.24).withOpacity(0.5),
+                                    offset: const Offset(0, 0.0),
+                                    //blurRadius: 8.0,
+                                    blurRadius: 0.0)
+                              ]),
+                            ),
+                            Container(
+                              decoration: const BoxDecoration(
+                                  //color:Color(0xFFf1edf5)
+                                  color: Colors.white
+                                  //color: Colors.black
+                                  ),
+                              alignment: Alignment.centerLeft,
+                              padding: const EdgeInsets.only(left: 14, right: 12),
+                              height: 46,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "メロンけも",
+                                    style: TextStyle(
+                                        //color: topColor.lighten(.24),
+                                        color: Colors.black.withOpacity(0.8),
+                                        fontSize: 22,
+                                        letterSpacing: 0.0,
+                                        fontWeight: FontWeight.bold,
+                                        //fontFamily: 'KosugiMaru',
+                                        //fontFamily: 'MochiyPopOne',
+                                        fontFamily: 'MPlus'),
+                                  ).hover(x: -2),
+                                  MelonBouncingButton.text(
+                                      enabledHover: true,
+                                      text: "ลงชื่อเข้าใช้",
+                                      fontFamily: "Itim",
+                                      textColor: Colors.white,
+                                      // textColor:
+                                      //     buttonTextColor ?? bottomColor.darken(.74),
+                                      fontSize: 16,
+                                      height: 34,
+                                      x: -2,
+                                      borderRadius: 20,
+                                      padding: const EdgeInsets.symmetric(
+                                          horizontal: 16.0),
+                                      //color: bottomColor.withOpacity(0.47)
+                                      //color: bottomColor
+                                      color: Colors.black.withOpacity(0.8))
+                                ],
                               ),
-                          alignment: Alignment.centerLeft,
-                          padding: const EdgeInsets.only(left: 14, right: 12),
-                          height: 46,
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "メロンけも",
-                                style: TextStyle(
-                                    //color: topColor.lighten(.24),
-                                    color: Colors.black.withOpacity(0.8),
-                                    fontSize: 22,
-                                    letterSpacing: 0.0,
-                                    fontWeight: FontWeight.bold,
-                                    //fontFamily: 'KosugiMaru',
-                                    //fontFamily: 'MochiyPopOne',
-                                    fontFamily: 'MPlus'),
-                              ).hover(x: -2),
-                              MelonBouncingButton.text(
-                                  enabledHover: true,
-                                  text: "ลงชื่อเข้าใช้",
-                                  fontFamily: "Itim",
-                                  textColor: Colors.white,
-                                  // textColor:
-                                  //     buttonTextColor ?? bottomColor.darken(.74),
-                                  fontSize: 16,
-                                  height: 34,
-                                  x: -2,
-                                  borderRadius: 20,
-                                  padding: const EdgeInsets.symmetric(
-                                      horizontal: 16.0),
-                                  //color: bottomColor.withOpacity(0.47)
-                                  //color: bottomColor
-                                  color: Colors.black.withOpacity(0.8))
-                            ],
-                          ),
-                        ),
-                      ],
-                    )),
-                backgroundColor: Colors.transparent,
-                // body: DefaultTabController(
-                //   length: _tabItems(context).length,
-                //   child: realCardWidth.resolve(context) < 880
-                //       ? _smallLayout(context)
-                //       : _largeLayout(context),
-                // ),
-                body: realCardWidth.resolve(context) < 880
-                    ? _smallLayout(context)
-                    : _largeLayout(context),
-              ),
-            )));
+                            ),
+                          ],
+                        )),
+                    backgroundColor: Colors.transparent,
+                    // body: DefaultTabController(
+                    //   length: _tabItems(context).length,
+                    //   child: realCardWidth.resolve(context) < 880
+                    //       ? _smallLayout(context)
+                    //       : _largeLayout(context),
+                    // ),
+                    body: realCardWidth.resolve(context) < 880
+                        ? _smallLayout(context)
+                        : _largeLayout(context),
+                  ),
+                )),
+          ],
+        ));
+  }
+
+  Widget _background(BuildContext context){
+    //String image = "assets/images/orange_brick_background.webp";
+    String image = "assets/images/bangkok_background_image.webp";
+
+    return Container(
+      width: double.infinity,
+      height: double.infinity,
+      child: Image.asset(image,fit: BoxFit.cover),
+    );
+    return Container();
   }
 
   Widget _pageView(BuildContext context, List<Widget> children) {
@@ -391,7 +418,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
                 Text(
                   'メロン',
                   style: TextStyle(
-                      color: Colors.black.withOpacity(0.75),
+                      color: Colors.white.withOpacity(0.8),
                       fontSize: 40,
                       letterSpacing: 0.0,
                       fontFamily: 'MPlus',
@@ -401,7 +428,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
                 Text(
                   'Melon | เมล่อน',
                   style: TextStyle(
-                      color: Colors.black.withOpacity(0.75),
+                      color: Colors.white.withOpacity(0.75),
                       fontSize: 20,
                       letterSpacing: 0.0,
                       fontFamily: 'Itim',
@@ -411,7 +438,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
                 Text(
                   '26 • Male (Pan) • INFJ • Thai & English • Software Engineer',
                   style: TextStyle(
-                      color: Colors.black.withOpacity(0.75),
+                      color: Colors.white.withOpacity(0.65),
                       fontSize: 16,
                       letterSpacing: 0.0,
                       fontFamily: 'Itim',
@@ -439,8 +466,8 @@ class _MeProfilePageState extends State<MeProfilePage> {
       },
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white.withOpacity(.45),
-          borderRadius: BorderRadius.circular(14),
+          color: Colors.white.withOpacity(.35),
+          borderRadius: BorderRadius.circular(12),
         ),
         width: cardWidth.resolve(context),
         constraints: const BoxConstraints(minHeight: 40),
@@ -454,7 +481,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
             Text(
               serviceName,
               style: TextStyle(
-                  color: (serviceTextColor ?? Colors.black).withOpacity(0.60),
+                  color: (serviceTextColor ?? Colors.black).withOpacity(0.70),
                   fontSize: 17,
                   letterSpacing: 0.0,
                   fontFamily: 'VarelaRound',
@@ -464,7 +491,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
               Icon(
                 icon,
                 size: 24,
-                color: (serviceTextColor ?? Colors.black).withOpacity(0.60),
+                color: (serviceTextColor ?? Colors.black).withOpacity(0.70),
               ),
           ],
         ),
@@ -480,7 +507,8 @@ class _MeProfilePageState extends State<MeProfilePage> {
     return CupertinoCard(
       elevation: 0,
       margin: const EdgeInsets.only(bottom: 14),
-      color: Colors.white.withOpacity(.28),
+      //color: Colors.white.withOpacity(.28),
+      color: Colors.white.withOpacity(.58),
       radius: BorderRadius.circular(40),
       child: Container(
         decoration: BoxDecoration(
