@@ -131,6 +131,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
         child: Stack(
           children: [
             _background(context),
+            _imageCredit(context),
             Container(
                 decoration: BoxDecoration(
                   gradient: LinearGradient(
@@ -140,7 +141,6 @@ class _MeProfilePageState extends State<MeProfilePage> {
                       Colors.black.withOpacity(0.60),
                       Colors.black.withOpacity(0.1),
                       Colors.black.withOpacity(0.0),
-
                     ],
                   ),
                   // gradient: LinearGradient(
@@ -172,7 +172,8 @@ class _MeProfilePageState extends State<MeProfilePage> {
                                 BoxShadow(
                                     //spreadRadius: 3,
                                     spreadRadius: 0.0,
-                                    color: topColor.darken(.24).withOpacity(0.5),
+                                    color:
+                                        topColor.darken(.24).withOpacity(0.5),
                                     offset: const Offset(0, 0.0),
                                     //blurRadius: 8.0,
                                     blurRadius: 0.0)
@@ -185,10 +186,12 @@ class _MeProfilePageState extends State<MeProfilePage> {
                                   //color: Colors.black
                                   ),
                               alignment: Alignment.centerLeft,
-                              padding: const EdgeInsets.only(left: 14, right: 12),
+                              padding:
+                                  const EdgeInsets.only(left: 14, right: 12),
                               height: 46,
                               child: Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     "メロンけも",
@@ -239,16 +242,32 @@ class _MeProfilePageState extends State<MeProfilePage> {
         ));
   }
 
-  Widget _background(BuildContext context){
+  Widget _background(BuildContext context) {
     //String image = "assets/images/orange_brick_background.webp";
     String image = "assets/images/bangkok_background_image.webp";
 
     return Container(
       width: double.infinity,
       height: double.infinity,
-      child: Image.asset(image,fit: BoxFit.cover),
+      child: Image.asset(image, fit: BoxFit.cover),
     );
     return Container();
+  }
+
+  Widget _imageCredit(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: Align(
+        alignment: Alignment.bottomCenter,
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(
+            "Picture from Alejandro Cartagena on Unsplash.com",
+            style: TextStyle(fontFamily: "Itim",color: Colors.white.withOpacity(0.75),fontSize: 14),
+          ),
+        ),
+      ),
+    );
   }
 
   Widget _pageView(BuildContext context, List<Widget> children) {
@@ -582,35 +601,32 @@ class _MeProfilePageState extends State<MeProfilePage> {
       if (_aboutLanguage == AboutLanguage.thai) const SizedBox(height: 16),
       if (_aboutLanguage == AboutLanguage.english)
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Text(
-            'Hello everyone! My name is “Melon” and I’m arctic fox species, love coding and am passionate about furries and fursuits, Hope to meet everyone at the event soon See ya!',
-            style: TextStyle(
-                color: Colors.black.withOpacity(0.75),
-                fontSize: 17,
-                letterSpacing: 0.0,
-                height: 1.4,
-                fontFamily: 'Itim',
-                fontWeight: FontWeight.normal),
-          )
-        ).animate().fadeIn(delay: const Duration(milliseconds: 100)),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              'Hello everyone! My name is “Melon” and I’m arctic fox species, love coding and am passionate about furries and fursuits, Hope to meet everyone at the event soon See ya!',
+              style: TextStyle(
+                  color: Colors.black.withOpacity(0.75),
+                  fontSize: 17,
+                  letterSpacing: 0.0,
+                  height: 1.4,
+                  fontFamily: 'Itim',
+                  fontWeight: FontWeight.normal),
+            )).animate().fadeIn(delay: const Duration(milliseconds: 100)),
       if (_aboutLanguage == AboutLanguage.english) const SizedBox(height: 16),
       if (_aboutLanguage == AboutLanguage.japanese)
         Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: Text(
-            'こんばんは！はじめまして、僕は「メロン」と申します。北極ギツネです！僕の趣味はコーディングです！そして僕はファーリーとファースーツ憧れています。イベントで皆さんにお会いできるのを楽しみにしています！よろしくお願いいたします！',
-            style: TextStyle(
-                color: Colors.black.withOpacity(0.75),
-                fontSize: 14,
-                height: 1.5,
-                letterSpacing: 0.0,
-                fontFamily: 'KosugiMaru',
-                fontWeight: FontWeight.normal),
-          )
-        ).animate().fadeIn(delay: const Duration(milliseconds: 100)),
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              'こんばんは！はじめまして、僕は「メロン」と申します。北極ギツネです！僕の趣味はコーディングです！そして僕はファーリーとファースーツ憧れています。イベントで皆さんにお会いできるのを楽しみにしています！よろしくお願いいたします！',
+              style: TextStyle(
+                  color: Colors.black.withOpacity(0.75),
+                  fontSize: 14,
+                  height: 1.5,
+                  letterSpacing: 0.0,
+                  fontFamily: 'KosugiMaru',
+                  fontWeight: FontWeight.normal),
+            )).animate().fadeIn(delay: const Duration(milliseconds: 100)),
       if (_aboutLanguage == AboutLanguage.japanese) const SizedBox(height: 16),
-
     ];
   }
 
