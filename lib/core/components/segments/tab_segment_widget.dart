@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:melonkemo/core/extensions/widget_extension.dart';
 
 import 'base_segment_widget.dart';
 
@@ -113,7 +114,7 @@ class _TabSegmentWidgetState extends State<TabSegmentWidget> {
             )
           ],
         ),
-      ),
+      ).hover(x: -1),
     );
   }
 }
