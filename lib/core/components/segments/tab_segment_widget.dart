@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:melonkemo/core/components/bouncing/melon_bounce_widget.dart';
+import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
 
 import 'base_segment_widget.dart';
@@ -19,6 +21,7 @@ class TabSegmentWidget extends StatefulWidget {
       required this.items,
       bool isScrollable = false,
       this.color,
+        this.controller,
       this.onChanged,
       this.backgroundColor,
       this.borderRadius = 40,
@@ -29,6 +32,7 @@ class TabSegmentWidget extends StatefulWidget {
     this.isScrollable = items.length > 3 ? true : isScrollable;
   }
 
+  final TabController? controller;
   final List<SegmentItem> items;
   final Color? color;
   final Color? backgroundColor;
@@ -73,6 +77,7 @@ class _TabSegmentWidgetState extends State<TabSegmentWidget> {
       color: widget.backgroundColor ?? Colors.white.withOpacity(.28),
       height: widget.borderRadius + 2,
       child: TabBar(
+        controller: widget.controller,
         isScrollable: widget.isScrollable,
         unselectedLabelColor: (widget.color ?? Colors.black).withOpacity(0.6),
         indicatorSize: TabBarIndicatorSize.tab,
@@ -99,6 +104,27 @@ class _TabSegmentWidgetState extends State<TabSegmentWidget> {
 
   Widget _tabItem(BuildContext context, int index) {
     SegmentItem item = widget.items[index];
+    return MelonBouncingButton(callback: (){
+      widget.controller?.animateTo(index);
+      widget.onChanged?.call(index);
+      setState(() {
+        position = index;
+      });
+    },child: Container(
+        padding: const EdgeInsets.only(top: 2),
+        constraints: BoxConstraints(minWidth: widget.minWidth),
+        alignment: Alignment.center,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(
+              item.name,
+              style: TextStyle(fontSize: item.config?.fontSize ?? widget.itemFontSize, fontFamily: item.config?.fontFamily ?? "Itim"),
+            )
+          ],
+        ),
+      ),).hover(x: -1,z: 1.06);
     return Tab(
       child: Container(
         padding: const EdgeInsets.only(top: 2),
