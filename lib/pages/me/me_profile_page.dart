@@ -69,19 +69,21 @@ class _MeProfilePageState extends State<MeProfilePage> {
           height: marginTop,
         ),
         CardWidget(
-            width: cardWidth,
-            title: "บัญชีโซเชียล",
-            children: _accounts(context))
+          width: cardWidth,
+          title: "บัญชีโซเชียล",
+          children: _accounts(context),
+        ),
       ];
 
   List<Widget> _largeMenus(BuildContext context) => [
         _profileWidget(context, betweenBottom: 12),
         CardWidget(
-            width: cardWidth,
-            betweenBottom: 0,
-            title: "แนะนำตัว",
-            leadingTitle: _langSegment(context),
-            children: _about(context)),
+          width: cardWidth,
+          betweenBottom: 0,
+          title: "แนะนำตัว",
+          leadingTitle: _langSegment(context),
+          children: _about(context),
+        ),
       ];
 
   @override
@@ -179,37 +181,43 @@ class _MeProfilePageState extends State<MeProfilePage> {
       children: [
         SizedBox(
           width: 420,
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            padding:
-                const EdgeInsets.only(left: 16, right: 16, top: 40, bottom: 80),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: _largeMenus(context),
-            ).animate().fadeIn(delay: const Duration(milliseconds: 300)).move(
-                delay: const Duration(milliseconds: 300),
-                begin: const Offset(0, 100),
-                end: const Offset(0, 0)),
+          child: ScrollConfiguration(
+            behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding:
+                  const EdgeInsets.only(left: 16, right: 16, top: 40, bottom: 80),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.start,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: _largeMenus(context),
+              ).animate().fadeIn(delay: const Duration(milliseconds: 300)).move(
+                  delay: const Duration(milliseconds: 300),
+                  begin: const Offset(0, 100),
+                  end: const Offset(0, 0)),
+            ),
           ),
         ),
         SizedBox(
           width: 420,
-          child: SingleChildScrollView(
-            physics: const BouncingScrollPhysics(),
-            padding:
-                const EdgeInsets.only(left: 16, right: 16, top: 50, bottom: 80),
-            child: SizedBox(
-              width: context.layout.width,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: _smallMenus(context),
-              ),
-            ).animate().fadeIn(delay: const Duration(milliseconds: 300)).move(
-                delay: const Duration(milliseconds: 300),
-                begin: const Offset(0, 100),
-                end: const Offset(0, 0)),
+          child: ScrollConfiguration(
+            behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
+            child: SingleChildScrollView(
+              physics: const BouncingScrollPhysics(),
+              padding:
+                  const EdgeInsets.only(left: 16, right: 16, top: 50, bottom: 80),
+              child: SizedBox(
+                width: context.layout.width,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: _smallMenus(context),
+                ),
+              ).animate().fadeIn(delay: const Duration(milliseconds: 300)).move(
+                  delay: const Duration(milliseconds: 300),
+                  begin: const Offset(0, 100),
+                  end: const Offset(0, 0)),
+            ),
           ),
         )
       ],
