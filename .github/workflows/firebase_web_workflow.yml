@@ -23,8 +23,10 @@ jobs:
       - run: flutter --version
       - name: 'Run flutter pub get'
         run: flutter pub get
-      - name: Enable flutter web
+      - name: 'Enable flutter web'
         run: flutter config --enable-web
+      - name: 'Run flutter_launcher_icons'
+        run: flutter pub run flutter_launcher_icons
       - name: 'Build Web App'
         run: flutter build web --release
       - name: 'Deploy to Firebase Hosting'
