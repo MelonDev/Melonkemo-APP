@@ -21,7 +21,7 @@ class CardWidget extends BaseStatelessWidget {
   Widget build(BuildContext context) {
     return CupertinoCard(
       elevation: 0,
-      margin: const EdgeInsets.only(bottom: 14),
+      margin: const EdgeInsets.only(bottom: 16),
       //color: Colors.white.withOpacity(.28),
       color: Colors.white.withOpacity(.58),
       radius: BorderRadius.circular(40),
