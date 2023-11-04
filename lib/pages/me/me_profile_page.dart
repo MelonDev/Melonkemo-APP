@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:layout/layout.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
+import 'package:melonkemo/core/components/me/card_widget.dart';
 import 'package:melonkemo/core/components/segments/tab_segment_widget.dart';
 import 'package:melonkemo/core/extensions/bot_toast_extension.dart';
 import 'package:melonkemo/core/extensions/color_extension.dart';
@@ -71,10 +72,11 @@ class _MeProfilePageState extends State<MeProfilePage> {
 
   List<Widget> _menus(BuildContext context) => [
         _profileWidget(context, betweenBottom: 12),
-        _card(context,
+        CardWidget(
             betweenBottom: 0,
             title: "แนะนำตัว",
             leadingTitle: _langSegment(context),
+            width: cardWidth,
             children: _about(context)),
         const SizedBox(
           height: 6,
@@ -87,8 +89,11 @@ class _MeProfilePageState extends State<MeProfilePage> {
         // const SizedBox(
         //   height: 16,
         // ),
-
-        _card(context, title: "บัญชีโซเชียล", children: _accounts(context))
+        CardWidget(
+          title: "บัญชีโซเชียล",
+          children: _accounts(context),
+          width: cardWidth,
+        )
       ];
 
   List<Widget> _smallMenus(BuildContext context) => [
@@ -96,12 +101,16 @@ class _MeProfilePageState extends State<MeProfilePage> {
         const SizedBox(
           height: 16,
         ),
-        _card(context, title: "บัญชีโซเชียล", children: _accounts(context))
+        CardWidget(
+            width: cardWidth,
+            title: "บัญชีโซเชียล",
+            children: _accounts(context))
       ];
 
   List<Widget> _largeMenus(BuildContext context) => [
         _profileWidget(context, betweenBottom: 12),
-        _card(context,
+        CardWidget(
+            width: cardWidth,
             betweenBottom: 0,
             title: "แนะนำตัว",
             children: _about(context),
@@ -475,7 +484,6 @@ class _MeProfilePageState extends State<MeProfilePage> {
           Future.delayed(const Duration(milliseconds: 300)).then((value) {
             _launchUrl(link);
           });
-
         },
         child: Container(
           decoration: BoxDecoration(
@@ -509,70 +517,6 @@ class _MeProfilePageState extends State<MeProfilePage> {
             ],
           ),
         )).hover(x: -10.0, z: 1.05);
-  }
-
-  Widget _card(BuildContext context,
-      {String? title,
-      double betweenBottom = 0,
-      List<Widget>? children,
-      Widget? leadingTitle}) {
-    return CupertinoCard(
-      elevation: 0,
-      margin: const EdgeInsets.only(bottom: 14),
-      //color: Colors.white.withOpacity(.28),
-      color: Colors.white.withOpacity(.58),
-      radius: BorderRadius.circular(40),
-      child: Container(
-        decoration: BoxDecoration(
-            color: Colors.transparent,
-            //color: Colors.white.withOpacity(.28),
-            borderRadius: BorderRadius.circular(10)),
-        constraints: const BoxConstraints(minHeight: 50),
-        width: cardWidth.resolve(context),
-        padding:
-            EdgeInsets.only(top: 0, bottom: title != null ? betweenBottom : 4),
-        //margin: EdgeInsets.only(bottom: betweenBottom),
-        child: Column(
-          children: [
-            if (title != null)
-              Container(
-                decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(.15),
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(10),
-                      topRight: Radius.circular(10)),
-                ),
-                width: cardWidth.resolve(context),
-                alignment: Alignment.centerLeft,
-                padding: const EdgeInsets.only(
-                    left: 16, right: 16, top: 12, bottom: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      title,
-                      style: TextStyle(
-                          color: Colors.black.withOpacity(0.65),
-                          fontSize: 20,
-                          letterSpacing: 0.0,
-                          fontFamily: 'Itim',
-                          fontWeight: FontWeight.bold),
-                    ),
-                    leadingTitle ?? const SizedBox()
-                  ],
-                ),
-              ),
-            if (children != null) const SizedBox(height: 14),
-            for (Widget widget in children ?? [])
-              Padding(
-                padding: const EdgeInsets.only(left: 6.0, right: 6.0),
-                child: widget,
-              ),
-            if (children != null) const SizedBox(height: 6),
-          ],
-        ),
-      ),
-    );
   }
 
   List<Widget> _about(BuildContext context) {
