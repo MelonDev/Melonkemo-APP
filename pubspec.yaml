@@ -45,6 +45,7 @@ flutter:
   assets:
   - assets/rive/
   - assets/images/
+  - assets/icons/
 
   fonts:
     - family: KosugiMaru
