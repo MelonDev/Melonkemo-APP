@@ -1,22 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:layout/layout.dart';
+import 'package:melonkemo/core/components/base_stateless_widget.dart';
 import 'package:melonkemo/core/components/cupertino_card/cupertino_rounded_corners.dart';
 
-class CardWidget extends StatelessWidget {
+class CardWidget extends BaseStatelessWidget {
   const CardWidget(
-      {Key? key,
+      {super.key,
       this.title,
       this.betweenBottom = 0,
       this.children,
       this.leadingTitle,
-      required this.width})
-      : super(key: key);
+      required super.width});
 
   final String? title;
   final double betweenBottom;
   final List<Widget>? children;
   final Widget? leadingTitle;
-  final LayoutValue<double> width;
 
   @override
   Widget build(BuildContext context) {
