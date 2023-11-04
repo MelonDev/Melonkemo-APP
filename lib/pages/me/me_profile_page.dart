@@ -1,32 +1,25 @@
-import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:layout/layout.dart';
-import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
+import 'package:melonkemo/core/components/me/card_list_widget.dart';
 import 'package:melonkemo/core/components/me/card_widget.dart';
+import 'package:melonkemo/core/components/me/melon_scaffold_widget.dart';
 import 'package:melonkemo/core/components/segments/tab_segment_widget.dart';
-import 'package:melonkemo/core/extensions/bot_toast_extension.dart';
-import 'package:melonkemo/core/extensions/color_extension.dart';
-import 'package:melonkemo/core/extensions/widget_extension.dart';
-
 import 'package:melonkemo/core/components/cupertino_card/cupertino_rounded_corners.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:simple_icons/simple_icons.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MeProfilePage extends StatefulWidget {
-  const MeProfilePage({Key? key}) : super(key: key);
+  const MeProfilePage({super.key});
 
   @override
-  _MeProfilePageState createState() => _MeProfilePageState();
+  State<MeProfilePage> createState() => _MeProfilePageState();
 }
 
 class _MeProfilePageState extends State<MeProfilePage> {
   PageController controller = PageController();
-
   AboutLanguage _aboutLanguage = AboutLanguage.thai;
 
   @override
@@ -34,14 +27,8 @@ class _MeProfilePageState extends State<MeProfilePage> {
     super.initState();
   }
 
-  //final Color topColor =  const Color(0xFFD3CCE3);
-  //final Color bottomColor =  const Color(0xFFE9E4F0);
   final Color topColor = const Color(0xFF2BC0E4);
   final Color bottomColor = const Color(0xFFEAECC6);
-
-  //final Color bottomColor = const Color(0xFF45B649);
-
-  //final Color? buttonTextColor = Colors.white;
   final Color? buttonTextColor = null;
 
   final LayoutValue<double> cardWidth = LayoutValue.builder((layout) {
@@ -52,54 +39,34 @@ class _MeProfilePageState extends State<MeProfilePage> {
     return layout.width;
   });
 
-  List<SegmentItem> _tabItems(BuildContext context) =>
-      [SegmentItem("บัญชี"), SegmentItem("คลังภาพ")];
-
   List<Widget> _accounts(BuildContext context) {
     return [
-      _linkCard("Twitter", "https://twitter.com/melonkemo",
-          icon: SimpleIcons.twitter),
-      _linkCard("Facebook", "https://www.facebook.com/melonkemo",
-          icon: SimpleIcons.facebook),
-      _linkCard("Telegram", "https://t.me/melonkemo",
-          icon: SimpleIcons.telegram),
-      _linkCard("Mastadon", "https://kemonodon.club/@melonkemo",
-          icon: SimpleIcons.mastodon),
-      _linkCard("Bluesky", "https://bsky.app/profile/melonkemo.bsky.social",
-          icon: SimpleIcons.icloud),
+      CardListWidget("Twitter", "https://twitter.com/melonkemo",
+          icon: SimpleIcons.twitter, width: cardWidth),
+      CardListWidget("Facebook", "https://www.facebook.com/melonkemo",
+          icon: SimpleIcons.facebook, width: cardWidth),
+      CardListWidget("Telegram", "https://t.me/melonkemo",
+          icon: SimpleIcons.telegram, width: cardWidth),
+      CardListWidget("Mastadon", "https://kemonodon.club/@melonkemo",
+          icon: SimpleIcons.mastodon, width: cardWidth),
+      CardListWidget(
+          "Bluesky", "https://bsky.app/profile/melonkemo.bsky.social",
+          icon: SimpleIcons.icloud, width: cardWidth),
     ];
   }
 
   List<Widget> _menus(BuildContext context) => [
-        _profileWidget(context, betweenBottom: 12),
-        CardWidget(
-            betweenBottom: 0,
-            title: "แนะนำตัว",
-            leadingTitle: _langSegment(context),
-            width: cardWidth,
-            children: _about(context)),
+        ..._largeMenus(context),
         const SizedBox(
           height: 6,
         ),
         _divider(context),
-        const SizedBox(
-          height: 26,
-        ),
-        //_segment(context),
-        // const SizedBox(
-        //   height: 16,
-        // ),
-        CardWidget(
-          title: "บัญชีโซเชียล",
-          children: _accounts(context),
-          width: cardWidth,
-        )
+        ..._smallMenus(context, marginTop: 26),
       ];
 
-  List<Widget> _smallMenus(BuildContext context) => [
-        //_segment(context),
-        const SizedBox(
-          height: 16,
+  List<Widget> _smallMenus(BuildContext context, {double marginTop = 16}) => [
+        SizedBox(
+          height: marginTop,
         ),
         CardWidget(
             width: cardWidth,
@@ -113,155 +80,42 @@ class _MeProfilePageState extends State<MeProfilePage> {
             width: cardWidth,
             betweenBottom: 0,
             title: "แนะนำตัว",
-            children: _about(context),
-            leadingTitle: _langSegment(context)),
+            leadingTitle: _langSegment(context),
+            children: _about(context)),
       ];
-
-  Future<void> _launchUrl(String url) async {
-    Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(
-        uri,
-        mode: LaunchMode.platformDefault,
-        webOnlyWindowName: '_blank',
-      );
-    } else {
-      BotToast().component.error('Could not launch $url');
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
-
-    return Title(
-        color: Colors.white,
-        title: "メロンけも",
-        child: Stack(
-          children: [
-            _background(context),
-            _imageCredit(context),
-            Container(
-                decoration: BoxDecoration(
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Colors.black.withOpacity(0.60),
-                      Colors.black.withOpacity(0.1),
-                      Colors.black.withOpacity(0.0),
-                    ],
-                  ),
-                  // gradient: LinearGradient(
-                  //   begin: Alignment.topCenter,
-                  //   end: Alignment.bottomCenter,
-                  //   colors: [
-                  //     topColor,
-                  //     bottomColor,
-                  //   ],
-                  // ),
-                  //color: Colors.black,
-                ),
-                child: AnnotatedRegion<SystemUiOverlayStyle>(
-                  value: const SystemUiOverlayStyle(
-                    statusBarColor: Colors.white,
-                    systemNavigationBarColor: Colors.transparent,
-                    statusBarIconBrightness: Brightness.dark,
-                    systemNavigationBarIconBrightness: Brightness.dark,
-                  ),
-                  child: Scaffold(
-                    appBar: PreferredSize(
-                        preferredSize: const Size.fromHeight(46.0),
-                        child: Stack(
-                          alignment: Alignment.bottomCenter,
-                          children: [
-                            Container(
-                              width: context.layout.width,
-                              decoration: BoxDecoration(boxShadow: [
-                                BoxShadow(
-                                    //spreadRadius: 3,
-                                    spreadRadius: 0.0,
-                                    color:
-                                        topColor.darken(.24).withOpacity(0.5),
-                                    offset: const Offset(0, 0.0),
-                                    //blurRadius: 8.0,
-                                    blurRadius: 0.0)
-                              ]),
-                            ),
-                            Container(
-                              decoration: const BoxDecoration(
-                                  //color:Color(0xFFf1edf5)
-                                  color: Colors.white
-                                  //color: Colors.black
-                                  ),
-                              alignment: Alignment.centerLeft,
-                              padding:
-                                  const EdgeInsets.only(left: 14, right: 12),
-                              height: 46,
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Text(
-                                    "メロンけも",
-                                    style: TextStyle(
-                                        //color: topColor.lighten(.24),
-                                        color: Colors.black.withOpacity(0.8),
-                                        fontSize: 22,
-                                        letterSpacing: 0.0,
-                                        fontWeight: FontWeight.bold,
-                                        //fontFamily: 'KosugiMaru',
-                                        //fontFamily: 'MochiyPopOne',
-                                        fontFamily: 'MPlus'),
-                                  ).hover(x: -2),
-                                  MelonBouncingButton.text(
-                                      enabledHover: true,
-                                      text: "ลงชื่อเข้าใช้",
-                                      fontFamily: "Itim",
-                                      textColor: Colors.white,
-                                      // textColor:
-                                      //     buttonTextColor ?? bottomColor.darken(.74),
-                                      fontSize: 16,
-                                      height: 34,
-                                      x: -2,
-                                      borderRadius: 20,
-                                      padding: const EdgeInsets.symmetric(
-                                          horizontal: 16.0),
-                                      //color: bottomColor.withOpacity(0.47)
-                                      //color: bottomColor
-                                      color: Colors.black.withOpacity(0.8))
-                                ],
-                              ),
-                            ),
-                          ],
-                        )),
-                    backgroundColor: Colors.transparent,
-                    // body: DefaultTabController(
-                    //   length: _tabItems(context).length,
-                    //   child: realCardWidth.resolve(context) < 880
-                    //       ? _smallLayout(context)
-                    //       : _largeLayout(context),
-                    // ),
-                    body: realCardWidth.resolve(context) < 880
-                        ? _smallLayout(context)
-                        : _largeLayout(context),
-                  ),
-                )),
-          ],
-        ));
+    return MelonScaffoldWidget(
+      body: realCardWidth.resolve(context) < 880
+          ? _smallLayout(context)
+          : _largeLayout(context),
+      children: [_background(context), _imageCredit(context)],
+      overlayBody: (Widget body) => Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                Colors.black.withOpacity(0.60),
+                Colors.black.withOpacity(0.1),
+                Colors.black.withOpacity(0.0),
+              ],
+            ),
+          ),
+          child: body),
+    );
   }
 
   Widget _background(BuildContext context) {
-    //String image = "assets/images/orange_brick_background.webp";
     String image = "assets/images/bangkok_background_image_medium.webp";
-
     return Container(
       color: const Color(0xFF46a1c5),
       width: double.infinity,
       height: double.infinity,
       child: Image.asset(image, fit: BoxFit.cover),
     );
-    return Container();
   }
 
   Widget _imageCredit(BuildContext context) {
@@ -279,24 +133,6 @@ class _MeProfilePageState extends State<MeProfilePage> {
                 fontSize: 14),
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _pageView(BuildContext context, List<Widget> children) {
-    return Container(
-      width: cardWidth.resolve(context),
-      height: 100,
-      child: PageView(
-        controller: controller,
-        children: [
-          Container(
-            color: Colors.red,
-          ),
-          Container(
-            color: Colors.blue,
-          )
-        ],
       ),
     );
   }
@@ -328,9 +164,6 @@ class _MeProfilePageState extends State<MeProfilePage> {
             onChanged: (int index) {
               _aboutLanguage = langItems[index].value;
               setState(() {});
-              // controller.animateToPage(index,
-              //     duration: const Duration(milliseconds: 200),
-              //     curve: Curves.linear);
             },
           ),
         );
@@ -475,48 +308,6 @@ class _MeProfilePageState extends State<MeProfilePage> {
         ],
       ),
     );
-  }
-
-  Widget _linkCard(String serviceName, String link,
-      {Color? serviceTextColor, double betweenBottom = 10, IconData? icon}) {
-    return MelonBouncingButton(
-        callback: () {
-          Future.delayed(const Duration(milliseconds: 300)).then((value) {
-            _launchUrl(link);
-          });
-        },
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.white.withOpacity(.35),
-            borderRadius: BorderRadius.circular(12),
-          ),
-          width: cardWidth.resolve(context),
-          constraints: const BoxConstraints(minHeight: 40),
-          margin: EdgeInsets.only(left: 10, right: 10, bottom: betweenBottom),
-          padding:
-              const EdgeInsets.only(left: 22, right: 22, bottom: 18, top: 18),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                serviceName,
-                style: TextStyle(
-                    color: (serviceTextColor ?? Colors.black).withOpacity(0.70),
-                    fontSize: 17,
-                    letterSpacing: 0.0,
-                    fontFamily: 'VarelaRound',
-                    fontWeight: FontWeight.bold),
-              ),
-              if (icon != null)
-                Icon(
-                  icon,
-                  size: 24,
-                  color: (serviceTextColor ?? Colors.black).withOpacity(0.70),
-                ),
-            ],
-          ),
-        )).hover(x: -10.0, z: 1.05);
   }
 
   List<Widget> _about(BuildContext context) {
