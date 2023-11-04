@@ -166,7 +166,7 @@ class CupertinoCard extends StatelessWidget {
         child: ClipPath.shape(
           shape: shapeborder,
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+            filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
             child: Material(
               color: color,
               child: Ink(

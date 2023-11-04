@@ -244,9 +244,10 @@ class _MeProfilePageState extends State<MeProfilePage> {
 
   Widget _background(BuildContext context) {
     //String image = "assets/images/orange_brick_background.webp";
-    String image = "assets/images/bangkok_background_image.webp";
+    String image = "assets/images/bangkok_background_image_medium.webp";
 
     return Container(
+      color: const Color(0xFF46a1c5),
       width: double.infinity,
       height: double.infinity,
       child: Image.asset(image, fit: BoxFit.cover),
@@ -263,7 +264,10 @@ class _MeProfilePageState extends State<MeProfilePage> {
           padding: const EdgeInsets.all(8.0),
           child: Text(
             "Picture from Alejandro Cartagena on Unsplash.com",
-            style: TextStyle(fontFamily: "Itim",color: Colors.white.withOpacity(0.75),fontSize: 14),
+            style: TextStyle(
+                fontFamily: "Itim",
+                color: Colors.white.withOpacity(0.75),
+                fontSize: 14),
           ),
         ),
       ),
@@ -288,20 +292,6 @@ class _MeProfilePageState extends State<MeProfilePage> {
     );
   }
 
-  Widget _segment(BuildContext context) {
-    return Container(
-      width: cardWidth.resolve(context),
-      child: TabSegmentWidget(
-        items: _tabItems(context),
-        onChanged: (int index) {
-          // controller.animateToPage(index,
-          //     duration: const Duration(milliseconds: 200),
-          //     curve: Curves.linear);
-        },
-      ),
-    );
-  }
-
   Widget _langSegment(BuildContext context) {
     List<SegmentItem> langItems = [
       SegmentItem<AboutLanguage>("ไทย", value: AboutLanguage.thai),
@@ -312,25 +302,30 @@ class _MeProfilePageState extends State<MeProfilePage> {
     ];
     return DefaultTabController(
       length: langItems.length,
-      child: SizedBox(
-        height: 30,
-        width: 200,
-        child: TabSegmentWidget(
-          height: 20,
-          isScrollable: true,
-          backgroundColor: Colors.black.withOpacity(0.05),
-          itemFontSize: 14,
-          minWidth: 20,
-          items: langItems,
-          onChanged: (int index) {
-            _aboutLanguage = langItems[index].value;
-            setState(() {});
-            // controller.animateToPage(index,
-            //     duration: const Duration(milliseconds: 200),
-            //     curve: Curves.linear);
-          },
-        ),
-      ),
+      child: Builder(builder: (BuildContext context) {
+        final TabController tabController = DefaultTabController.of(context);
+
+        return SizedBox(
+          height: 30,
+          width: 200,
+          child: TabSegmentWidget(
+            height: 20,
+            controller: tabController,
+            isScrollable: true,
+            backgroundColor: Colors.black.withOpacity(0.05),
+            itemFontSize: 14,
+            minWidth: 20,
+            items: langItems,
+            onChanged: (int index) {
+              _aboutLanguage = langItems[index].value;
+              setState(() {});
+              // controller.animateToPage(index,
+              //     duration: const Duration(milliseconds: 200),
+              //     curve: Curves.linear);
+            },
+          ),
+        );
+      }),
     );
   }
 
@@ -475,47 +470,45 @@ class _MeProfilePageState extends State<MeProfilePage> {
 
   Widget _linkCard(String serviceName, String link,
       {Color? serviceTextColor, double betweenBottom = 10, IconData? icon}) {
-    return InkWell(
-      splashColor: Colors.transparent,
-      focusColor: Colors.transparent,
-      highlightColor: Colors.transparent,
-      hoverColor: Colors.transparent,
-      onTap: () {
-        _launchUrl(link);
-      },
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white.withOpacity(.35),
-          borderRadius: BorderRadius.circular(12),
-        ),
-        width: cardWidth.resolve(context),
-        constraints: const BoxConstraints(minHeight: 40),
-        margin: EdgeInsets.only(left: 10, right: 10, bottom: betweenBottom),
-        padding:
-            const EdgeInsets.only(left: 22, right: 22, bottom: 18, top: 18),
-        child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              serviceName,
-              style: TextStyle(
-                  color: (serviceTextColor ?? Colors.black).withOpacity(0.70),
-                  fontSize: 17,
-                  letterSpacing: 0.0,
-                  fontFamily: 'VarelaRound',
-                  fontWeight: FontWeight.bold),
-            ),
-            if (icon != null)
-              Icon(
-                icon,
-                size: 24,
-                color: (serviceTextColor ?? Colors.black).withOpacity(0.70),
+    return MelonBouncingButton(
+        callback: () {
+          Future.delayed(const Duration(milliseconds: 300)).then((value) {
+            _launchUrl(link);
+          });
+
+        },
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white.withOpacity(.35),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          width: cardWidth.resolve(context),
+          constraints: const BoxConstraints(minHeight: 40),
+          margin: EdgeInsets.only(left: 10, right: 10, bottom: betweenBottom),
+          padding:
+              const EdgeInsets.only(left: 22, right: 22, bottom: 18, top: 18),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                serviceName,
+                style: TextStyle(
+                    color: (serviceTextColor ?? Colors.black).withOpacity(0.70),
+                    fontSize: 17,
+                    letterSpacing: 0.0,
+                    fontFamily: 'VarelaRound',
+                    fontWeight: FontWeight.bold),
               ),
-          ],
-        ),
-      ).hover(x: -4.0, z: 1.02),
-    );
+              if (icon != null)
+                Icon(
+                  icon,
+                  size: 24,
+                  color: (serviceTextColor ?? Colors.black).withOpacity(0.70),
+                ),
+            ],
+          ),
+        )).hover(x: -10.0, z: 1.05);
   }
 
   Widget _card(BuildContext context,
