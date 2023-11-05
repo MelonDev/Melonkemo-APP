@@ -33,10 +33,10 @@ class CoreApp extends StatelessWidget {
         path: '/',
         builder: (context, state) => const MeProfilePage(),
       ),
-      // GoRoute(
-      //   path: '/',
-      //   builder: (context, state) => const UnderConstructionPage(),
-      // ),
+      GoRoute(
+        path: '/duplicate-cat',
+        builder: (context, state) => const UnderConstructionPage(),
+      ),
       GoRoute(
         path: '/legacy-dev',
         builder: (context, state) => const HomePage(),
