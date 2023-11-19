@@ -7,7 +7,7 @@ import 'package:melonkemo/pages/home/home_page.dart';
 import 'package:melonkemo/pages/login/login_page.dart';
 import 'package:melonkemo/pages/me/me_page.dart';
 import 'package:melonkemo/pages/me/me_profile_page.dart';
-import 'package:melonkemo/pages/me/redirect_me_page.dart';
+import 'package:melonkemo/pages/core/shared_page.dart';
 import 'package:melonkemo/pages/router/login_router.dart';
 import 'package:melonkemo/under_construction_page.dart';
 import 'package:flutter_web_plugins/url_strategy.dart';
@@ -25,51 +25,60 @@ void main() {
 
 class CoreApp extends StatelessWidget {
 
-  CoreApp({super.key});
+  late final GoRouter _router;
 
-  final _router = GoRouter(
-    routes: [
-      GoRoute(
-        path: '/',
-        builder: (context, state) => const MeProfilePage(),
-      ),
-      GoRoute(
-        path: '/duplicate-cat',
-        builder: (context, state) => const UnderConstructionPage(),
-      ),
-      GoRoute(
-        path: '/legacy-dev',
-        builder: (context, state) => const HomePage(),
-      ),
-      GoRoute(
-        path: '/me',
-        redirect: (BuildContext context,GoRouterState state) => "/",
-        builder: (context, state) => Container(),
+  CoreApp({super.key}){
+    _router = GoRouter(
+        routes: routes
+    );
+  }
 
-        //builder: (context, state) => const RedirectMePage(),
-      ),
-      GoRoute(
-        path: '/me-dev',
-        builder: (context, state) => const MePage(),
-      ),
-      // GoRoute(
-      //   path: '/legacy-me',
-      //   builder: (context, state) => const MeProfilePage(),
-      // ),
-      // GoRoute(
-      //   path: '/dev',
-      //   builder: (context, state) => const MeProfilePage(),
-      // ),
-      GoRoute(
-        path: '/login',
-        builder: (context, state) => const LoginPage(),
-      ),
-      GoRoute(
-        path: '/new_login',
-        builder: (context, state) => const LoginRouter(),
-      ),
-    ],
-  );
+  List<RouteBase> get routes => [
+    GoRoute(
+      path: '/',
+      builder: (context, state) => const MeProfilePage(),
+    ),
+    GoRoute(
+      path: '/duplicate-cat',
+      builder: (context, state) => const UnderConstructionPage(),
+    ),
+    GoRoute(
+      path: '/legacy-dev',
+      builder: (context, state) => const HomePage(),
+    ),
+    GoRoute(
+      path: '/me',
+      redirect: (BuildContext context,GoRouterState state) => "/",
+      builder: (context, state) => Container(),
+
+      //builder: (context, state) => const RedirectMePage(),
+    ),
+    GoRoute(
+      path: '/me-dev',
+      builder: (context, state) => const MePage(),
+    ),
+    // GoRoute(
+    //   path: '/legacy-me',
+    //   builder: (context, state) => const MeProfilePage(),
+    // ),
+    // GoRoute(
+    //   path: '/dev',
+    //   builder: (context, state) => const MeProfilePage(),
+    // ),
+    GoRoute(
+      path: '/login',
+      builder: (context, state) => const LoginPage(),
+    ),
+    GoRoute(
+      path: '/new_login',
+      builder: (context, state) => const LoginRouter(),
+    ),
+    ...sharedRoutes
+  ];
+
+  List<RouteBase> get sharedRoutes => [
+    SharedPage.route(path: "bangkok-beasts-2023", url: "https://1drv.ms/f/s!AgXh7wuvRh0Xi801NXxza4n0OoPoog?e=9M320r")
+  ];
 
   @override
   Widget build(BuildContext context) {
