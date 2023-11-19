@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
 
+  dartx: ^1.2.0
   flutter_animate: ^4.2.0+1
   cupertino_icons: ^1.0.6
   rive: ^0.11.17
@@ -32,6 +33,7 @@ dependencies:
   demoji: ^2.0.0
   simple_icons: ^7.10.0
   scrollable_positioned_list: ^0.3.8
+  wolt_modal_sheet: ^0.1.4
 
 dev_dependencies:
   flutter_test:

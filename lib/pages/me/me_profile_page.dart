@@ -33,9 +33,6 @@ class _MeProfilePageState extends State<MeProfilePage> {
     return layout.width;
   });
 
-  test(){
-  }
-
   List<Widget> _accounts(BuildContext context) {
     return [
       CardListWidget("Twitter", "https://twitter.com/melonkemo",
