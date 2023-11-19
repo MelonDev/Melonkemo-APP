@@ -156,7 +156,6 @@ class _MeProfilePageState extends State<MeProfilePage> {
             isScrollable: true,
             backgroundColor: Colors.black.withOpacity(0.05),
             itemFontSize: 14,
-            color: Colors.red,
             minWidth: 20,
             items: langItems,
             onChanged: (int index) {
