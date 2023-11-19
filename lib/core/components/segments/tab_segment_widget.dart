@@ -86,7 +86,7 @@ class _TabSegmentWidgetState extends State<TabSegmentWidget> {
         //indicatorSize: TabBarIndicatorSize.label,
         indicator: BoxDecoration(
             borderRadius: BorderRadius.circular(widget.borderRadius),
-            color: widget.color ?? (widget.color ?? Colors.black)),
+            color: widget.color ?? Colors.black),
         onTap: (int index) {
           widget.onChanged?.call(index);
           setState(() {
