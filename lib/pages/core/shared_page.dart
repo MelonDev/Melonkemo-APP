@@ -3,18 +3,15 @@ import 'package:flutter/material.dart';
 import 'dart:js' as js;
 
 import 'package:go_router/go_router.dart';
+import 'package:melonkemo/core/core/core_route.dart';
 
 class SharedPage extends StatelessWidget {
-  SharedPage({super.key,required this.url}){
+  SharedPage({super.key, required this.url}) {
     openInWindow();
   }
 
-  static GoRoute route({required String path,required String url}){
-    return GoRoute(
-      path: '/shared/$path',
-      builder: (context, state) => SharedPage(url: url,),
-    );
-  }
+  static RouteBase route({required String path, required String url}) =>
+      CoreRoute.url('/shared/$path', url);
 
   final String url;
 
