@@ -22,11 +22,6 @@ class _MeProfilePageState extends State<MeProfilePage> {
   PageController controller = PageController();
   AboutLanguage _aboutLanguage = AboutLanguage.thai;
 
-  @override
-  void initState() {
-    super.initState();
-  }
-
   final Color topColor = const Color(0xFF2BC0E4);
   final Color bottomColor = const Color(0xFFEAECC6);
   final Color? buttonTextColor = null;
