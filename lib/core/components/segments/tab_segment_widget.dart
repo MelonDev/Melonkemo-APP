@@ -80,6 +80,8 @@ class _TabSegmentWidgetState extends State<TabSegmentWidget> {
         controller: widget.controller,
         isScrollable: widget.isScrollable,
         unselectedLabelColor: (widget.color ?? Colors.black).withOpacity(0.6),
+        labelColor: Colors.white,
+        tabAlignment: widget.isScrollable ? TabAlignment.start : TabAlignment.fill,
         indicatorSize: TabBarIndicatorSize.tab,
         overlayColor: MaterialStateProperty.all(Colors.transparent),
         physics: const BouncingScrollPhysics(),
