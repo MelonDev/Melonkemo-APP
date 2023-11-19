@@ -1,5 +1,7 @@
 import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 import 'package:melonkemo/core/components/bouncing/on_hover.dart';
+import 'package:melonkemo/core/core/core_route.dart';
 
 extension WidgetExtension on Widget {
   Widget hover({
@@ -17,4 +19,6 @@ extension WidgetExtension on Widget {
           return this;
         });
   }
+
+  RouteBase route(String path) => CoreRoute.page(path, this);
 }

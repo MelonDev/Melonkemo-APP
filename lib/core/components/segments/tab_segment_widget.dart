@@ -5,30 +5,19 @@ import 'package:melonkemo/core/extensions/widget_extension.dart';
 
 import 'base_segment_widget.dart';
 
-// class TabSegmentWidget extends BaseSegmentWidget {
-//   TabSegmentWidget({super.key});
-//
-//   @override
-//   List<SegmentItem> get items => [];
-//
-//
-//
-// }
-
 class TabSegmentWidget extends StatefulWidget {
   TabSegmentWidget(
-      {Key? key,
+      {super.key,
       required this.items,
       bool isScrollable = false,
       this.color,
-        this.controller,
+      this.controller,
       this.onChanged,
       this.backgroundColor,
       this.borderRadius = 40,
-        this.itemFontSize = 18,
-        this.minWidth = 100,
-      this.height = 30})
-      : super(key: key) {
+      this.itemFontSize = 18,
+      this.minWidth = 100,
+      this.height = 30}) {
     this.isScrollable = items.length > 3 ? true : isScrollable;
   }
 
@@ -59,10 +48,6 @@ class _TabSegmentWidgetState extends State<TabSegmentWidget> {
       child: Container(
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(widget.borderRadius),
-          // border: Border.all(
-          //   color: Colors.black.withOpacity(0.05),
-          //   width: 2,
-          // ),
         ),
         child: ClipRRect(
           borderRadius: BorderRadius.circular(widget.borderRadius),
@@ -81,7 +66,8 @@ class _TabSegmentWidgetState extends State<TabSegmentWidget> {
         isScrollable: widget.isScrollable,
         unselectedLabelColor: (widget.color ?? Colors.black).withOpacity(0.6),
         labelColor: Colors.white,
-        tabAlignment: widget.isScrollable ? TabAlignment.start : TabAlignment.fill,
+        tabAlignment:
+            widget.isScrollable ? TabAlignment.start : TabAlignment.fill,
         indicatorSize: TabBarIndicatorSize.tab,
         overlayColor: MaterialStateProperty.all(Colors.transparent),
         physics: const BouncingScrollPhysics(),
@@ -106,28 +92,14 @@ class _TabSegmentWidgetState extends State<TabSegmentWidget> {
 
   Widget _tabItem(BuildContext context, int index) {
     SegmentItem item = widget.items[index];
-    return MelonBouncingButton(callback: (){
-      widget.controller?.animateTo(index);
-      widget.onChanged?.call(index);
-      setState(() {
-        position = index;
-      });
-    },child: Container(
-        padding: const EdgeInsets.only(top: 2),
-        constraints: BoxConstraints(minWidth: widget.minWidth),
-        alignment: Alignment.center,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              item.name,
-              style: TextStyle(fontSize: item.config?.fontSize ?? widget.itemFontSize, fontFamily: item.config?.fontFamily ?? "Itim"),
-            )
-          ],
-        ),
-      ),).hover(x: -1,z: 1.06);
-    return Tab(
+    return MelonBouncingButton(
+      callback: () {
+        widget.controller?.animateTo(index);
+        widget.onChanged?.call(index);
+        setState(() {
+          position = index;
+        });
+      },
       child: Container(
         padding: const EdgeInsets.only(top: 2),
         constraints: BoxConstraints(minWidth: widget.minWidth),
@@ -138,21 +110,23 @@ class _TabSegmentWidgetState extends State<TabSegmentWidget> {
           children: [
             Text(
               item.name,
-              style: TextStyle(fontSize: item.config?.fontSize ?? widget.itemFontSize, fontFamily: item.config?.fontFamily ?? "Itim"),
+              style: TextStyle(
+                  fontSize: item.config?.fontSize ?? widget.itemFontSize,
+                  fontFamily: item.config?.fontFamily ?? "Itim"),
             )
           ],
         ),
-      ).hover(x: -1),
-    );
+      ),
+    ).hover(x: -1, z: 1.06);
   }
 }
 
-class SegmentItem<T>{
+class SegmentItem<T> {
   final String name;
   final SegmentConfigItem? config;
   final T? value;
 
-  SegmentItem(this.name,{this.config,this.value});
+  SegmentItem(this.name, {this.config, this.value});
 }
 
 class SegmentConfigItem {
