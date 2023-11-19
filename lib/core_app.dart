@@ -17,24 +17,24 @@ class CoreApp extends BaseRouterWidget {
 
   @override
   List<RouteBase> get pageRoutes => [
-    const MeProfilePage().route("/"),
-    const UnderConstructionPage().route("/duplicate"),
-    const HomePage().route("/legacy-dev"),
-    const MePage().route("/me-dev"),
-    const LoginPage().route("/login"),
-    const LoginRouter().route("/new_login"),
+    const MeProfilePage().route('/'),
+    const UnderConstructionPage().route('/duplicate'),
+    const HomePage().route('/legacy-dev'),
+    const MePage().route('/me-dev'),
+    const LoginPage().route('/login'),
+    const LoginRouter().route('/new_login'),
   ];
 
   @override
   List<RouteBase> get redirectRoutes => [
-    CoreRoute.redirect("/me", to: "/"),
+    CoreRoute.redirect('/me', to: '/'),
   ];
 
   @override
   List<RouteBase> get sharedRoutes => [
     SharedPage.route(
-        path: "bangkok-beasts-2023",
-        url: "https://1drv.ms/f/s!AgXh7wuvRh0Xi801NXxza4n0OoPoog?e=9M320r")
+        path: 'bangkok-beasts-2023',
+        url: 'https://1drv.ms/f/s!AgXh7wuvRh0Xi801NXxza4n0OoPoog?e=9M320r')
   ];
 
   @override

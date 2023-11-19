@@ -33,6 +33,9 @@ class _MeProfilePageState extends State<MeProfilePage> {
     return layout.width;
   });
 
+  test(){
+  }
+
   List<Widget> _accounts(BuildContext context) {
     return [
       CardListWidget("Twitter", "https://twitter.com/melonkemo",
@@ -134,7 +137,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
   }
 
   Widget _langSegment(BuildContext context) {
-    List<SegmentItem> langItems = [
+    List<SegmentItem<AboutLanguage>> langItems = [
       SegmentItem<AboutLanguage>("ไทย", value: AboutLanguage.thai),
       SegmentItem<AboutLanguage>("English", value: AboutLanguage.english),
       SegmentItem<AboutLanguage>("日本語",
@@ -158,7 +161,9 @@ class _MeProfilePageState extends State<MeProfilePage> {
             minWidth: 20,
             items: langItems,
             onChanged: (int index) {
-              _aboutLanguage = langItems[index].value;
+              if(langItems[index].value != null){
+                _aboutLanguage = langItems[index].value!;
+              }
               setState(() {});
             },
           ),
@@ -223,7 +228,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
       physics: const BouncingScrollPhysics(),
       padding: const EdgeInsets.only(
           left: 16, right: 16, top: kIsWeb ? 40 : 20, bottom: 80),
-      child: Container(
+      child: SizedBox(
         width: context.layout.width,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
