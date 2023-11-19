@@ -10,14 +10,11 @@ class UnderConstructionPage extends StatefulWidget {
 }
 
 class _UnderConstructionPageState extends State<UnderConstructionPage> {
-  // Controller for playback
   late RiveAnimationController _controller;
 
-  // Toggles between play and pause animation states
   void _togglePlay() =>
       setState(() => _controller.isActive = !_controller.isActive);
 
-  /// Tracks if the animation is playing by whether controller is running
   bool get isPlaying => _controller.isActive;
 
   @override
