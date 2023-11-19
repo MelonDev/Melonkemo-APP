@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:rive/rive.dart';
 
 class UnderConstructionPage extends StatefulWidget {
-  const UnderConstructionPage({Key? key}) : super(key: key);
+  const UnderConstructionPage({Key? key,this.enabledAppbar = true}) : super(key: key);
+
+  final bool enabledAppbar;
 
   @override
   _UnderConstructionPageState createState() => _UnderConstructionPageState();
@@ -27,7 +29,7 @@ class _UnderConstructionPageState extends State<UnderConstructionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      appBar: AppBar(
+      appBar: widget.enabledAppbar ? AppBar(
         toolbarHeight: 72,
         title: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -62,7 +64,7 @@ class _UnderConstructionPageState extends State<UnderConstructionPage> {
         centerTitle: false,
         backgroundColor: Colors.black,
         elevation: 0,
-      ),
+      ) : null,
       backgroundColor: const Color(0xFFFFB920),
       body: Column(
         children:  [
