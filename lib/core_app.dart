@@ -34,7 +34,10 @@ class CoreApp extends BaseRouterWidget {
   List<RouteBase> get sharedRoutes => [
     SharedPage.route(
         path: 'bangkok-beasts-2023',
-        url: 'https://1drv.ms/f/s!AgXh7wuvRh0Xi801NXxza4n0OoPoog?e=9M320r')
+        url: 'https://1drv.ms/f/s!AgXh7wuvRh0Xi801NXxza4n0OoPoog?e=9M320r'),
+    SharedPage.route(
+        path: 'christmas-16122023',
+        url: 'https://1drv.ms/f/s!AgXh7wuvRh0Xi814Ft8Dd_8swMTJkw?e=DfbLMH')
   ];
 
   @override
