@@ -36,7 +36,7 @@ class CoreApp extends BaseRouterWidget {
         path: 'bangkok-beasts-2023',
         url: 'https://1drv.ms/f/s!AgXh7wuvRh0Xi801NXxza4n0OoPoog?e=9M320r'),
     SharedPage.route(
-        path: 'christmas-16122023',
+        path: 'christmas-events-first-week',
         url: 'https://1drv.ms/f/s!AgXh7wuvRh0Xi814Ft8Dd_8swMTJkw?e=ATHB2R')
   ];
 
