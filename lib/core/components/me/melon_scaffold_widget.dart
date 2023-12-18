@@ -4,7 +4,6 @@ import 'package:layout/layout.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
 import 'package:melonkemo/pages/infrastructure/under_construction_page.dart';
-import 'package:melonkemo/pages/login/login_page.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 typedef OverlayWidget = Widget Function(Widget body);
