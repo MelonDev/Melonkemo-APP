@@ -18,7 +18,7 @@ class CoreApp extends BaseRouterWidget {
   @override
   List<RouteBase> get pageRoutes => [
     const MeProfilePage().route('/'),
-    const UnderConstructionPage().route('/duplicate'),
+    const UnderConstructionPage().route('/deprecated'),
     const HomePage().route('/legacy-dev'),
     const MePage().route('/me-dev'),
     const LoginPage().route('/login'),
