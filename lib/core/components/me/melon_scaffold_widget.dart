@@ -128,7 +128,7 @@ class MelonScaffoldWidget extends StatelessWidget {
       return Size(layout.width, layout.size.height);
     });
 
-    return WoltModalSheetPage.withSingleChild(
+    return WoltModalSheetPage(
       hasSabGradient: false,
       forceMaxHeight: false,
       navBarHeight: 0,
