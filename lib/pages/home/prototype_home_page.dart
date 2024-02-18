@@ -51,7 +51,10 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
   Widget build(BuildContext context) {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.edgeToEdge);
     return MelonScaffoldWidget(
-      body: _layout(context),
+      body: _layout(context).animate().fadeIn(delay: const Duration(milliseconds: 300)).move(
+          delay: const Duration(milliseconds: 500),
+          begin: const Offset(0, 100),
+          end: const Offset(0, 0)),
       children: [_background(context)],
     );
   }
