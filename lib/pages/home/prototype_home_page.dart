@@ -119,7 +119,7 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
                                 size: 22,
                                 color: Colors.white.withOpacity(0.7),
                               )),
-                          SizedBox(width: 8),
+                          const SizedBox(width: 8),
                           Text(
                             'เลื่อนขึ้นเพื่อดูข้อมูล',
                             textAlign: TextAlign.center,
@@ -136,10 +136,11 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
                       ),
                 CardWidget(
                   cardTitleColor: Colors.white.withOpacity(.0),
-                  cardColor: Colors.grey.withOpacity(.48),
-                  titleColor: Colors.white.withOpacity(.9),
+                  //cardColor: Colors.grey.withOpacity(.48),
+                  cardColor: Colors.white.withOpacity(.90),
+                  //titleColor: Colors.white.withOpacity(.9),
                   width: cardWidth,
-                  sigma: 32,
+                  sigma: 22,
                   betweenBottom: 0,
                   title: "ทดสอบ 1",
                   children: [Container(height: 100)],
