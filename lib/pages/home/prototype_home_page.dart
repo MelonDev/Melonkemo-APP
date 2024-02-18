@@ -9,7 +9,6 @@ import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/core/components/me/card_widget.dart';
 import 'package:melonkemo/core/components/me/melon_scaffold_widget.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
-import 'package:shimmer/shimmer.dart';
 
 class PrototypeHomePage extends StatefulWidget {
   const PrototypeHomePage({Key? key}) : super(key: key);
@@ -108,50 +107,32 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
                 if (MediaQuery.of(context).size.width <= 1036)
                   Padding(
                       padding: const EdgeInsets.only(bottom: 10),
-                      child: Shimmer.fromColors(
-                        baseColor: Colors.red,
-                        highlightColor: Colors.yellow,
-                        direction: ShimmerDirection.btt,
-                        child: Text(
-                          'Shimmer',
-                          textAlign: TextAlign.center,
-                          style: TextStyle(
-                            fontSize: 18.0,
-                            fontFamily: 'Itim',
-                            fontWeight: FontWeight.bold,
+                      child:  Row(
+                        mainAxisSize: MainAxisSize.max,
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          RotatedBox(
+                              quarterTurns: 1,
+                              child: Icon(
+                                CupertinoIcons.chevron_left_2,
+                                size: 22,
+                                color: Colors.white.withOpacity(0.7),
+                              )),
+                          SizedBox(width: 8),
+                          Text(
+                            'เลื่อนขึ้นเพื่อดูข้อมูล',
+                            textAlign: TextAlign.center,
+                            style: TextStyle(
+                              fontSize: 20.0,
+                              fontFamily: 'Itim',
+                              color: Colors.white.withOpacity(0.7),
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
-                        ),
-                      )
-                      // child: Shimmer(
-                      //   gradient: LinearGradient(colors: [
-                      //     Colors.white.withOpacity(0.4),
-                      //     Colors.white.withOpacity(1.0)
-                      //   ]),
-                      //   child: const Row(
-                      //     mainAxisSize: MainAxisSize.max,
-                      //     mainAxisAlignment: MainAxisAlignment.center,
-                      //     crossAxisAlignment: CrossAxisAlignment.center,
-                      //     children: [
-                      //       RotatedBox(
-                      //           quarterTurns: 1,
-                      //           child: Icon(
-                      //             CupertinoIcons.chevron_left_2,
-                      //             size: 18,
-                      //           )),
-                      //       SizedBox(width: 8),
-                      //       Text(
-                      //         'เลื่อนขึ้นเพื่อดูข้อมูล',
-                      //         textAlign: TextAlign.center,
-                      //         style: TextStyle(
-                      //           fontSize: 18.0,
-                      //           fontFamily: 'Itim',
-                      //           fontWeight: FontWeight.bold,
-                      //         ),
-                      //       ),
-                      //       SizedBox(width: 18),
-                      //     ],
-                      //   ),
-                      // ),
+                          SizedBox(width: 22),
+                        ],
+                      ),
                       ),
                 CardWidget(
                   cardTitleColor: Colors.white.withOpacity(.0),
