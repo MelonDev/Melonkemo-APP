@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
 import 'package:melonkemo/pages/home/home_page.dart';
+import 'package:melonkemo/pages/home/prototype_home_page.dart';
 import 'package:melonkemo/pages/login/login_page.dart';
 import 'package:melonkemo/pages/me/me_page.dart';
 import 'package:melonkemo/pages/me/me_profile_page.dart';
@@ -23,6 +24,7 @@ class CoreApp extends BaseRouterWidget {
     const MePage().route('/me-dev'),
     const LoginPage().route('/login'),
     const LoginRouter().route('/new_login'),
+    const PrototypeHomePage().route("/prototype-home")
   ];
 
   @override
