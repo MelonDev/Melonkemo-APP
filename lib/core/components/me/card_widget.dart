@@ -7,23 +7,32 @@ class CardWidget extends BaseStatelessWidget {
   const CardWidget(
       {super.key,
       this.title,
+        this.titleColor,
       this.betweenBottom = 0,
       this.children,
       this.leadingTitle,
+        this.cardTitleColor,
+        this.cardColor,
+        this.sigma = 16.0,
       required super.width});
 
   final String? title;
+  final Color? titleColor;
+
   final double betweenBottom;
   final List<Widget>? children;
   final Widget? leadingTitle;
+  final Color? cardColor;
+  final Color? cardTitleColor;
+  final double sigma;
 
   @override
   Widget build(BuildContext context) {
     return CupertinoCard(
       elevation: 0,
+      sigma: sigma,
       margin: const EdgeInsets.only(bottom: 16),
-      //color: Colors.white.withOpacity(.28),
-      color: Colors.white.withOpacity(.58),
+      color: cardColor ?? Colors.white.withOpacity(.28),
       radius: BorderRadius.circular(40),
       child: Container(
         decoration: BoxDecoration(
@@ -40,7 +49,7 @@ class CardWidget extends BaseStatelessWidget {
             if (title != null)
               Container(
                 decoration: BoxDecoration(
-                  color: Colors.white.withOpacity(.15),
+                  color: cardTitleColor ?? Colors.white.withOpacity(.15),
                   borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(10),
                       topRight: Radius.circular(10)),
@@ -55,7 +64,7 @@ class CardWidget extends BaseStatelessWidget {
                     Text(
                       title!,
                       style: TextStyle(
-                          color: Colors.black.withOpacity(0.65),
+                          color: titleColor ?? Colors.black.withOpacity(0.65),
                           fontSize: 20,
                           letterSpacing: 0.0,
                           fontFamily: 'Itim',

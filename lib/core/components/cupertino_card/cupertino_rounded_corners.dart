@@ -135,6 +135,8 @@ class CupertinoCard extends StatelessWidget {
   final Decoration? decoration;
   final VoidCallback? onPressed;
 
+  final double sigma;
+
   CupertinoCard({super.key,
     this.child,
     this.elevation = 2.0,
@@ -143,6 +145,7 @@ class CupertinoCard extends StatelessWidget {
     this.color = Colors.white,
     this.splashColor,
     this.decoration,
+    this.sigma = 16.0,
     this.radius = const BorderRadius.all(
       Radius.circular(
         40.0,
@@ -166,7 +169,7 @@ class CupertinoCard extends StatelessWidget {
         child: ClipPath.shape(
           shape: shapeborder,
           child: BackdropFilter(
-            filter: ImageFilter.blur(sigmaX: 16, sigmaY: 16),
+            filter: ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),
             child: Material(
               color: color,
               child: Ink(
