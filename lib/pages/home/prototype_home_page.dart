@@ -57,7 +57,7 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
   }
 
   Widget _smallLayout(BuildContext context) {
-    double topPadding = MediaQuery.of(context).size.height * 0.7;
+    double topPadding = MediaQuery.of(context).size.height * 0.5;
     return _listCards(context,
         topPadding: topPadding,
         //contentWidth: cardWidth.resolve(context),
@@ -66,7 +66,7 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
   }
 
   Widget _mediumLayout(BuildContext context) {
-    double topPadding = MediaQuery.of(context).size.height * 0.7;
+    double topPadding = MediaQuery.of(context).size.height * 0.6;
     return _listCards(context,
         topPadding: topPadding,
         contentWidth: realCardWidth.resolve(context),
@@ -137,7 +137,7 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
                 CardWidget(
                   cardTitleColor: Colors.white.withOpacity(.0),
                   //cardColor: Colors.grey.withOpacity(.48),
-                  cardColor: Colors.white.withOpacity(.90),
+                  cardColor: Colors.white.withOpacity(.85),
                   //titleColor: Colors.white.withOpacity(.9),
                   width: cardWidth,
                   sigma: 22,
