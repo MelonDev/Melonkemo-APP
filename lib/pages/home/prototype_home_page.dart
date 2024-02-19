@@ -147,7 +147,7 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
                 ),
                 CardWidget(
                   cardTitleColor: Colors.white.withOpacity(.0),
-                  cardColor: Colors.grey.withOpacity(.48),
+                  cardColor: Color(0xFF000000).withOpacity(.48),
                   titleColor: Colors.white.withOpacity(.9),
                   sigma: 32,
                   width: cardWidth,
