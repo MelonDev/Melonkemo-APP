@@ -146,6 +146,7 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
       double topPadding = 60,
       double? contentWidth,
       MainAxisAlignment? mainAxisAlignment}) {
+    bool isLargerScreen = realCardWidth.resolve(context) >= 1036 ;
     Widget listContainer = Container(
       width: cardWidth.resolve(context),
       child: ScrollConfiguration(
@@ -170,9 +171,9 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
             ),
             _divider(context),
             CardWidget(
-              cardTitleColor: Colors.white.withOpacity(.0),
-              cardColor: Colors.grey.shade600.withOpacity(.38),
-              titleColor: Colors.white.withOpacity(.9),
+              cardTitleColor: isLargerScreen ? Colors.white.withOpacity(.0) : Colors.white.withOpacity(.0),
+              cardColor: isLargerScreen ? Colors.grey.shade600.withOpacity(.38) : Colors.white.withOpacity(.55),
+              titleColor: isLargerScreen ? Colors.white.withOpacity(.9) : null,
               sigma: 22,
               width: cardWidth,
               betweenBottom: 0,
@@ -473,6 +474,7 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
   }
 
   List<Widget> _accounts(BuildContext context) {
+
     return [
       CardLinkWidget("Twitter", "https://twitter.com/melonkemo",
           icon: SimpleIcons.twitter),
@@ -488,10 +490,13 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
     ];
   }
 
-  Widget CardLinkWidget(String title, String link, {IconData? icon}) =>
-      CardListWidget(title, link,
-          icon: icon,
-          width: cardWidth,
-          backgroundColor: Colors.black.withOpacity(0.2),
-          serviceTextColor: Colors.white);
+  Widget CardLinkWidget(String title, String link, {IconData? icon}) {
+    bool isLargerScreen = realCardWidth.resolve(context) >= 1036 ;
+
+    return CardListWidget(title, link,
+        icon: icon,
+        width: cardWidth,
+        backgroundColor: isLargerScreen ? Colors.black.withOpacity(0.2) : null,
+        serviceTextColor: isLargerScreen ? Colors.white : null);
+  }
 }
