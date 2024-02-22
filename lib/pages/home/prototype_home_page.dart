@@ -331,7 +331,7 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
                       shadows: realCardWidth.resolve(context) < 600 && !isBlur ? <Shadow>[
                         Shadow(
                           offset: const Offset(0.0, 0.0),
-                          blurRadius: 10.0,
+                          blurRadius: 12.0,
                           color: Colors.black.withOpacity(0.6),
                         ),
                       ] : null,
