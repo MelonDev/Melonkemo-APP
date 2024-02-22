@@ -4,15 +4,18 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
-import 'package:get/state_manager.dart';
 import 'package:layout/layout.dart';
+import 'package:melonkemo/components/pro_animated_blur.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/core/components/cupertino_card/cupertino_rounded_corners.dart';
+import 'package:melonkemo/core/components/me/card_list_widget.dart';
 import 'package:melonkemo/core/components/me/card_widget.dart';
 import 'package:melonkemo/core/components/me/melon_scaffold_widget.dart';
+import 'package:melonkemo/core/components/segments/tab_segment_widget.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
 import 'package:melonkemo/pages/home/prototype_home_provider.dart';
 import 'package:provider/provider.dart';
+import 'package:simple_icons/simple_icons.dart';
 
 class PrototypeHomePage extends StatefulWidget {
   const PrototypeHomePage({Key? key}) : super(key: key);
@@ -24,6 +27,7 @@ class PrototypeHomePage extends StatefulWidget {
 class _PrototypeHomePageState extends State<PrototypeHomePage> {
   //late final DraggableScrollableController _controller ;
   late final PrototypeHomeProvider _provider;
+  late final ScrollController _scrollController;
 
   double blur = 0;
 
@@ -41,9 +45,26 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
     // _controller =
     //     DraggableScrollableController();
 
+    _scrollController = ScrollController();
+
+    _scrollController.addListener(() {
+      bool notifyBg = false;
+      bool notifyAb = false;
+
+      if (realCardWidth.resolve(context) < 1036) {
+        notifyBg = _provider.setBlur(_scrollController.offset);
+        notifyAb = _provider.setAppbarBlur(0.0);
+      } else {
+        notifyBg = _provider.setBlur(0.0);
+        notifyAb = _provider.setAppbarBlur(_scrollController.offset);
+      }
+      if(notifyAb == true || notifyBg == true){
+        _provider.notifyListeners();
+      }
+    });
+
     print("initState");
     super.initState();
-
   }
 
   @override
@@ -52,18 +73,35 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
     return ChangeNotifierProvider(
         create: (_) => _provider,
         builder: (BuildContext ct, Widget? widget) {
+          bool isAppbarBlur = ct.watch<PrototypeHomeProvider>().isAppbarBlur;
+
           return MelonScaffoldWidget(
             body: _layout(ct)
                 .animate()
                 .fadeIn(delay: const Duration(milliseconds: 300))
                 .move(
-                delay: const Duration(milliseconds: 500),
-                begin: const Offset(0, 100),
-                end: const Offset(0, 0)),
+                    delay: const Duration(milliseconds: 500),
+                    begin: const Offset(0, 100),
+                    end: const Offset(0, 0)),
+            extendBodyBehindAppBar: true,
+            appBarColor: Colors.black.withOpacity(isAppbarBlur ? 0.1 : 0.0),
+            appBarNameTitleColor: Colors.white,
+            customAppbarBody: (double height,Widget body) {
+              return ClipRect(
+                child: SizedBox(
+                  height: height,
+                  child: ProAnimatedBlur(
+                    blur: isAppbarBlur ? 20 : 2,
+                    duration: const Duration(milliseconds: 200),
+                    curve: Curves.linear,
+                    child: body,
+                  )
+                ),
+              );
+            },
             children: [_background(ct)],
           );
         });
-
   }
 
   Widget _layout(BuildContext context) {
@@ -112,110 +150,69 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
       width: cardWidth.resolve(context),
       child: ScrollConfiguration(
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
-        child: DraggableScrollableSheet(
-          //controller: _controller,
-          expand: false,
-          initialChildSize: 1.0,
-          minChildSize: 1.0,
-          maxChildSize: 1.0,
-          builder: (BuildContext context, ScrollController scrollController) {
-            scrollController.addListener(() {
-              if(realCardWidth.resolve(context) < 1036){
-                _provider.setBlur(scrollController.offset);
-              }else {
-                _provider.setBlur(0.0);
-              }
-            });
-            return ListView(
-              controller: scrollController,
-              physics: const BouncingScrollPhysics(),
-              padding: EdgeInsets.only(top: topPadding, bottom: 60),
-              children: [
-                // if (MediaQuery.of(context).size.width <= 1036)
-                //   Padding(
-                //       padding: const EdgeInsets.only(bottom: 10),
-                //       child:  Row(
-                //         mainAxisSize: MainAxisSize.max,
-                //         mainAxisAlignment: MainAxisAlignment.center,
-                //         crossAxisAlignment: CrossAxisAlignment.center,
-                //         children: [
-                //           RotatedBox(
-                //               quarterTurns: 1,
-                //               child: Icon(
-                //                 CupertinoIcons.chevron_left_2,
-                //                 size: 22,
-                //                 color: Colors.white.withOpacity(0.7),
-                //               )),
-                //           const SizedBox(width: 8),
-                //           Text(
-                //             'เลื่อนขึ้นเพื่อดูข้อมูล',
-                //             textAlign: TextAlign.center,
-                //             style: TextStyle(
-                //               fontSize: 20.0,
-                //               fontFamily: 'Itim',
-                //               color: Colors.white.withOpacity(0.7),
-                //               fontWeight: FontWeight.bold,
-                //             ),
-                //           ),
-                //           SizedBox(width: 22),
-                //         ],
-                //       ),
-                //       ),
-                _profileWidget(context),
-                CardWidget(
-                  cardTitleColor: Colors.white.withOpacity(.0),
-                  //cardColor: Colors.grey.withOpacity(.48),
-                  cardColor: Colors.white.withOpacity(.65),
-                  //titleColor: Colors.white.withOpacity(.9),
-                  width: cardWidth,
-                  sigma: 22,
-                  betweenBottom: 0,
-                  title: "ทดสอบ 1",
-                  children: [Container(height: 100)],
-                ),
-                CardWidget(
-                  cardTitleColor: Colors.white.withOpacity(.0),
-                  cardColor: Color(0xFFCFCFCF).withOpacity(.38),
-                  titleColor: Colors.white.withOpacity(.9),
-                  sigma: 22,
-                  width: cardWidth,
-                  betweenBottom: 0,
-                  title: "ทดสอบ 2",
-                  children: [Container(height: 200)],
-                ),
-                CardWidget(
-                  cardTitleColor: Colors.white.withOpacity(.0),
-                  cardColor: Colors.grey.withOpacity(.48),
-                  titleColor: Colors.white.withOpacity(.9),
-                  width: cardWidth,
-                  sigma: 32,
-                  betweenBottom: 0,
-                  title: "ทดสอบ 3",
-                  children: [Container(height: 150)],
-                ),
-              ],
-            );
-          },
+        child: ListView(
+          controller: _scrollController,
+          physics: const BouncingScrollPhysics(),
+          padding: EdgeInsets.only(top: topPadding + 46, bottom: 60),
+          children: [
+            _profileWidget(context),
+            CardWidget(
+              cardTitleColor: Colors.white.withOpacity(.0),
+              //cardColor: Colors.grey.withOpacity(.48),
+              cardColor: Colors.white.withOpacity(.55),
+              //titleColor: Colors.white.withOpacity(.9),
+              width: cardWidth,
+              sigma: 22,
+              betweenBottom: 0,
+              title: "แนะนำตัว",
+              leadingTitle: _langSegment(context),
+              children: _about(context),
+            ),
+            _divider(context),
+            CardWidget(
+              cardTitleColor: Colors.white.withOpacity(.0),
+              cardColor: Colors.grey.shade600.withOpacity(.38),
+              titleColor: Colors.white.withOpacity(.9),
+              sigma: 22,
+              width: cardWidth,
+              betweenBottom: 0,
+              title: "บัญชีโซเชียล",
+              children: _accounts(context),
+            ),
+            // CardWidget(
+            //   cardTitleColor: Colors.white.withOpacity(.0),
+            //   //cardColor: Color(0xFFCFCFCF).withOpacity(.48),
+            //   cardColor: Colors.grey.shade600.withOpacity(.48),
+            //   titleColor: Colors.white.withOpacity(.9),
+            //   width: cardWidth,
+            //   sigma: 22,
+            //   betweenBottom: 0,
+            //   title: "ทดสอบ",
+            //   children: [Container(height: 150)],
+            // ),
+          ],
         ),
       ),
     );
 
     return Row(
       mainAxisSize: MainAxisSize.max,
-      mainAxisAlignment: realCardWidth.resolve(context) <= 600 ? MainAxisAlignment.center : MainAxisAlignment.start,
+      mainAxisAlignment: realCardWidth.resolve(context) <= 600
+          ? MainAxisAlignment.center
+          : MainAxisAlignment.start,
       children: [
         Container(
           padding: EdgeInsets.only(left: 20, right: 20 + extraWidth),
-          constraints: realCardWidth.resolve(context) <= 600 ? const BoxConstraints(maxWidth:420) : null,
+          constraints: realCardWidth.resolve(context) <= 600
+              ? const BoxConstraints(maxWidth: 420)
+              : null,
           width: contentWidth ?? realCardWidth.resolve(context) - 550,
           child: realCardWidth.resolve(context) <= 600
               ? listContainer
               : Row(
-            mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.end,
-            children: [
-              listContainer
-            ],
-          ),
+                  mainAxisAlignment: mainAxisAlignment ?? MainAxisAlignment.end,
+                  children: [listContainer],
+                ),
         )
       ],
     );
@@ -232,10 +229,9 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
   }
 
   Widget _background(BuildContext context) {
-
-    double sigma = context.watch<PrototypeHomeProvider>().blur;
+    bool isBlur = context.watch<PrototypeHomeProvider>().isBGBlur;
     return Container(
-      color: const Color(0xffffffff),
+      color: Colors.transparent,
       width: double.infinity,
       height: double.infinity,
       child: Stack(
@@ -244,10 +240,16 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
           Image.asset(
             _image(context),
             fit: BoxFit.cover,
-            alignment: realCardWidth.resolve(context) > 600 ? Alignment.centerRight : Alignment.center,
+            alignment: realCardWidth.resolve(context) > 600
+                ? Alignment.centerRight
+                : Alignment.center,
           ),
-    BackdropFilter(
-    filter: ImageFilter.blur(sigmaX: sigma, sigmaY: sigma),child: Container(),),
+          ProAnimatedBlur(
+            blur: isBlur ? 10 : 0,
+            duration: const Duration(milliseconds: 200),
+            curve: Curves.linear,
+            child: Container(),
+          )
         ],
       ),
     );
@@ -315,50 +317,180 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
           // ),
           Expanded(
               child: Container(
-                height: 160,
-                //padding: const EdgeInsets.only(left: 16),
-                decoration: const BoxDecoration(color: Colors.transparent),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      'メロン',
-                      style: TextStyle(
-                          color: Colors.white.withOpacity(0.92),
-                          fontSize: 40,
-                          letterSpacing: 0.0,
-                          fontFamily: 'MPlus',
-                          fontWeight: FontWeight.w700),
-                    ),
-                    const SizedBox(height: 0),
-                    Text(
-                      'Melon | เมล่อน',
-                      style: TextStyle(
-                          color: Colors.white.withOpacity(0.85),
-                          fontSize: 20,
-                          letterSpacing: 0.0,
-                          fontFamily: 'Itim',
-                          fontWeight: FontWeight.bold),
-                    ),
-                    const SizedBox(height: 10),
-                    Text(
-                      '26 • Male (Pan) • INFJ • Thai & English • Software Engineer',
-                      style: TextStyle(
-                          color: Colors.white.withOpacity(0.75),
-                          fontSize: 16,
-                          letterSpacing: 0.0,
-                          fontFamily: 'Itim',
-                          //fontFamilyFallback: const [ 'Itim','Apple Color Emoji', ],
-                          fontWeight: FontWeight.normal),
-                    ),
-                    const SizedBox(height: 10),
-                  ],
+            height: 160,
+            //padding: const EdgeInsets.only(left: 16),
+            decoration: const BoxDecoration(color: Colors.transparent),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  'メロン',
+                  style: TextStyle(
+                      color: Colors.white.withOpacity(0.92),
+                      fontSize: 40,
+                      letterSpacing: 0.0,
+                      fontFamily: 'MPlus',
+                      fontWeight: FontWeight.w700),
                 ),
-              ))
+                const SizedBox(height: 0),
+                Text(
+                  'Melon | เมล่อน',
+                  style: TextStyle(
+                      color: Colors.white.withOpacity(0.85),
+                      fontSize: 20,
+                      letterSpacing: 0.0,
+                      fontFamily: 'Itim',
+                      fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  '26 • Male (Pan) • INFJ • Thai & English • Software Engineer',
+                  style: TextStyle(
+                      color: Colors.white.withOpacity(0.75),
+                      fontSize: 16,
+                      letterSpacing: 0.0,
+                      fontFamily: 'Itim',
+                      //fontFamilyFallback: const [ 'Itim','Apple Color Emoji', ],
+                      fontWeight: FontWeight.normal),
+                ),
+                const SizedBox(height: 10),
+              ],
+            ),
+          ))
         ],
       ),
     );
   }
 
+  Widget _divider(BuildContext context) {
+    return Container(
+      width: cardWidth.resolve(context),
+      height: 1.8,
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.centerLeft,
+          end: Alignment.centerRight,
+          colors: [
+            Color(0xFFCFCFCF).withOpacity(.0),
+            Color(0xFFCFCFCF).withOpacity(.58),
+            Color(0xFFCFCFCF).withOpacity(.58),
+            Color(0xFFCFCFCF).withOpacity(.58),
+            Color(0xFFCFCFCF).withOpacity(.0),
+          ],
+        ),
+      ),
+      margin: const EdgeInsets.only(left: 40, right: 40, bottom: 16),
+    );
+  }
+
+  Widget _langSegment(BuildContext context) {
+    List<SegmentItem<AboutLanguage>> langItems = [
+      SegmentItem<AboutLanguage>("ไทย", value: AboutLanguage.thai),
+      SegmentItem<AboutLanguage>("English", value: AboutLanguage.english),
+      SegmentItem<AboutLanguage>("日本語",
+          value: AboutLanguage.japanese,
+          config: SegmentConfigItem(fontSize: 12)),
+    ];
+    return DefaultTabController(
+      length: langItems.length,
+      child: Builder(builder: (BuildContext context) {
+        final TabController tabController = DefaultTabController.of(context);
+
+        return SizedBox(
+          height: 30,
+          width: 200,
+          child: TabSegmentWidget(
+            height: 20,
+            controller: tabController,
+            isScrollable: true,
+            backgroundColor: Colors.black.withOpacity(0.12),
+            itemFontSize: 14,
+            minWidth: 20,
+            items: langItems,
+            onChanged: (int index) {
+              if (langItems[index].value != null) {
+                context
+                    .read<PrototypeHomeProvider>()
+                    .setLang(langItems[index].value!);
+              }
+              setState(() {});
+            },
+          ),
+        );
+      }),
+    );
+  }
+
+  List<Widget> _about(BuildContext context) {
+    AboutLanguage language = context.watch<PrototypeHomeProvider>().language;
+    return [
+      if (language == AboutLanguage.thai)
+        Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16.0),
+          child: Text(
+            'สวัสดีครับ! ผมชื่อ “เมล่อน” เรียกสั้นๆ “เม” เป็นเผ่าจิ้งจอกอาร์กติก ชื่นชอบการเขียนโค้ด หลงไหลในเฟอร์รี่และเฟอร์สูท หวังว่าจะได้พบทุกคนในอีเว้นท์เร็ว ๆ นี้ ฝากตัวด้วยนะครับ!',
+            style: TextStyle(
+                color: Colors.black.withOpacity(0.75),
+                fontSize: 17,
+                letterSpacing: 0.0,
+                fontFamily: 'Itim',
+                height: 1.4,
+                fontWeight: FontWeight.normal),
+          ),
+        ).animate(key: const Key("TH")).fadeIn(delay: const Duration(milliseconds: 200)),
+      if (language == AboutLanguage.thai) const SizedBox(height: 16),
+      if (language == AboutLanguage.english)
+        Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              'Hello everyone! My name is “Melon” and I’m arctic fox species, love coding and am passionate about furries and fursuits, Hope to meet everyone at the event soon See ya!',
+              style: TextStyle(
+                  color: Colors.black.withOpacity(0.75),
+                  fontSize: 17,
+                  letterSpacing: 0.0,
+                  height: 1.4,
+                  fontFamily: 'Itim',
+                  fontWeight: FontWeight.normal),
+            )).animate(key: const Key("EN")).fadeIn(delay: const Duration(milliseconds: 200)),
+      if (language == AboutLanguage.english) const SizedBox(height: 16),
+      if (language == AboutLanguage.japanese)
+        Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 16.0),
+            child: Text(
+              'こんばんは！はじめまして、僕は「メロン」と申します。北極ギツネです！僕の趣味はコーディングです！そして僕はファーリーとファースーツ憧れています。イベントで皆さんにお会いできるのを楽しみにしています！よろしくお願いいたします！',
+              style: TextStyle(
+                  color: Colors.black.withOpacity(0.75),
+                  fontSize: 14,
+                  height: 1.5,
+                  letterSpacing: 0.0,
+                  fontFamily: 'KosugiMaru',
+                  fontWeight: FontWeight.normal),
+            )).animate(key: const Key("JP")).fadeIn(delay: const Duration(milliseconds: 200)),
+      if (language == AboutLanguage.japanese) const SizedBox(height: 16),
+    ];
+  }
+
+  List<Widget> _accounts(BuildContext context) {
+    return [
+      CardLinkWidget("Twitter", "https://twitter.com/melonkemo",
+          icon: SimpleIcons.twitter),
+      CardLinkWidget("Facebook", "https://www.facebook.com/melonkemo",
+          icon: SimpleIcons.facebook),
+      CardLinkWidget("Telegram", "https://t.me/melonkemo",
+          icon: SimpleIcons.telegram),
+      CardLinkWidget("Mastadon", "https://kemonodon.club/@melonkemo",
+          icon: SimpleIcons.mastodon),
+      CardLinkWidget(
+          "Bluesky", "https://bsky.app/profile/melonkemo.bsky.social",
+          icon: SimpleIcons.icloud),
+    ];
+  }
+
+  Widget CardLinkWidget(String title, String link, {IconData? icon}) =>
+      CardListWidget(title, link,
+          icon: icon,
+          width: cardWidth,
+          backgroundColor: Colors.black.withOpacity(0.2),
+          serviceTextColor: Colors.white);
 }

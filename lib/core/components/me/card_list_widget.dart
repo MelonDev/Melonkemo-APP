@@ -8,13 +8,14 @@ import 'package:url_launcher/url_launcher.dart';
 
 class CardListWidget extends BaseStatelessWidget {
   const CardListWidget(this.serviceName, this.link,
-      {super.key, this.serviceTextColor, this.icon, required super.width});
+      {super.key, this.serviceTextColor, this.icon, required super.width,this.backgroundColor});
 
   final String serviceName;
   final String link;
   final Color? serviceTextColor;
   final double betweenBottom = 10;
   final IconData? icon;
+  final Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +27,7 @@ class CardListWidget extends BaseStatelessWidget {
         },
         child: Container(
           decoration: BoxDecoration(
-            color: Colors.white.withOpacity(.35),
+            color: backgroundColor ?? Colors.white.withOpacity(.35),
             borderRadius: BorderRadius.circular(12),
           ),
           width: width.resolve(context),
