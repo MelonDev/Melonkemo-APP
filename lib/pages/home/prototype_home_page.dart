@@ -58,7 +58,7 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
         notifyBg = _provider.setBlur(0.0);
         notifyAb = _provider.setAppbarBlur(_scrollController.offset);
       }
-      if(notifyAb == true || notifyBg == true){
+      if (notifyAb == true || notifyBg == true) {
         _provider.notifyListeners();
       }
     });
@@ -86,17 +86,16 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
             extendBodyBehindAppBar: true,
             appBarColor: Colors.black.withOpacity(isAppbarBlur ? 0.1 : 0.0),
             appBarNameTitleColor: Colors.white,
-            customAppbarBody: (double height,Widget body) {
+            customAppbarBody: (double height, Widget body) {
               return ClipRect(
                 child: SizedBox(
-                  height: height,
-                  child: ProAnimatedBlur(
-                    blur: isAppbarBlur ? 20 : 2,
-                    duration: const Duration(milliseconds: 200),
-                    curve: Curves.linear,
-                    child: body,
-                  )
-                ),
+                    height: height,
+                    child: ProAnimatedBlur(
+                      blur: isAppbarBlur ? 20 : 2,
+                      duration: const Duration(milliseconds: 200),
+                      curve: Curves.linear,
+                      child: body,
+                    )),
               );
             },
             children: [_background(ct)],
@@ -288,6 +287,8 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
   }
 
   Widget _profileWidget(BuildContext context, {double betweenBottom = 0}) {
+    bool isBlur = context.watch<PrototypeHomeProvider>().isBGBlur;
+
     return Container(
       width: cardWidth.resolve(context),
       margin: EdgeInsets.only(bottom: betweenBottom),
@@ -327,8 +328,15 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
                 Text(
                   'メロン',
                   style: TextStyle(
-                      color: Colors.white.withOpacity(0.92),
-                      fontSize: 40,
+                      shadows: realCardWidth.resolve(context) < 600 && !isBlur ? <Shadow>[
+                        Shadow(
+                          offset: const Offset(0.0, 0.0),
+                          blurRadius: 10.0,
+                          color: Colors.black.withOpacity(0.6),
+                        ),
+                      ] : null,
+                      color: Colors.white.withOpacity(realCardWidth.resolve(context) < 600 && !isBlur ? 1.0 : 0.92),
+                      fontSize: 50,
                       letterSpacing: 0.0,
                       fontFamily: 'MPlus',
                       fontWeight: FontWeight.w700),
@@ -439,35 +447,41 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
                 height: 1.4,
                 fontWeight: FontWeight.normal),
           ),
-        ).animate(key: const Key("TH")).fadeIn(delay: const Duration(milliseconds: 200)),
+        )
+            .animate(key: const Key("TH"))
+            .fadeIn(delay: const Duration(milliseconds: 200)),
       if (language == AboutLanguage.thai) const SizedBox(height: 16),
       if (language == AboutLanguage.english)
         Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              'Hello everyone! My name is “Melon” and I’m arctic fox species, love coding and am passionate about furries and fursuits, Hope to meet everyone at the event soon See ya!',
-              style: TextStyle(
-                  color: Colors.black.withOpacity(0.75),
-                  fontSize: 17,
-                  letterSpacing: 0.0,
-                  height: 1.4,
-                  fontFamily: 'Itim',
-                  fontWeight: FontWeight.normal),
-            )).animate(key: const Key("EN")).fadeIn(delay: const Duration(milliseconds: 200)),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  'Hello everyone! My name is “Melon” and I’m arctic fox species, love coding and am passionate about furries and fursuits, Hope to meet everyone at the event soon See ya!',
+                  style: TextStyle(
+                      color: Colors.black.withOpacity(0.75),
+                      fontSize: 17,
+                      letterSpacing: 0.0,
+                      height: 1.4,
+                      fontFamily: 'Itim',
+                      fontWeight: FontWeight.normal),
+                ))
+            .animate(key: const Key("EN"))
+            .fadeIn(delay: const Duration(milliseconds: 200)),
       if (language == AboutLanguage.english) const SizedBox(height: 16),
       if (language == AboutLanguage.japanese)
         Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              'こんばんは！はじめまして、僕は「メロン」と申します。北極ギツネです！僕の趣味はコーディングです！そして僕はファーリーとファースーツ憧れています。イベントで皆さんにお会いできるのを楽しみにしています！よろしくお願いいたします！',
-              style: TextStyle(
-                  color: Colors.black.withOpacity(0.75),
-                  fontSize: 14,
-                  height: 1.5,
-                  letterSpacing: 0.0,
-                  fontFamily: 'KosugiMaru',
-                  fontWeight: FontWeight.normal),
-            )).animate(key: const Key("JP")).fadeIn(delay: const Duration(milliseconds: 200)),
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                child: Text(
+                  'こんばんは！はじめまして、僕は「メロン」と申します。北極ギツネです！僕の趣味はコーディングです！そして僕はファーリーとファースーツ憧れています。イベントで皆さんにお会いできるのを楽しみにしています！よろしくお願いいたします！',
+                  style: TextStyle(
+                      color: Colors.black.withOpacity(0.75),
+                      fontSize: 14,
+                      height: 1.5,
+                      letterSpacing: 0.0,
+                      fontFamily: 'KosugiMaru',
+                      fontWeight: FontWeight.normal),
+                ))
+            .animate(key: const Key("JP"))
+            .fadeIn(delay: const Duration(milliseconds: 200)),
       if (language == AboutLanguage.japanese) const SizedBox(height: 16),
     ];
   }
@@ -489,11 +503,13 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
   }
 
   Widget CardLinkWidget(String title, String link, {IconData? icon}) =>
-      CardListWidget(title, link,
-          icon: icon,
-          width: cardWidth,
-          backgroundColor: Colors.black.withOpacity(0.2),
-          serviceTextColor: Colors.white,
+      CardListWidget(
+        title,
+        link,
+        icon: icon,
+        width: cardWidth,
+        backgroundColor: Colors.black.withOpacity(0.2),
+        serviceTextColor: Colors.white,
         serviceTextOpacity: 0.8,
       );
 }
