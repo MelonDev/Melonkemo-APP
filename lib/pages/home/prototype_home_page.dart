@@ -114,7 +114,7 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
   }
 
   Widget _smallLayout(BuildContext context) {
-    double topPadding = MediaQuery.of(context).size.height * 0.5;
+    double topPadding = MediaQuery.of(context).size.height * 0.55;
     return _listCards(context,
         topPadding: topPadding,
         //contentWidth: cardWidth.resolve(context),
@@ -123,7 +123,7 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
   }
 
   Widget _mediumLayout(BuildContext context) {
-    double topPadding = MediaQuery.of(context).size.height * 0.6;
+    double topPadding = MediaQuery.of(context).size.height * 0.55;
     return _listCards(context,
         topPadding: topPadding,
         contentWidth: realCardWidth.resolve(context),
@@ -318,7 +318,7 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
           // ),
           Expanded(
               child: Container(
-            height: 160,
+            //height: 160,
             //padding: const EdgeInsets.only(left: 16),
             decoration: const BoxDecoration(color: Colors.transparent),
             child: Column(
@@ -336,7 +336,7 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
                         ),
                       ] : null,
                       color: Colors.white.withOpacity(realCardWidth.resolve(context) < 600 && !isBlur ? 1.0 : 0.92),
-                      fontSize: 50,
+                      fontSize: 52,
                       letterSpacing: 0.0,
                       fontFamily: 'MPlus',
                       fontWeight: FontWeight.w700),
@@ -346,7 +346,7 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
                   'Melon | เมล่อน',
                   style: TextStyle(
                       color: Colors.white.withOpacity(0.85),
-                      fontSize: 20,
+                      fontSize: 24,
                       letterSpacing: 0.0,
                       fontFamily: 'Itim',
                       fontWeight: FontWeight.bold),
@@ -356,13 +356,13 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
                   '26 • Male (Pan) • INFJ • Thai & English • Software Engineer',
                   style: TextStyle(
                       color: Colors.white.withOpacity(0.75),
-                      fontSize: 16,
+                      fontSize: 18,
                       letterSpacing: 0.0,
                       fontFamily: 'Itim',
                       //fontFamilyFallback: const [ 'Itim','Apple Color Emoji', ],
                       fontWeight: FontWeight.normal),
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 20),
               ],
             ),
           ))
