@@ -114,7 +114,7 @@ class _PrototypeHomePageState extends State<PrototypeHomePage> {
   }
 
   Widget _smallLayout(BuildContext context) {
-    double topPadding = MediaQuery.of(context).size.height * 0.55;
+    double topPadding = MediaQuery.of(context).size.height * 0.5;
     return _listCards(context,
         topPadding: topPadding,
         //contentWidth: cardWidth.resolve(context),
