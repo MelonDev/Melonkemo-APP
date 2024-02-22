@@ -60,7 +60,7 @@ class _TabSegmentWidgetState extends State<TabSegmentWidget> {
   Widget _tabBar(BuildContext context) {
     return Container(
       color: widget.backgroundColor ?? Colors.white.withOpacity(.28),
-      //height: widget.borderRadius + 2,
+      height: widget.borderRadius + 2,
       child: TabBar(
         controller: widget.controller,
         isScrollable: widget.isScrollable,
@@ -74,7 +74,7 @@ class _TabSegmentWidgetState extends State<TabSegmentWidget> {
         //indicatorSize: TabBarIndicatorSize.label,
         indicatorColor: Colors.transparent,
         indicatorPadding: const EdgeInsets.all(0),
-        indicatorWeight: 0,
+        indicatorWeight: 2.0,
         dividerColor: Colors.transparent,
         indicator: BoxDecoration(
             borderRadius: BorderRadius.circular(widget.borderRadius),
