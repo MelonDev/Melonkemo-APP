@@ -3,18 +3,36 @@ import 'package:flutter/material.dart';
 
 class PrototypeHomeProvider extends ChangeNotifier {
 
-  double blur = 0;
+  bool isBGBlur = false;
+  bool isAppbarBlur = false;
 
+  AboutLanguage language = AboutLanguage.thai;
 
-  setBlur(double rawOffset){
-    double processOffset = rawOffset.toStringAsFixed(0).toInt() / 10;
-    double offset = processOffset < 10.0 ? processOffset : 10.0;
+  bool setBlur(double rawOffset) {
+    if (isBGBlur != (rawOffset != 0)) {
+      isBGBlur = !isBGBlur;
+      //notifyListeners();
+      return true;
+    }
+    return false;
+  }
 
-    if(offset != blur){
-      print(offset);
-      blur = offset;
+  bool setAppbarBlur(double rawOffset) {
+    if (isAppbarBlur != (rawOffset != 0)) {
+      isAppbarBlur = !isAppbarBlur;
+      //notifyListeners();
+      return true;
+    }
+    return false;
+  }
+
+  setLang(AboutLanguage language) {
+    if(this.language != language){
+      this.language = language;
       notifyListeners();
     }
   }
 
 }
+
+enum AboutLanguage { thai, english, japanese }

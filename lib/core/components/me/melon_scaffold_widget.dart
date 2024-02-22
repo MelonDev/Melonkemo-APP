@@ -7,29 +7,50 @@ import 'package:melonkemo/pages/infrastructure/under_construction_page.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 typedef OverlayWidget = Widget Function(Widget body);
+typedef CustomAppbarBody = Widget Function(double height,Widget body);
 
 class MelonScaffoldWidget extends StatelessWidget {
   const MelonScaffoldWidget(
-      {super.key, this.children, this.overlayBody, required this.body});
+      {super.key,
+      this.children,
+      this.overlayBody,
+      required this.body,
+      this.extendBodyBehindAppBar = false,
+      this.customAppbarBody,
+      this.appBarColor,this.appBarNameTitleColor});
 
   final List<Widget>? children;
   final OverlayWidget? overlayBody;
+  final CustomAppbarBody? customAppbarBody;
+
   final Widget body;
+  final bool extendBodyBehindAppBar;
+  final Color? appBarColor;
+  final Color? appBarNameTitleColor;
+
 
   @override
   Widget build(BuildContext context) {
-    return Title(
-      color: Colors.white,
-      title: "メロンけも",
-      child: Stack(
-        children: [
-          ...?children,
-          overlayBody != null
-              ? overlayBody!.call(_area(context))
-              : _area(context),
-        ],
-      ),
+    return Stack(
+      children: [
+        ...?children,
+        overlayBody != null
+            ? overlayBody!.call(_area(context))
+            : _area(context),
+      ],
     );
+    // return Title(
+    //   color: Colors.white,
+    //   title: "メロンけも",
+    //   child: Stack(
+    //     children: [
+    //       ...?children,
+    //       overlayBody != null
+    //           ? overlayBody!.call(_area(context))
+    //           : _area(context),
+    //     ],
+    //   ),
+    // );
   }
 
   Widget _area(BuildContext context) => AnnotatedRegion<SystemUiOverlayStyle>(
@@ -40,6 +61,7 @@ class MelonScaffoldWidget extends StatelessWidget {
           systemNavigationBarIconBrightness: Brightness.dark,
         ),
         child: Scaffold(
+          extendBodyBehindAppBar: extendBodyBehindAppBar,
           appBar: appbar(context),
           backgroundColor: Colors.transparent,
           body: body,
@@ -51,46 +73,51 @@ class MelonScaffoldWidget extends StatelessWidget {
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
-            Container(
-              decoration: const BoxDecoration(color: Colors.white),
-              alignment: Alignment.centerLeft,
-              padding: const EdgeInsets.only(left: 14, right: 12),
-              height: 46,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "メロンけも",
-                    style: TextStyle(
-                        color: Colors.black.withOpacity(0.8),
-                        fontSize: 22,
-                        letterSpacing: 0.0,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'MPlus'),
-                  ).hover(x: -2),
-                  MelonBouncingButton.text(
-                    enabledHover: true,
-                    text: "ลงชื่อเข้าใช้",
-                    fontFamily: "Itim",
-                    textColor: Colors.white,
-                    fontSize: 16,
-                    height: 34,
-                    x: -2,
-                    borderRadius: 20,
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    color: Colors.black.withOpacity(0.8),
-                    callback: (){
-                      showDialog(context);
-                    }
-                  )
-                ],
-              ),
-            ),
+            customAppbarBody != null
+                ? customAppbarBody!.call(46.0,_appbarBody(context))
+                : _appbarBody(context),
           ],
         ),
       );
 
-  void showDialog(BuildContext context){
+  Widget _appbarBody(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(color: appBarColor ?? Colors.white),
+      alignment: Alignment.centerLeft,
+      padding: const EdgeInsets.only(left: 14, right: 12),
+      height: 46,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(
+            "メロンけも",
+            style: TextStyle(
+                color: appBarNameTitleColor ?? Colors.black.withOpacity(0.8),
+                fontSize: 22,
+                letterSpacing: 0.0,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'MPlus'),
+          ).hover(x: -2),
+          MelonBouncingButton.text(
+              enabledHover: true,
+              text: "ลงชื่อเข้าใช้",
+              fontFamily: "Itim",
+              textColor: Colors.white,
+              fontSize: 16,
+              height: 34,
+              x: -2,
+              borderRadius: 20,
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              color: Colors.black.withOpacity(0.8),
+              callback: () {
+                showDialog(context);
+              })
+        ],
+      ),
+    );
+  }
+
+  void showDialog(BuildContext context) {
     final LayoutValue<double> width = LayoutValue.builder((layout) {
       return layout.width;
     });
@@ -123,7 +150,8 @@ class MelonScaffoldWidget extends StatelessWidget {
     );
   }
 
-  WoltModalSheetPage page1(BuildContext modalSheetContext, TextTheme textTheme) {
+  WoltModalSheetPage page1(
+      BuildContext modalSheetContext, TextTheme textTheme) {
     final LayoutValue<Size> size = LayoutValue.builder((layout) {
       return Size(layout.width, layout.size.height);
     });
@@ -166,9 +194,12 @@ class MelonScaffoldWidget extends StatelessWidget {
       // ),
       child: Container(
           color: Colors.black,
-          height: size.resolve(modalSheetContext).width < 560 ? size.resolve(modalSheetContext).height * 0.90:size.resolve(modalSheetContext).height * 0.85,
-          child: const UnderConstructionPage(enabledAppbar: false,)
-      ),
+          height: size.resolve(modalSheetContext).width < 560
+              ? size.resolve(modalSheetContext).height * 0.90
+              : size.resolve(modalSheetContext).height * 0.85,
+          child: const UnderConstructionPage(
+            enabledAppbar: false,
+          )),
     );
   }
 }
