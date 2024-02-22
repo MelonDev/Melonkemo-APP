@@ -72,6 +72,10 @@ class _TabSegmentWidgetState extends State<TabSegmentWidget> {
         overlayColor: MaterialStateProperty.all(Colors.transparent),
         physics: const BouncingScrollPhysics(),
         //indicatorSize: TabBarIndicatorSize.label,
+        indicatorColor: Colors.transparent,
+        indicatorPadding: const EdgeInsets.all(0),
+        indicatorWeight: 0,
+        dividerColor: Colors.transparent,
         indicator: BoxDecoration(
             borderRadius: BorderRadius.circular(widget.borderRadius),
             color: widget.color ?? Colors.black),
