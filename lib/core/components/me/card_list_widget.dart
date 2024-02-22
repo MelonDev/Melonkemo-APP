@@ -8,11 +8,13 @@ import 'package:url_launcher/url_launcher.dart';
 
 class CardListWidget extends BaseStatelessWidget {
   const CardListWidget(this.serviceName, this.link,
-      {super.key, this.serviceTextColor, this.icon, required super.width,this.backgroundColor});
+      {super.key, this.serviceTextColor, this.icon, required super.width,this.backgroundColor,this.serviceTextOpacity});
 
   final String serviceName;
   final String link;
   final Color? serviceTextColor;
+  final double? serviceTextOpacity;
+
   final double betweenBottom = 10;
   final IconData? icon;
   final Color? backgroundColor;
@@ -42,7 +44,7 @@ class CardListWidget extends BaseStatelessWidget {
               Text(
                 serviceName,
                 style: TextStyle(
-                    color: (serviceTextColor ?? Colors.black).withOpacity(0.70),
+                    color: (serviceTextColor ?? Colors.black).withOpacity(serviceTextOpacity ?? 0.70),
                     fontSize: 17,
                     letterSpacing: 0.0,
                     fontFamily: 'VarelaRound',
@@ -52,7 +54,7 @@ class CardListWidget extends BaseStatelessWidget {
                 Icon(
                   icon,
                   size: 24,
-                  color: (serviceTextColor ?? Colors.black).withOpacity(0.70),
+                  color: (serviceTextColor ?? Colors.black).withOpacity(serviceTextOpacity ?? 0.70),
                 ),
             ],
           ),
