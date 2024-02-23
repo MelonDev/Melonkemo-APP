@@ -17,7 +17,7 @@ class MelonScaffoldWidget extends StatelessWidget {
       required this.body,
       this.extendBodyBehindAppBar = false,
       this.customAppbarBody,
-      this.appBarColor,this.appBarNameTitleColor});
+      this.appBarColor,this.appBarNameTitleColor, this.buttonText, this.onButtonClick, this.bottomSheet});
 
   final List<Widget>? children;
   final OverlayWidget? overlayBody;
@@ -27,6 +27,10 @@ class MelonScaffoldWidget extends StatelessWidget {
   final bool extendBodyBehindAppBar;
   final Color? appBarColor;
   final Color? appBarNameTitleColor;
+
+  final String? buttonText;
+  final VoidCallback? onButtonClick;
+  final Widget? bottomSheet;
 
 
   @override
@@ -65,6 +69,7 @@ class MelonScaffoldWidget extends StatelessWidget {
           appBar: appbar(context),
           backgroundColor: Colors.transparent,
           body: body,
+          bottomSheet: bottomSheet,
         ),
       );
 
@@ -100,7 +105,7 @@ class MelonScaffoldWidget extends StatelessWidget {
           ).hover(x: -2),
           MelonBouncingButton.text(
               enabledHover: true,
-              text: "ลงชื่อเข้าใช้",
+              text: buttonText ?? "ลงชื่อเข้าใช้",
               fontFamily: "Itim",
               textColor: Colors.white,
               fontSize: 16,
@@ -109,7 +114,7 @@ class MelonScaffoldWidget extends StatelessWidget {
               borderRadius: 20,
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               color: Colors.black.withOpacity(0.8),
-              callback: () {
+              callback: onButtonClick ?? () {
                 showDialog(context);
               })
         ],

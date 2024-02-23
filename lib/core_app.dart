@@ -10,6 +10,7 @@ import 'package:melonkemo/pages/me/me_profile_page.dart';
 import 'package:melonkemo/pages/core/shared_page.dart';
 import 'package:melonkemo/pages/router/login_router.dart';
 import 'package:melonkemo/pages/infrastructure/under_construction_page.dart';
+import 'package:melonkemo/pages/sushiro/sushiro_main_page.dart';
 import 'core/components/base_router/base_router_widget.dart';
 import 'core/core/core_route.dart';
 
@@ -24,7 +25,9 @@ class CoreApp extends BaseRouterWidget {
     const MePage().route('/me-dev'),
     const LoginPage().route('/login'),
     const LoginRouter().route('/new_login'),
-    const PrototypeHomePage().route("/prototype-home")
+    const PrototypeHomePage().route("/prototype-home"),
+    const SushiroMainPage().route("/sushiro"),
+
   ];
 
   @override
