@@ -187,7 +187,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
+              padding: const EdgeInsets.symmetric(horizontal: 22),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -240,7 +240,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                 height: 100,
                 child: ListView(
                     scrollDirection: Axis.horizontal,
-                    padding: const EdgeInsets.symmetric(horizontal: 32),
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
                     children: [
                       getCounterPlateWidget(SushiPlateType.copper,
                           plates:
@@ -382,9 +382,9 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
 
     WoltModalSheet.show<void>(
       //pageIndexNotifier: pageIndexNotifier,
-      barrierDismissible: true,
+      barrierDismissible: false,
       showDragHandle: false,
-      enableDrag: true,
+      enableDrag: false,
       context: context,
       pageListBuilder: (modalSheetContext) {
         final textTheme = Theme.of(context).textTheme;
@@ -411,9 +411,9 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
       {double pageHeight = 0.4}) {
     WoltModalSheet.show<void>(
       //pageIndexNotifier: pageIndexNotifier,
-      barrierDismissible: true,
+      barrierDismissible: false,
       showDragHandle: false,
-      enableDrag: true,
+      enableDrag: false,
       context: context,
       pageListBuilder: (modalSheetContext) {
         final textTheme = Theme.of(context).textTheme;

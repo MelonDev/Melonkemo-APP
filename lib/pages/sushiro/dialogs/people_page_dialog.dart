@@ -24,53 +24,77 @@ WoltModalSheetPage peoplePage(
           ? size.resolve(modalSheetContext).height * 0.92
           : size.resolve(modalSheetContext).height * 0.85,
       child: Column(
-        children: [
-          Container(
-            height: 56,
-            padding: const EdgeInsets.only(left: 20, right: 20),
+    children: [
+    Container(
+    height: 56,
+      padding: const EdgeInsets.only(left: 20, right: 20),
 
-            //color: Colors.blue,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                MelonBouncingButton(
-                  callback: () {
+      //color: Colors.blue,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Text(
+            "เพื่มคน",
+            style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                fontFamily: 'Itim',
+                color: Colors.black),
+          ),
+        ],
+      ),
+    ),
+    Expanded(
+      child: Container(),
+    ),
+    Container(
+        padding: EdgeInsets.only(bottom:16),
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              MelonBouncingButton(
+                  callback: (){
                     Navigator.of(modalSheetContext).pop();
                   },
                   child: Container(
-                    padding: EdgeInsets.all(8),
                     decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(50)),
-                    child: Icon(
-                      CupertinoIcons.clear,
-                      color: Colors.black,
-                      size: 20,
+                        color: Colors.grey.withOpacity(0.2),
+                        borderRadius: BorderRadius.circular(100)),
+                    child: Text(
+                      "ยกเลิก",
+                      style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.normal,
+                          fontFamily: 'Itim',
+                          color: Colors.black),
                     ),
+                    padding: EdgeInsets.only(
+                        left: 60, right: 60, bottom: 12, top: 12),
                   ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 46),
-                  child: Text(
-                    people.name,
-                    style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Itim',
-                        color: Colors.black),
+                  borderRadius: 100),
+              MelonBouncingButton(
+                  callback: (){
+                    Navigator.of(modalSheetContext).pop();
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.amberAccent,
+                        borderRadius: BorderRadius.circular(100)),
+                    child: Text(
+                      "บันทึก",
+                      style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.normal,
+                          fontFamily: 'Itim',
+                          color: Colors.black),
+                    ),
+                    padding: EdgeInsets.only(
+                        left: 60, right: 60, bottom: 12, top: 12),
                   ),
-                ),
-                MelonBouncingButton.text(
-                    text: "ยืนยัน",
-                    color: Colors.amberAccent,
-                    fontSize: 18,
-                    padding: EdgeInsets.only(left: 20, right: 20),
-                    borderRadius: 100)
-              ],
-            ),
-          )
-        ],
-      ),
+                  borderRadius: 100),
+            ]))
+    ],
+  ),
     ),
   );
 }
