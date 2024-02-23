@@ -3,17 +3,18 @@ import 'package:melonkemo/pages/sushiro/sushiro_main_model.dart';
 
 class SushiroMainProvider extends ChangeNotifier {
   List<PeopleModel> peoples = [
-    PeopleModel("1", "ทดสอบ 1"),
-    PeopleModel("2", "ทดสอบ 2"),
-    PeopleModel("3", "ทดสอบ 3")
-  ];
-  List<PlateModel> plates = [
-    SushiPlateModel("1", SushiPlateType.copper),
-    SushiPlateModel("1", SushiPlateType.copper),
-    SushiPlateModel("2", SushiPlateType.copper),
-    SideDishPlateModel("2", "Ramen", 150.0),
-    SushiPlateModel("1", SushiPlateType.silver),
-    SushiPlateModel("3", SushiPlateType.black),
+    PeopleModel("1", "ทดสอบ 1",plates: [
+      SushiPlateModel("1", SushiPlateType.copper),
+      SushiPlateModel("1", SushiPlateType.copper),
+      SushiPlateModel("1", SushiPlateType.silver),
+    ]),
+    PeopleModel("2", "ทดสอบ 2",plates: [
+      SushiPlateModel("2", SushiPlateType.copper),
+      SideDishPlateModel("2", "Ramen", 150.0),
+    ]),
+    PeopleModel("3", "ทดสอบ 3",plates: [
+      SushiPlateModel("3", SushiPlateType.black),
+    ])
   ];
 
   initialGroup(List<PeopleModel> peoples) {
@@ -38,30 +39,30 @@ class SushiroMainProvider extends ChangeNotifier {
 
   addSushi(String peopleId, SushiPlateType type,
       {List<PeopleShareModel>? share}) {
-    plates.add(SushiPlateModel(peopleId, type, shared: share));
+    //plates.add(SushiPlateModel(peopleId, type, shared: share));
     notifyListeners();
   }
 
   addSideDish(String peopleId, String sideDishName, double price,
       {List<PeopleShareModel>? share}) {
-    plates
-        .add(SideDishPlateModel(peopleId, sideDishName, price, shared: share));
+    // plates
+    //     .add(SideDishPlateModel(peopleId, sideDishName, price, shared: share));
     notifyListeners();
   }
 
   List<PlateModel> getPlateFromPeopleId(String peopleId) {
-    return plates.where((element) => element.ownerId == peopleId).toList();
+    return peoples.where((element) => element.id == peopleId).toList().first.plates;
   }
 
   updatePlate(int position, PlateModel plate) {
-    if (position >= plates.length) return;
-    plates[position] = plate;
+    // if (position >= plates.length) return;
+    // plates[position] = plate;
     notifyListeners;
   }
 
   removePlate(int position) {
-    if (position >= plates.length) return;
-    plates.removeAt(position);
+    // if (position >= plates.length) return;
+    // plates.removeAt(position);
     notifyListeners;
   }
 
@@ -92,11 +93,13 @@ class SushiroMainProvider extends ChangeNotifier {
   double calculatePrice({String? peopleId,bool includeServiceCharge = false}){
     double price = 0.0;
 
-    for(PlateModel plate in peopleId != null ? plates.where((element) => element.ownerId == peopleId) : plates){
-      if(plate is SushiPlateModel){
-        price += calculateSushi(plate.type,1);
-      }else if (plate is SideDishPlateModel) {
-        price += plate.price;
+    for(PeopleModel people in peopleId != null ? peoples.where((element) => element.id == peopleId) : peoples){
+      for(PlateModel plate in people.plates){
+        if(plate is SushiPlateModel){
+          price += calculateSushi(plate.type,1);
+        }else if (plate is SideDishPlateModel) {
+          price += plate.price;
+        }
       }
     }
 

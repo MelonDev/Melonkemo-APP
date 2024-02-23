@@ -1,8 +1,9 @@
 class PeopleModel {
   String id;
   String name;
+  List<PlateModel> plates;
 
-  PeopleModel(this.id,this.name);
+  PeopleModel(this.id,this.name, {List<PlateModel>? plates}) : plates = plates ?? [];
 }
 
 class PeopleShareModel {
