@@ -80,6 +80,7 @@ WoltModalSheetPage peoplePage(
                   margin:
                       const EdgeInsets.symmetric(vertical: 6, horizontal: 0),
                 ),
+                _sideDishListView(modalSheetContext)
               ],
             )),
           ),
@@ -131,6 +132,42 @@ WoltModalSheetPage peoplePage(
                   ]))
         ],
       ),
+    ),
+  );
+}
+
+Widget _sideDishListView(BuildContext context) {
+  return Container(
+    padding: const EdgeInsets.only(left: 26, right: 26, top: 6, bottom: 6),
+    child: Column(
+      children: [
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              "เมนูอื่น ๆ",
+              style: const TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.normal,
+                  fontFamily: 'Itim',
+                  color: Colors.black),
+            ),
+            MelonBouncingButton.text(
+                enabledHover: true,
+                text: "เพิ่มเมนู",
+                fontFamily: "Itim",
+                textColor: Colors.white,
+                fontSize: 16,
+                height: 34,
+                x: -2,
+                borderRadius: 20,
+                padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                color: Colors.black.withOpacity(0.8),
+                callback: () {})
+          ],
+        ),
+
+      ],
     ),
   );
 }
