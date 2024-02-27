@@ -54,7 +54,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
+              SizedBox(
                 width: areaWidth.resolve(context),
                 child: _listView(ct),
               )
