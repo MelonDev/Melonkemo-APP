@@ -3,16 +3,16 @@ import 'package:melonkemo/pages/sushiro/sushiro_main_model.dart';
 
 class SushiroMainProvider extends ChangeNotifier {
   List<PeopleModel> peoples = [
-    PeopleModel("1", "ทดสอบ 1",plates: [
+    PeopleModel("1", "คนที่ 1",plates: [
       SushiPlateModel("1", SushiPlateType.copper),
       SushiPlateModel("1", SushiPlateType.copper),
       SushiPlateModel("1", SushiPlateType.silver),
     ]),
-    PeopleModel("2", "ทดสอบ 2",plates: [
+    PeopleModel("2", "คนที่ 2",plates: [
       SushiPlateModel("2", SushiPlateType.copper),
       SideDishPlateModel("2", "Ramen", 150.0),
     ]),
-    PeopleModel("3", "ทดสอบ 3",plates: [
+    PeopleModel("3", "คนที่ 3",plates: [
       SushiPlateModel("3", SushiPlateType.black),
     ])
   ];
