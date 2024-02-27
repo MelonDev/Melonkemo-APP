@@ -18,10 +18,10 @@ import 'package:provider/provider.dart';
 import 'package:simple_icons/simple_icons.dart';
 
 class PrototypeHomePage extends StatefulWidget {
-  const PrototypeHomePage({Key? key}) : super(key: key);
+  const PrototypeHomePage({super.key});
 
   @override
-  _PrototypeHomePageState createState() => _PrototypeHomePageState();
+  State<PrototypeHomePage> createState() => _PrototypeHomePageState();
 }
 
 class _PrototypeHomePageState extends State<PrototypeHomePage> {
