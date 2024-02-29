@@ -4,10 +4,10 @@ import 'package:melonkemo/pages/sushiro/sushiro_main_model.dart';
 
 class SushiroMainProvider extends ChangeNotifier {
   List<PeopleModel> peoples = [
-    PeopleModel("0", "คนที่ 1",
-        copper: SushiPlateModel(SushiPlateType.copper, 2),
-        silver: SushiPlateModel(SushiPlateType.silver, 1),
-        plates: []),
+    // PeopleModel("0", "คนที่ 1",
+    //     copper: SushiPlateModel(SushiPlateType.copper, 2),
+    //     silver: SushiPlateModel(SushiPlateType.silver, 1),
+    //     plates: []),
     // PeopleModel("2", "คนที่ 2",
     //     copper: SushiPlateModel(SushiPlateType.copper, 1),
     //     plates: [
