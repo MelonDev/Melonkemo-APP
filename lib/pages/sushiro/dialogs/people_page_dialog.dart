@@ -613,9 +613,9 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
     } else if (type == SushiPlateType.silver) {
       return "จานเงิน";
     } else if (type == SushiPlateType.gold) {
-      return "งานทอง";
+      return "จานทอง";
     } else if (type == SushiPlateType.black) {
-      return "งานดำ";
+      return "จานดำ";
     } else {
       return "";
     }
