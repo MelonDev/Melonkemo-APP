@@ -5,21 +5,43 @@ import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/pages/sushiro/sushiro_main_model.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
-WoltModalSheetPage addPeople(
-    BuildContext modalSheetContext, TextTheme textTheme,{double pageHeight = 0.4}) {
+class AddPeopleDialog extends StatefulWidget {
+  const AddPeopleDialog({
+    super.key,
+    required this.id,
+    this.people,
+    this.callback,
+    this.pageHeight = 0.4,
+  });
+
+  final PeopleModel? people;
+  final Function(PeopleModel)? callback;
+  final double pageHeight;
+  final String id;
+
+  @override
+  State<AddPeopleDialog> createState() => _AddPeopleDialogState();
+}
+
+class _AddPeopleDialogState extends State<AddPeopleDialog> {
   final LayoutValue<Size> size = LayoutValue.builder((layout) {
     return Size(layout.width, layout.size.height);
   });
 
-  return WoltModalSheetPage(
-    hasSabGradient: false,
-    forceMaxHeight: false,
-    navBarHeight: 0,
-    backgroundColor: const Color(0xFFFFB920),
-    isTopBarLayerAlwaysVisible: false,
-    child: Container(
+  var formkey = GlobalKey<FormState>();
+  TextEditingController nameController = TextEditingController();
+
+  @override
+  void initState() {
+    nameController.text = widget.people?.name ?? "";
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
       color: Colors.white,
-      height: size.resolve(modalSheetContext).height * pageHeight,
+      height: size.resolve(context).height * widget.pageHeight,
       child: Column(
         children: [
           Container(
@@ -31,7 +53,7 @@ WoltModalSheetPage addPeople(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "เพื่มคน",
+                  "${widget.people != null ? "แก้ไขชื่อ" : "เพิ่ม"}คน",
                   style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
@@ -42,56 +64,146 @@ WoltModalSheetPage addPeople(
             ),
           ),
           Expanded(
-            child: Container(),
+            child: Container(
+                margin: const EdgeInsets.only(left: 20, right: 20),
+                child: Form(
+                  key: formkey,
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        TextFormField(
+                          controller: nameController,
+                          style: TextStyle(
+                            color: Colors.grey[800],
+                            fontSize: 20,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: 'Itim',
+                          ),
+                          validator: (value) {
+                            if (value?.isEmpty ?? false) {
+                              return "กรุณากรอกชื่อ";
+                            }
+                          },
+                          decoration: InputDecoration(
+                            border: InputBorder.none,
+                            enabledBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 0.0, color: Colors.transparent),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            errorBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(
+                                  width: 2.0, color: Colors.red),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: const BorderSide(width: 2.0),
+                              borderRadius: BorderRadius.circular(10.0),
+                            ),
+                            filled: true,
+                            errorStyle: const TextStyle(
+                              color: Colors.red,
+                              fontSize: 16,
+                              fontWeight: FontWeight.normal,
+                              fontFamily: 'Itim',
+                            ),
+                            hintStyle: TextStyle(
+                              color: Colors.grey[800],
+                              fontSize: 20,
+                              fontWeight: FontWeight.normal,
+                              fontFamily: 'Itim',
+                            ),
+                            labelStyle: TextStyle(
+                              color: Colors.red,
+                            ),
+                            hintText: "ชื่อ",
+                            fillColor: Colors.black.withOpacity(0.05),
+                          ),
+                        ),
+                        const SizedBox(height: 26),
+                      ]),
+                )),
           ),
           Container(
-            padding: EdgeInsets.only(bottom:16),
+              padding: const EdgeInsets.only(bottom: 16),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
                     MelonBouncingButton(
-                      callback: (){
-                        Navigator.of(modalSheetContext).pop();
-                      },
+                        callback: () {
+                          Navigator.of(context).pop();
+                        },
+                        borderRadius: 100,
                         child: Container(
                           decoration: BoxDecoration(
                               color: Colors.grey.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(100)),
-                          child: Text(
+                          padding: const EdgeInsets.only(
+                              left: 50, right: 50, bottom: 10, top: 10),
+                          child: const Text(
                             "ยกเลิก",
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.normal,
                                 fontFamily: 'Itim',
                                 color: Colors.black),
                           ),
-                          padding: EdgeInsets.only(
+                        )),
+                    MelonBouncingButton(
+                        callback: () {
+                          if (formkey.currentState?.validate() ?? false) {
+                            widget.callback?.call(PeopleModel(
+                              widget.id,
+                              nameController.text,
+                              copper: widget.people?.copper,
+                              silver: widget.people?.silver,
+                              gold: widget.people?.gold,
+                              black: widget.people?.black,
+                              plates: widget.people?.plates,
+                            ));
+                            Navigator.of(context).pop();
+                          }
+                        },
+                        borderRadius: 100,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.amberAccent,
+                              borderRadius: BorderRadius.circular(100)),
+                          padding: const EdgeInsets.only(
                               left: 50, right: 50, bottom: 10, top: 10),
-                        ),
-                        borderRadius: 100),
-                MelonBouncingButton(
-                    callback: (){
-                      Navigator.of(modalSheetContext).pop();
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                          color: Colors.amberAccent,
-                          borderRadius: BorderRadius.circular(100)),
-                      child: Text(
-                        "ยืนยัน",
-                        style: const TextStyle(
-                            fontSize: 20,
-                            fontWeight: FontWeight.normal,
-                            fontFamily: 'Itim',
-                            color: Colors.black),
-                      ),
-                      padding: EdgeInsets.only(
-                          left: 50, right: 50, bottom: 10, top: 10),
-                    ),
-                    borderRadius: 100),
-              ]))
+                          child: const Text(
+                            "ยืนยัน",
+                            style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.normal,
+                                fontFamily: 'Itim',
+                                color: Colors.black),
+                          ),
+                        )),
+                  ]))
         ],
       ),
+    );
+  }
+}
+
+WoltModalSheetPage addPeoplePage(
+    BuildContext modalSheetContext, TextTheme textTheme,
+    {required String id,
+    PeopleModel? people,
+    Function(PeopleModel)? callback,
+    double pageHeight = 0.4}) {
+  return WoltModalSheetPage(
+    hasSabGradient: false,
+    forceMaxHeight: false,
+    navBarHeight: 0,
+    backgroundColor: Colors.white,
+    isTopBarLayerAlwaysVisible: false,
+    child: AddPeopleDialog(
+      id: id,
+      people: people,
+      callback: callback,
+      pageHeight: pageHeight,
     ),
   );
 }

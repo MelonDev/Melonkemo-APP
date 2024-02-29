@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -7,12 +8,12 @@ import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/core/components/me/melon_scaffold_widget.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
 import 'package:melonkemo/pages/infrastructure/under_construction_page.dart';
-import 'package:melonkemo/pages/sushiro/dialogs/add_people_dialog.dart';
 import 'package:melonkemo/pages/sushiro/sushiro_main_model.dart';
 import 'package:melonkemo/pages/sushiro/sushiro_main_provider.dart';
 import 'package:provider/provider.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
+import 'dialogs/add_people_dialog.dart';
 import 'dialogs/people_page_dialog.dart';
 import 'dialogs/summary_page_dialog.dart';
 
@@ -21,6 +22,67 @@ typedef WoltPageLayoutCallback = WoltModalSheetPage Function(
 
 class SushiroMainPage extends StatefulWidget {
   const SushiroMainPage({Key? key}) : super(key: key);
+
+  static void showDialog(BuildContext context, WoltPageLayoutCallback page) {
+    final LayoutValue<double> width = LayoutValue.builder((layout) {
+      return layout.width;
+    });
+
+    final LayoutValue<double> areaWidth = LayoutValue.builder((layout) {
+      return layout.width <= 500 ? layout.width : 500;
+    });
+
+    WoltModalSheet.show<void>(
+      //pageIndexNotifier: pageIndexNotifier,
+      barrierDismissible: false,
+      showDragHandle: false,
+      enableDrag: false,
+      context: context,
+      pageListBuilder: (modalSheetContext) {
+        final textTheme = Theme.of(context).textTheme;
+        return [page.call(context, textTheme)];
+      },
+      modalTypeBuilder: (context) {
+        if (width.resolve(context) < 560) {
+          return WoltModalType.bottomSheet;
+        } else {
+          return WoltModalType.dialog;
+        }
+      },
+      onModalDismissedWithBarrierTap: () {
+        Navigator.of(context).pop();
+      },
+      maxDialogWidth: 880,
+      minDialogWidth: areaWidth.resolve(context),
+      minPageHeight: width.resolve(context) < 560 ? 0.9 : 0.85,
+      maxPageHeight: 1.0,
+    );
+  }
+
+  static void showSmallDialog(BuildContext context, WoltPageLayoutCallback page,
+      {double pageHeight = 0.4}) {
+    WoltModalSheet.show<void>(
+      //pageIndexNotifier: pageIndexNotifier,
+      barrierDismissible: false,
+      showDragHandle: false,
+      enableDrag: false,
+      context: context,
+      pageListBuilder: (modalSheetContext) {
+        final textTheme = Theme.of(context).textTheme;
+        return [page.call(context, textTheme)];
+      },
+      modalTypeBuilder: (context) {
+        return WoltModalType.dialog;
+      },
+      onModalDismissedWithBarrierTap: () {
+        Navigator.of(context).pop();
+      },
+      maxDialogWidth: 360,
+      minDialogWidth: 360,
+      minPageHeight: pageHeight,
+      maxPageHeight: pageHeight,
+    );
+  }
 
   @override
   _SushiroMainPageState createState() => _SushiroMainPageState();
@@ -48,6 +110,8 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
     return ChangeNotifierProvider(
       create: (_) => _provider,
       builder: (BuildContext ct, Widget? widget) {
+        List<PeopleModel> peoples = ct.watch<SushiroMainProvider>().peoples;
+
         return MelonScaffoldWidget(
           //backgroundColor: Colors.white,
           body: Row(
@@ -62,11 +126,20 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
           ),
           buttonText: "เพิ่มคน",
           onButtonClick: () {
-            showSmallDialog(
-                context,
-                pageHeight: 0.3,
-                (BuildContext modalSheetContext, TextTheme textTheme) =>
-                    addPeople(modalSheetContext, textTheme, pageHeight: 0.3));
+            SushiroMainPage.showSmallDialog(
+              context,
+              pageHeight: 0.32,
+              (BuildContext modalSheetContext, TextTheme textTheme) =>
+                  addPeoplePage(
+                modalSheetContext,
+                textTheme,
+                pageHeight: 0.32,
+                id: peoples.length.toString(),
+                callback: (PeopleModel newPeople) {
+                  _provider.addPeople(newPeople);
+                },
+              ),
+            );
           },
           bottomSheet: Container(
             color: Colors.white,
@@ -83,7 +156,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
   Widget bottomSheet(BuildContext context) {
     return MelonBouncingButton(
       callback: () {
-        showDialog(
+        SushiroMainPage.showDialog(
             context,
             (BuildContext modalSheetContext, TextTheme textTheme) =>
                 summaryPage(modalSheetContext, textTheme));
@@ -170,16 +243,43 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
       {required PeopleModel people, required List<PlateModel> plates}) {
     List<SideDishPlateModel> sideDishPlates =
         plates.whereType<SideDishPlateModel>().toList();
-    Map<SushiPlateType, List<SushiPlateModel>> groupSushiPlates = groupBy(
-        plates.whereType<SushiPlateModel>().toList(),
-        (SushiPlateModel sushiPlate) => sushiPlate.type);
+
+    // Map<SushiPlateType, List<SushiPlateModel>> groupSushiPlates = groupBy(
+    //     plates.whereType<SushiPlateModel>().toList(),
+    //     (SushiPlateModel sushiPlate) => sushiPlate.type);
 
     return MelonBouncingButton(
       callback: () {
-        showDialog(
-            context,
-            (BuildContext modalSheetContext, TextTheme textTheme) =>
-                peoplePage(modalSheetContext, textTheme, people));
+        SushiroMainPage.showDialog(
+          context,
+          (BuildContext modalSheetContext, TextTheme textTheme) => peoplePage(
+            modalSheetContext,
+            textTheme,
+            people.copy(),
+            callback: (PeopleModel newPeople) {
+              _provider.updatePeople(newPeople.copy());
+            },
+            onChangeNameTapped: (){
+              Navigator.of(context).pop();
+              SushiroMainPage.showSmallDialog(
+                context,
+                pageHeight: 0.32,
+                    (BuildContext modalSheetContext, TextTheme textTheme) =>
+                    addPeoplePage(
+                      modalSheetContext,
+                      textTheme,
+                      pageHeight: 0.32,
+                      id: people.id,
+                      people: people,
+                      callback: (PeopleModel newPeople) {
+                        _provider.updatePeople(newPeople);
+                      },
+                    ),
+              );
+
+            }
+          ),
+        );
       },
       child: Container(
         padding: const EdgeInsets.only(bottom: 20),
@@ -243,18 +343,16 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     children: [
                       getCounterPlateWidget(SushiPlateType.copper,
-                          plates:
-                              groupSushiPlates[SushiPlateType.copper] ?? []),
+                          plates: [people.copper]),
                       const SizedBox(width: 16),
                       getCounterPlateWidget(SushiPlateType.silver,
-                          plates:
-                              groupSushiPlates[SushiPlateType.silver] ?? []),
+                          plates: [people.silver]),
                       const SizedBox(width: 16),
                       getCounterPlateWidget(SushiPlateType.gold,
-                          plates: groupSushiPlates[SushiPlateType.gold] ?? []),
+                          plates: [people.gold]),
                       const SizedBox(width: 16),
                       getCounterPlateWidget(SushiPlateType.black,
-                          plates: groupSushiPlates[SushiPlateType.black] ?? []),
+                          plates: [people.black]),
                       const SizedBox(width: 16),
                       getCounterPlateWidget(null, plates: sideDishPlates)
                     ]))
@@ -266,9 +364,11 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
 
   Widget getCounterPlateWidget(SushiPlateType? type,
       {required List<PlateModel> plates}) {
-    double price = type != null
-        ? SushiroMainProvider.calculateSushi(type, plates.length)
-        : SushiroMainProvider.calculateSideDish(plates);
+    double price = SushiroMainProvider.calculate(plates);
+    int platesCount = 0;
+    for (var element in plates) {
+      platesCount += element.value;
+    }
     return Column(
       children: [
         Stack(
@@ -276,7 +376,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
           children: [
             getSushiPlateWidget(type),
             Text(
-              "${plates.length}",
+              "$platesCount",
               style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
@@ -372,63 +472,6 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
           borderRadius: BorderRadius.circular(borderRadius)),
       width: 60,
       height: 60,
-    );
-  }
-
-  void showDialog(BuildContext context, WoltPageLayoutCallback page) {
-    final LayoutValue<double> width = LayoutValue.builder((layout) {
-      return layout.width;
-    });
-
-    WoltModalSheet.show<void>(
-      //pageIndexNotifier: pageIndexNotifier,
-      barrierDismissible: false,
-      showDragHandle: false,
-      enableDrag: false,
-      context: context,
-      pageListBuilder: (modalSheetContext) {
-        final textTheme = Theme.of(context).textTheme;
-        return [page.call(context, textTheme)];
-      },
-      modalTypeBuilder: (context) {
-        if (width.resolve(context) < 560) {
-          return WoltModalType.bottomSheet;
-        } else {
-          return WoltModalType.dialog;
-        }
-      },
-      onModalDismissedWithBarrierTap: () {
-        Navigator.of(context).pop();
-      },
-      maxDialogWidth: 880,
-      minDialogWidth: areaWidth.resolve(context),
-      minPageHeight: width.resolve(context) < 560 ? 0.9 : 0.85,
-      maxPageHeight: 1.0,
-    );
-  }
-
-  void showSmallDialog(BuildContext context, WoltPageLayoutCallback page,
-      {double pageHeight = 0.4}) {
-    WoltModalSheet.show<void>(
-      //pageIndexNotifier: pageIndexNotifier,
-      barrierDismissible: false,
-      showDragHandle: false,
-      enableDrag: false,
-      context: context,
-      pageListBuilder: (modalSheetContext) {
-        final textTheme = Theme.of(context).textTheme;
-        return [page.call(context, textTheme)];
-      },
-      modalTypeBuilder: (context) {
-        return WoltModalType.dialog;
-      },
-      onModalDismissedWithBarrierTap: () {
-        Navigator.of(context).pop();
-      },
-      maxDialogWidth: 360,
-      minDialogWidth: 360,
-      minPageHeight: pageHeight,
-      maxPageHeight: pageHeight,
     );
   }
 }
