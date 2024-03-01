@@ -32,21 +32,6 @@ class PeoplePageDialog extends StatefulWidget {
 }
 
 class _PeoplePageDialogState extends State<PeoplePageDialog> {
-  late StreamSubscription<bool> keyboardSubscription;
-
-  bool isKeyboardShown = false;
-
-  @override
-  void initState() {
-    var keyboardVisibilityController = KeyboardVisibilityController();
-    super.initState();
-    keyboardSubscription =
-        keyboardVisibilityController.onChange.listen((bool visible) {
-      isKeyboardShown = visible;
-      setState(() {});
-      print('Keyboard visibility update. Is visible: $visible');
-    });
-  }
 
   final LayoutValue<Size> size = LayoutValue.builder((layout) {
     return Size(layout.width, layout.size.height);
@@ -71,8 +56,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    //widget.people.name,
-                    " ${size.resolve(context).height} ${isKeyboardShown}",
+                    widget.people.name,
                     style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,

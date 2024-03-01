@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:dartx/dartx.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:layout/layout.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
@@ -26,6 +29,9 @@ class AddSidedishDialog extends StatefulWidget {
 }
 
 class _AddSidedishDialogState extends State<AddSidedishDialog> {
+  late StreamSubscription<bool> keyboardSubscription;
+  bool isKeyboardShown = false;
+
   final LayoutValue<Size> size = LayoutValue.builder((layout) {
     return Size(layout.width, layout.size.height);
   });
@@ -40,8 +46,16 @@ class _AddSidedishDialogState extends State<AddSidedishDialog> {
     nameController.text = widget.plate?.name ?? "";
     priceController.text = widget.plate?.price.toStringAsFixed(0) ?? "";
     value = widget.plate?.value ?? 0;
+    var keyboardVisibilityController = KeyboardVisibilityController();
 
     super.initState();
+
+    keyboardSubscription =
+        keyboardVisibilityController.onChange.listen((bool visible) {
+          isKeyboardShown = visible;
+          setState(() {});
+          print('Keyboard visibility update. Is visible: $visible');
+        });
   }
 
   @override
@@ -60,7 +74,9 @@ class _AddSidedishDialogState extends State<AddSidedishDialog> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  "${widget.plate != null ? "แก้ไข" : "เพิ่ม"}จาน",
+                  //"${widget.plate != null ? "แก้ไข" : "เพิ่ม"}จาน",
+                  " ${size.resolve(context).height} ${isKeyboardShown}",
+
                   style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
