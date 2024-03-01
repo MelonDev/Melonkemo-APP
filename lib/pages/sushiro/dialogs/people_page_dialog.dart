@@ -1,6 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:layout/layout.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
@@ -11,11 +12,13 @@ import 'package:melonkemo/pages/sushiro/sushiro_main_provider.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class PeoplePageDialog extends StatefulWidget {
-  const PeoplePageDialog({super.key, required this.people, this.callback,this.onChangeNameTapped});
+  const PeoplePageDialog({super.key, required this.people, this.callback,this.onChangeNameTapped, this.onDeleteTapped});
 
   final PeopleModel people;
   final Function(PeopleModel)? callback;
   final VoidCallback? onChangeNameTapped;
+  final VoidCallback? onDeleteTapped;
+
 
   @override
   State<PeoplePageDialog> createState() => _PeoplePageDialogState();
@@ -40,77 +43,104 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
             padding: const EdgeInsets.only(left: 20, right: 20),
 
             //color: Colors.blue,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
+            child: Stack(
               children: [
-                Text(
-                  widget.people.name,
-                  style: const TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      fontFamily: 'Itim',
-                      color: Colors.black),
+                Align(
+                  alignment: Alignment.center,
+                  child: Text(
+                    widget.people.name,
+                    style: const TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'Itim',
+                        color: Colors.black),
+                  ),
                 ),
-                const SizedBox(width: 12),
-                MelonBouncingButton(
-                    callback: () {
-                      widget.onChangeNameTapped?.call();
-                    },
-                    child: Container(
-                      height: 26,
-                      width: 26,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                          color: Colors.black.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(100)),
-                      child: const Icon(
-                        CupertinoIcons.pencil,
-                        size: 20,
-                      ),
-                    )).hover(y: -1, x: -0.5)
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      MelonBouncingButton(
+                          callback: () {
+                            widget.onChangeNameTapped?.call();
+                          },
+                          child: Container(
+                            height: 26,
+                            width: 26,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: Colors.black.withOpacity(0.1),
+                                borderRadius: BorderRadius.circular(100)),
+                            child: const Icon(
+                              CupertinoIcons.pencil,
+                              size: 18,
+                            ),
+                          )).hover(y: -1, x: -0.5),
+                      const SizedBox(width: 12),
+                      MelonBouncingButton(
+                          callback: () {
+                            widget.onDeleteTapped?.call();
+                          },
+                          child: Container(
+                            height: 26,
+                            width: 26,
+                            alignment: Alignment.center,
+                            decoration: BoxDecoration(
+                                color: Colors.red.withOpacity(1.0),
+                                borderRadius: BorderRadius.circular(100)),
+                            child: const Icon(
+                              CupertinoIcons.trash,
+                              size: 14,
+                              color: Colors.white,
+                            ),
+                          )).hover(y: -1, x: -0.5)
+
+                    ],
+                  ),
+                )
 
               ],
             ),
           ),
           Expanded(
-            child: Container(
-                child: ListView(
-              children: [
-                _plateTileWidget(context, widget.people.copper),
-                Container(
-                  width: double.infinity,
-                  height: 1,
-                  color: Colors.black.withOpacity(0.2),
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 6, horizontal: 26),
-                ),
-                _plateTileWidget(context, widget.people.silver),
-                Container(
-                  width: double.infinity,
-                  height: 1,
-                  color: Colors.black.withOpacity(0.2),
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 6, horizontal: 26),
-                ),
-                _plateTileWidget(context, widget.people.gold),
-                Container(
-                  width: double.infinity,
-                  height: 1,
-                  color: Colors.black.withOpacity(0.2),
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 6, horizontal: 26),
-                ),
-                _plateTileWidget(context, widget.people.black),
-                // Container(
-                //   width: double.infinity,
-                //   height: 1,
-                //   color: Colors.black.withOpacity(0.2),
-                //   margin:
-                //       const EdgeInsets.symmetric(vertical: 6, horizontal: 0),
-                // ),
-                _sideDishListView(context)
-              ],
-            )),
+            child: ListView(
+                          children: [
+            _plateTileWidget(context, widget.people.copper),
+            Container(
+              width: double.infinity,
+              height: 1,
+              color: Colors.black.withOpacity(0.2),
+              margin:
+                  const EdgeInsets.symmetric(vertical: 6, horizontal: 26),
+            ),
+            _plateTileWidget(context, widget.people.silver),
+            Container(
+              width: double.infinity,
+              height: 1,
+              color: Colors.black.withOpacity(0.2),
+              margin:
+                  const EdgeInsets.symmetric(vertical: 6, horizontal: 26),
+            ),
+            _plateTileWidget(context, widget.people.gold),
+            Container(
+              width: double.infinity,
+              height: 1,
+              color: Colors.black.withOpacity(0.2),
+              margin:
+                  const EdgeInsets.symmetric(vertical: 6, horizontal: 26),
+            ),
+            _plateTileWidget(context, widget.people.black),
+            // Container(
+            //   width: double.infinity,
+            //   height: 1,
+            //   color: Colors.black.withOpacity(0.2),
+            //   margin:
+            //       const EdgeInsets.symmetric(vertical: 6, horizontal: 0),
+            // ),
+            _sideDishListView(context)
+                          ],
+                        ),
           ),
           Container(
               padding: const EdgeInsets.only(bottom: 16,top: 10),
@@ -121,43 +151,43 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                         callback: () {
                           Navigator.of(context).pop();
                         },
+                        borderRadius: 100,
                         child: Container(
                           decoration: BoxDecoration(
                               color: Colors.grey.withOpacity(0.2),
                               borderRadius: BorderRadius.circular(100)),
-                          child: Text(
+                          padding: const EdgeInsets.only(
+                              left: 60, right: 60, bottom: 12, top: 12),
+                          child: const Text(
                             "ยกเลิก",
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.normal,
                                 fontFamily: 'Itim',
                                 color: Colors.black),
                           ),
-                          padding: EdgeInsets.only(
-                              left: 60, right: 60, bottom: 12, top: 12),
-                        ),
-                        borderRadius: 100),
+                        )),
                     MelonBouncingButton(
                         callback: () {
                           widget.callback?.call(widget.people);
                           Navigator.of(context).pop();
                         },
+                        borderRadius: 100,
                         child: Container(
                           decoration: BoxDecoration(
                               color: Colors.amberAccent,
                               borderRadius: BorderRadius.circular(100)),
-                          child: Text(
+                          padding: const EdgeInsets.only(
+                              left: 60, right: 60, bottom: 12, top: 12),
+                          child: const Text(
                             "บันทึก",
-                            style: const TextStyle(
+                            style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.normal,
                                 fontFamily: 'Itim',
                                 color: Colors.black),
                           ),
-                          padding: EdgeInsets.only(
-                              left: 60, right: 60, bottom: 12, top: 12),
-                        ),
-                        borderRadius: 100),
+                        )),
                   ]))
         ],
       ),
@@ -176,9 +206,9 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
+                const Text(
                   "เมนูอื่น ๆ",
-                  style: const TextStyle(
+                  style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.normal,
                       fontFamily: 'Itim',
@@ -203,7 +233,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                             addSideDishPage(
                           modalSheetContext,
                           textTheme,
-                          pageHeight: 0.45,
+                          pageHeight: size.resolve(context).height < 300 ? 0.8 : 0.45,
                           callback: (int? index,
                               SideDishPlateModel newSideDishPlate) {
                             widget.people.plates.add(newSideDishPlate);
@@ -221,7 +251,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
           ...widget.people.plates
               .mapIndexed((index, plate) =>
                   _cardPlateTileWidget(context, plate, index: index))
-              .toList()
+
         ],
       ),
     );
@@ -638,7 +668,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
 
 WoltModalSheetPage peoplePage(
     BuildContext modalSheetContext, TextTheme textTheme, PeopleModel people,
-    {Function(PeopleModel)? callback,VoidCallback? onChangeNameTapped}) {
+    {Function(PeopleModel)? callback,VoidCallback? onChangeNameTapped,VoidCallback? onDeleteTapped}) {
   return WoltModalSheetPage(
       hasSabGradient: false,
       forceMaxHeight: false,
@@ -649,5 +679,6 @@ WoltModalSheetPage peoplePage(
         people: people,
         callback: callback,
         onChangeNameTapped: onChangeNameTapped,
+        onDeleteTapped: onDeleteTapped,
       ));
 }
