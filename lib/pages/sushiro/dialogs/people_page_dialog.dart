@@ -1,7 +1,10 @@
+import 'dart:async';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:layout/layout.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
@@ -12,19 +15,39 @@ import 'package:melonkemo/pages/sushiro/sushiro_main_provider.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 class PeoplePageDialog extends StatefulWidget {
-  const PeoplePageDialog({super.key, required this.people, this.callback,this.onChangeNameTapped, this.onDeleteTapped});
+  const PeoplePageDialog(
+      {super.key,
+      required this.people,
+      this.callback,
+      this.onChangeNameTapped,
+      this.onDeleteTapped});
 
   final PeopleModel people;
   final Function(PeopleModel)? callback;
   final VoidCallback? onChangeNameTapped;
   final VoidCallback? onDeleteTapped;
 
-
   @override
   State<PeoplePageDialog> createState() => _PeoplePageDialogState();
 }
 
 class _PeoplePageDialogState extends State<PeoplePageDialog> {
+  late StreamSubscription<bool> keyboardSubscription;
+
+  bool isKeyboardShown = false;
+
+  @override
+  void initState() {
+    var keyboardVisibilityController = KeyboardVisibilityController();
+    super.initState();
+    keyboardSubscription =
+        keyboardVisibilityController.onChange.listen((bool visible) {
+      isKeyboardShown = visible;
+      setState(() {});
+      print('Keyboard visibility update. Is visible: $visible');
+    });
+  }
+
   final LayoutValue<Size> size = LayoutValue.builder((layout) {
     return Size(layout.width, layout.size.height);
   });
@@ -95,55 +118,53 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                               color: Colors.white,
                             ),
                           )).hover(y: -1, x: -0.5)
-
                     ],
                   ),
                 )
-
               ],
             ),
           ),
           Expanded(
             child: ListView(
-                          children: [
-            _plateTileWidget(context, widget.people.copper),
-            Container(
-              width: double.infinity,
-              height: 1,
-              color: Colors.black.withOpacity(0.2),
-              margin:
-                  const EdgeInsets.symmetric(vertical: 6, horizontal: 26),
+              children: [
+                _plateTileWidget(context, widget.people.copper),
+                Container(
+                  width: double.infinity,
+                  height: 1,
+                  color: Colors.black.withOpacity(0.2),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 6, horizontal: 26),
+                ),
+                _plateTileWidget(context, widget.people.silver),
+                Container(
+                  width: double.infinity,
+                  height: 1,
+                  color: Colors.black.withOpacity(0.2),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 6, horizontal: 26),
+                ),
+                _plateTileWidget(context, widget.people.gold),
+                Container(
+                  width: double.infinity,
+                  height: 1,
+                  color: Colors.black.withOpacity(0.2),
+                  margin:
+                      const EdgeInsets.symmetric(vertical: 6, horizontal: 26),
+                ),
+                _plateTileWidget(context, widget.people.black),
+                // Container(
+                //   width: double.infinity,
+                //   height: 1,
+                //   color: Colors.black.withOpacity(0.2),
+                //   margin:
+                //       const EdgeInsets.symmetric(vertical: 6, horizontal: 0),
+                // ),
+                _sideDishListView(context)
+              ],
             ),
-            _plateTileWidget(context, widget.people.silver),
-            Container(
-              width: double.infinity,
-              height: 1,
-              color: Colors.black.withOpacity(0.2),
-              margin:
-                  const EdgeInsets.symmetric(vertical: 6, horizontal: 26),
-            ),
-            _plateTileWidget(context, widget.people.gold),
-            Container(
-              width: double.infinity,
-              height: 1,
-              color: Colors.black.withOpacity(0.2),
-              margin:
-                  const EdgeInsets.symmetric(vertical: 6, horizontal: 26),
-            ),
-            _plateTileWidget(context, widget.people.black),
-            // Container(
-            //   width: double.infinity,
-            //   height: 1,
-            //   color: Colors.black.withOpacity(0.2),
-            //   margin:
-            //       const EdgeInsets.symmetric(vertical: 6, horizontal: 0),
-            // ),
-            _sideDishListView(context)
-                          ],
-                        ),
           ),
           Container(
-              padding: const EdgeInsets.only(bottom: 16,top: 10),
+              padding: const EdgeInsets.only(bottom: 16, top: 10),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
@@ -216,7 +237,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                 ),
                 MelonBouncingButton.text(
                     enabledHover: true,
-                    text: "เพิ่มจาน ${size.resolve(context).height}",
+                    text: "เพิ่มจาน ${size.resolve(context).height} ${isKeyboardShown}",
                     fontFamily: "Itim",
                     textColor: Colors.white,
                     fontSize: 16,
@@ -228,12 +249,18 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                     callback: () {
                       SushiroMainPage.showSmallDialog(
                         context,
-                        pageHeight: size.resolve(context).height < size.resolve(context).width * 1.25 ? 0.8 : 0.45,
+                        pageHeight: size.resolve(context).height <
+                                size.resolve(context).width * 1.25
+                            ? 0.8
+                            : 0.45,
                         (BuildContext modalSheetContext, TextTheme textTheme) =>
                             addSideDishPage(
                           modalSheetContext,
                           textTheme,
-                          pageHeight: size.resolve(context).height < size.resolve(context).width * 1.25 ? 0.8 : 0.45,
+                          pageHeight: size.resolve(context).height <
+                                  size.resolve(context).width * 1.25
+                              ? 0.8
+                              : 0.45,
                           callback: (int? index,
                               SideDishPlateModel newSideDishPlate) {
                             widget.people.plates.add(newSideDishPlate);
@@ -248,10 +275,8 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
           const SizedBox(
             height: 10,
           ),
-          ...widget.people.plates
-              .mapIndexed((index, plate) =>
-                  _cardPlateTileWidget(context, plate, index: index))
-
+          ...widget.people.plates.mapIndexed((index, plate) =>
+              _cardPlateTileWidget(context, plate, index: index))
         ],
       ),
     );
@@ -668,7 +693,9 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
 
 WoltModalSheetPage peoplePage(
     BuildContext modalSheetContext, TextTheme textTheme, PeopleModel people,
-    {Function(PeopleModel)? callback,VoidCallback? onChangeNameTapped,VoidCallback? onDeleteTapped}) {
+    {Function(PeopleModel)? callback,
+    VoidCallback? onChangeNameTapped,
+    VoidCallback? onDeleteTapped}) {
   return WoltModalSheetPage(
       hasSabGradient: false,
       forceMaxHeight: false,
