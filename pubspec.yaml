@@ -37,7 +37,7 @@ dependencies:
   scrollable_positioned_list: ^0.3.8
   wolt_modal_sheet: ^0.4.1
   shimmer: ^3.0.0
-  get: ^4.6.6
+  flutter_keyboard_visibility: ^6.0.0
 
 dev_dependencies:
   flutter_test:
