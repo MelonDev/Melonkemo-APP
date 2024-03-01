@@ -74,8 +74,8 @@ class _AddSidedishDialogState extends State<AddSidedishDialog> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  //"${widget.plate != null ? "แก้ไข" : "เพิ่ม"}จาน",
-                  " ${size.resolve(context).height} ${isKeyboardShown}",
+                  "${widget.plate != null ? "แก้ไข" : "เพิ่ม"}จาน",
+                  //" ${size.resolve(context).height} ${isKeyboardShown}",
 
                   style: const TextStyle(
                       fontSize: 20,
