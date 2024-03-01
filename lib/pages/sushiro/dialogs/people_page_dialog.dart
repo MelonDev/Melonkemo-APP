@@ -216,7 +216,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                 ),
                 MelonBouncingButton.text(
                     enabledHover: true,
-                    text: "เพิ่มจาน",
+                    text: "เพิ่มจาน ${size.resolve(context).height}",
                     fontFamily: "Itim",
                     textColor: Colors.white,
                     fontSize: 16,
