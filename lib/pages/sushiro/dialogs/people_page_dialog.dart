@@ -71,7 +71,8 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                 Align(
                   alignment: Alignment.center,
                   child: Text(
-                    widget.people.name,
+                    //widget.people.name,
+                    " ${size.resolve(context).height} ${isKeyboardShown}",
                     style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
@@ -237,7 +238,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                 ),
                 MelonBouncingButton.text(
                     enabledHover: true,
-                    text: "เพิ่มจาน ${size.resolve(context).height} ${isKeyboardShown}",
+                    text: "เพิ่มจาน",
                     fontFamily: "Itim",
                     textColor: Colors.white,
                     fontSize: 16,
