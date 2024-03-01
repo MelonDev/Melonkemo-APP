@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:layout/layout.dart';
+import 'package:melonkemo/components/empty_widget/empty_widget.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/core/components/me/melon_scaffold_widget.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
@@ -117,10 +118,14 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
           body: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
               SizedBox(
                 width: areaWidth.resolve(context),
-                child: _listView(ct),
+                child: peoples.isNotEmpty ? _listView(ct) :  const Padding(
+                  padding: EdgeInsets.only(top: 180.0,bottom: 80.0),
+                  child: EmptyWidget(text: 'ไม่พบบุคคล\nกรุณากด "เพิ่มคน"',),
+                ),
               )
             ],
           ),
@@ -259,6 +264,10 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
             callback: (PeopleModel newPeople) {
               _provider.updatePeople(newPeople.copy());
             },
+              onDeleteTapped: (){
+                Navigator.of(context).pop();
+                _provider.removePeople(people);
+              },
             onChangeNameTapped: (){
               Navigator.of(context).pop();
               SushiroMainPage.showSmallDialog(
