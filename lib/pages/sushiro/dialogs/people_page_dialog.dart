@@ -228,7 +228,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                     callback: () {
                       SushiroMainPage.showSmallDialog(
                         context,
-                        pageHeight: 0.45,
+                        pageHeight: size.resolve(context).height < 300 ? 0.8 : 0.45,
                         (BuildContext modalSheetContext, TextTheme textTheme) =>
                             addSideDishPage(
                           modalSheetContext,
