@@ -2,8 +2,8 @@ import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
+import 'package:melonkemo/pages/home/legacy_home_page.dart';
 import 'package:melonkemo/pages/home/home_page.dart';
-import 'package:melonkemo/pages/home/prototype_home_page.dart';
 import 'package:melonkemo/pages/login/login_page.dart';
 import 'package:melonkemo/pages/me/me_page.dart';
 import 'package:melonkemo/pages/me/me_profile_page.dart';
@@ -19,13 +19,13 @@ class CoreApp extends BaseRouterWidget {
 
   @override
   List<RouteBase> get pageRoutes => [
-    const MeProfilePage().route('/'),
+    const HomePage().route("/"),
+    const MeProfilePage().route('/legacy-19-03-2024'),
     const UnderConstructionPage().route('/deprecated'),
-    const HomePage().route('/legacy-dev'),
+    const LegacyHomePage().route('/legacy-dev'),
     const MePage().route('/me-dev'),
     const LoginPage().route('/login'),
     const LoginRouter().route('/new_login'),
-    const PrototypeHomePage().route("/prototype-home"),
     const SushiroMainPage().route("/sushiro"),
 
   ];
