@@ -124,7 +124,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                 width: areaWidth.resolve(context),
                 child: peoples.isNotEmpty ? _listView(ct) :  const Padding(
                   padding: EdgeInsets.only(top: 180.0,bottom: 80.0),
-                  child: EmptyWidget(text: 'ไม่พบบุคคล\nกรุณากด "เพิ่มคน"',),
+                  child: EmptyWidget(text: 'ไม่พบบุคคล\nกรุณากด "เพิ่มคน"'),
                 ),
               )
             ],
@@ -185,7 +185,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: FontWeight.bold,
-                  fontFamily: 'Itim',
+                  fontFamily: 'Bai',
                 ),
               ),
             ),
@@ -198,17 +198,17 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                     fontSize: 36,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 0,
-                    fontFamily: 'Itim',
+                    fontFamily: 'Bai',
                   ),
                 ),
                 Container(
-                  margin: const EdgeInsets.only(top: 56),
+                  margin: const EdgeInsets.only(top: 64),
                   child: Text(
                     "ราคาก่อนเซอร์วิส:  ${context.read<SushiroMainProvider>().calculatePrice().toStringAsFixed(2)} บาท",
                     style: TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.normal,
-                      fontFamily: 'Itim',
+                      fontFamily: 'Bai',
                     ),
                   ),
                 ),
@@ -308,7 +308,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                       style: TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        fontFamily: 'Itim',
+                        fontFamily: 'Bai',
                       ),
                     ),
                   ),
@@ -321,7 +321,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
                           letterSpacing: 0,
-                          fontFamily: 'Itim',
+                          fontFamily: 'Bai',
                         ),
                       ),
                       Container(
@@ -333,7 +333,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
-                            fontFamily: 'Itim',
+                            fontFamily: 'Bai',
                           ),
                         ),
                       ),
@@ -389,7 +389,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
               style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.bold,
-                  fontFamily: 'Itim',
+                  fontFamily: 'Bai',
                   color: getSushiPlateTextColor(type)),
             )
           ],
@@ -402,7 +402,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
           style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              fontFamily: 'Itim',
+              fontFamily: 'Bai',
               color: getSushiPlateBorderColor(type)),
         )
       ],

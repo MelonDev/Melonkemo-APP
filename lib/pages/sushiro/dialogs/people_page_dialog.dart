@@ -60,7 +60,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                     style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        fontFamily: 'Itim',
+                        fontFamily: 'Bai',
                         color: Colors.black),
                   ),
                 ),
@@ -169,7 +169,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.normal,
-                                fontFamily: 'Itim',
+                                fontFamily: 'Bai',
                                 color: Colors.black),
                           ),
                         )),
@@ -190,7 +190,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.normal,
-                                fontFamily: 'Itim',
+                                fontFamily: 'Bai',
                                 color: Colors.black),
                           ),
                         )),
@@ -217,13 +217,13 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                   style: TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.normal,
-                      fontFamily: 'Itim',
+                      fontFamily: 'Bai',
                       color: Colors.black),
                 ),
                 MelonBouncingButton.text(
                     enabledHover: true,
                     text: "เพิ่มจาน",
-                    fontFamily: "Itim",
+                    fontFamily: "Bai",
                     textColor: Colors.white,
                     fontSize: 16,
                     height: 34,
@@ -290,7 +290,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                 style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    fontFamily: 'Itim',
+                    fontFamily: 'Bai',
                     color: Colors.black),
               ),
               Text(
@@ -300,7 +300,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
-                    fontFamily: 'Itim',
+                    fontFamily: 'Bai',
                     color: Colors.black.withOpacity(0.7)),
               )
             ],
@@ -336,7 +336,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                   style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      fontFamily: 'Itim',
+                      fontFamily: 'Bai',
                       color: Colors.black),
                 ),
                 const SizedBox(
@@ -451,7 +451,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                 style: const TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
-                    fontFamily: 'Itim',
+                    fontFamily: 'Bai',
                     color: Colors.black),
               ),
               Text(
@@ -461,7 +461,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
-                    fontFamily: 'Itim',
+                    fontFamily: 'Bai',
                     color: Colors.black.withOpacity(0.7)),
               )
             ],
@@ -497,7 +497,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                   style: const TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      fontFamily: 'Itim',
+                      fontFamily: 'Bai',
                       color: Colors.black),
                 ),
                 const SizedBox(

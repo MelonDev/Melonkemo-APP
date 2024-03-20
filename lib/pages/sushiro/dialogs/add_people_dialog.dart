@@ -57,7 +57,7 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
                   style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      fontFamily: 'Itim',
+                      fontFamily: 'Bai',
                       color: Colors.black),
                 ),
               ],
@@ -77,7 +77,7 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
                             color: Colors.grey[800],
                             fontSize: 20,
                             fontWeight: FontWeight.normal,
-                            fontFamily: 'Itim',
+                            fontFamily: 'Bai',
                           ),
                           validator: (value) {
                             if (value?.isEmpty ?? false) {
@@ -105,13 +105,13 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
                               color: Colors.red,
                               fontSize: 16,
                               fontWeight: FontWeight.normal,
-                              fontFamily: 'Itim',
+                              fontFamily: 'Bai',
                             ),
                             hintStyle: TextStyle(
                               color: Colors.grey[800],
                               fontSize: 20,
                               fontWeight: FontWeight.normal,
-                              fontFamily: 'Itim',
+                              fontFamily: 'Bai',
                             ),
                             labelStyle: TextStyle(
                               color: Colors.red,
@@ -145,7 +145,7 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.normal,
-                                fontFamily: 'Itim',
+                                fontFamily: 'Bai',
                                 color: Colors.black),
                           ),
                         )),
@@ -176,7 +176,7 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.normal,
-                                fontFamily: 'Itim',
+                                fontFamily: 'Bai',
                                 color: Colors.black),
                           ),
                         )),

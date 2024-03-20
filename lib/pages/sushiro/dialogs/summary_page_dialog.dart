@@ -54,7 +54,7 @@ WoltModalSheetPage summaryPage(
                     style: const TextStyle(
                         fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        fontFamily: 'Itim',
+                        fontFamily: 'Bai',
                         color: Colors.black),
                   ),
                 ),
