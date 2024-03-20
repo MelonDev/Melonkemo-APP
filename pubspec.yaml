@@ -106,6 +106,20 @@ flutter:
           weight: 600
         - asset: fonts/m_plus_rounded/MPLUSRounded1c-Bold.ttf
           weight: 700
+    - family: Bai
+      fonts:
+        - asset: fonts/Bai_Jamjuree/BaiJamjuree-ExtraLight.ttf
+          weight: 300
+        - asset: fonts/Bai_Jamjuree/BaiJamjuree-Light.ttf
+          weight: 400
+        - asset: fonts/Bai_Jamjuree/BaiJamjuree-Regular.ttf
+          weight: 500
+        - asset: fonts/Bai_Jamjuree/BaiJamjuree-Medium.ttf
+          weight: 600
+        - asset: fonts/Bai_Jamjuree/BaiJamjuree-SemiBold.ttf
+          weight: 700
+        - asset: fonts/Bai_Jamjuree/BaiJamjuree-Bold.ttf
+          weight: 800
 
 flutter_launcher_icons:
   web:
