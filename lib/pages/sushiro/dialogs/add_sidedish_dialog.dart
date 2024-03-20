@@ -80,7 +80,7 @@ class _AddSidedishDialogState extends State<AddSidedishDialog> {
                   style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      fontFamily: 'Itim',
+                      fontFamily: 'Bai',
                       color: Colors.black),
                 ),
               ],
@@ -136,7 +136,7 @@ class _AddSidedishDialogState extends State<AddSidedishDialog> {
                                     style: const TextStyle(
                                         fontSize: 24,
                                         fontWeight: FontWeight.bold,
-                                        fontFamily: 'Itim',
+                                        fontFamily: 'Bai',
                                         color: Colors.black),
                                   ),
                                   const SizedBox(
@@ -188,7 +188,7 @@ class _AddSidedishDialogState extends State<AddSidedishDialog> {
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.normal,
-                                fontFamily: 'Itim',
+                                fontFamily: 'Bai',
                                 color: Colors.black),
                           ),
                         )),
@@ -216,7 +216,7 @@ class _AddSidedishDialogState extends State<AddSidedishDialog> {
                             style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.normal,
-                                fontFamily: 'Itim',
+                                fontFamily: 'Bai',
                                 color: Colors.black),
                           ),
                         )),
@@ -234,7 +234,7 @@ class _AddSidedishDialogState extends State<AddSidedishDialog> {
         color: Colors.grey[800],
         fontSize: 20,
         fontWeight: FontWeight.normal,
-        fontFamily: 'Itim',
+        fontFamily: 'Bai',
       ),
       inputFormatters: inputFormatters ?? [],
       validator: (value) {
@@ -262,13 +262,13 @@ class _AddSidedishDialogState extends State<AddSidedishDialog> {
           color: Colors.red,
           fontSize: 16,
           fontWeight: FontWeight.normal,
-          fontFamily: 'Itim',
+          fontFamily: 'Bai',
         ),
         hintStyle: TextStyle(
           color: Colors.grey[800],
           fontSize: 20,
           fontWeight: FontWeight.normal,
-          fontFamily: 'Itim',
+          fontFamily: 'Bai',
         ),
         labelStyle: TextStyle(
           color: Colors.red,
