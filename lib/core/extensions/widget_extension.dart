@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 import 'package:melonkemo/core/components/bouncing/on_hover.dart';
@@ -21,4 +22,13 @@ extension WidgetExtension on Widget {
   }
 
   RouteBase route(String path) => CoreRoute.page(path, this);
+
+  dialog(BuildContext context, {double? borderRadius}) {
+    Dialog dialog = Dialog(
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(borderRadius ?? 12.0)),
+      child: this,
+    );
+    showDialog(context: context, builder: (BuildContext context) => dialog);
+  }
 }
