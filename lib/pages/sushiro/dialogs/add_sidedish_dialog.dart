@@ -45,7 +45,7 @@ class _AddSidedishDialogState extends State<AddSidedishDialog> {
   void initState() {
     nameController.text = widget.plate?.name ?? "";
     priceController.text = widget.plate?.price.toStringAsFixed(0) ?? "";
-    value = widget.plate?.value ?? 0;
+    value = widget.plate?.value ?? 1;
     var keyboardVisibilityController = KeyboardVisibilityController();
 
     super.initState();

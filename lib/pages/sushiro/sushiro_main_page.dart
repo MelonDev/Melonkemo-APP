@@ -137,7 +137,6 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                 _provider.addPeople(newPeople);
               },
               borderRadius: 20,
-              pageHeight: 0.32,
             ).dialog(context,borderRadius: 20);
             // SushiroMainPage.showSmallDialog(
             //   context,
