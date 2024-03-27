@@ -152,7 +152,7 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
         ...people.plates
             .map((plate) => _plate(plate.name ?? "", plate.price, plate.value)),
         const SizedBox(height: 14),
-        _priceWidget("ภาษีมูลค่าเพิ่ม",
+        _priceWidget("ค่าเซอร์วิส",
             SushiroMainProvider.calculatePricing(people: people) * 0.1),
         const SizedBox(height: 2),
         _priceWidget(
