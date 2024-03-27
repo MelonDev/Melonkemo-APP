@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:layout/layout.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
+import 'package:melonkemo/core/extensions/context_extension.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
 import 'package:melonkemo/pages/sushiro/dialogs/add_sidedish_dialog.dart';
 import 'package:melonkemo/pages/sushiro/sushiro_main_model.dart';
@@ -32,7 +33,6 @@ class PeoplePageDialog extends StatefulWidget {
 }
 
 class _PeoplePageDialogState extends State<PeoplePageDialog> {
-
   final LayoutValue<Size> size = LayoutValue.builder((layout) {
     return Size(layout.width, layout.size.height);
   });
@@ -40,7 +40,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      color: Colors.grey.shade300,
       height: size.resolve(context).width < 560
           ? size.resolve(context).height * 0.92
           : size.resolve(context).height * 0.85,
@@ -48,20 +48,22 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
         children: [
           Container(
             height: 56,
-            padding: const EdgeInsets.only(left: 20, right: 20),
-
-            //color: Colors.blue,
+            padding: const EdgeInsets.only(left: 20, right: 20,top: 10),
+            color: Colors.white,
             child: Stack(
               children: [
                 Align(
-                  alignment: Alignment.center,
-                  child: Text(
-                    widget.people.name,
-                    style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Bai',
-                        color: Colors.black),
+                  alignment: Alignment.centerLeft,
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    child: Text(
+                      widget.people.name,
+                      style: const TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: 'Bai',
+                          color: Colors.black),
+                    ),
                   ),
                 ),
                 Align(
@@ -74,32 +76,35 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                             widget.onChangeNameTapped?.call();
                           },
                           child: Container(
-                            height: 26,
-                            width: 26,
+                            height: 32,
+                            width: 32,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                                 color: Colors.black.withOpacity(0.1),
                                 borderRadius: BorderRadius.circular(100)),
                             child: const Icon(
                               CupertinoIcons.pencil,
-                              size: 18,
+                              size: 24,
                             ),
                           )).hover(y: -1, x: -0.5),
                       const SizedBox(width: 12),
                       MelonBouncingButton(
                           callback: () {
-                            widget.onDeleteTapped?.call();
+                            context.confirmDialog('ยืนยันการลบคุณ "${widget.people.name}"',
+                                positiveColor: Colors.red,
+                                positiveTextColor: Colors.white,
+                                onTapPositive: widget.onDeleteTapped);
                           },
                           child: Container(
-                            height: 26,
-                            width: 26,
+                            height: 32,
+                            width: 32,
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
-                                color: Colors.red.withOpacity(1.0),
+                                color: Colors.red,
                                 borderRadius: BorderRadius.circular(100)),
                             child: const Icon(
                               CupertinoIcons.trash,
-                              size: 14,
+                              size: 20,
                               color: Colors.white,
                             ),
                           )).hover(y: -1, x: -0.5)
@@ -110,33 +115,38 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
             ),
           ),
           Expanded(
-            child: ListView(
+            child: SingleChildScrollView(
+                child: Column(
               children: [
-                _plateTileWidget(context, widget.people.copper),
                 Container(
-                  width: double.infinity,
-                  height: 1,
-                  color: Colors.black.withOpacity(0.2),
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 6, horizontal: 26),
-                ),
-                _plateTileWidget(context, widget.people.silver),
-                Container(
-                  width: double.infinity,
-                  height: 1,
-                  color: Colors.black.withOpacity(0.2),
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 6, horizontal: 26),
-                ),
-                _plateTileWidget(context, widget.people.gold),
-                Container(
-                  width: double.infinity,
-                  height: 1,
-                  color: Colors.black.withOpacity(0.2),
-                  margin:
-                      const EdgeInsets.symmetric(vertical: 6, horizontal: 26),
-                ),
-                _plateTileWidget(context, widget.people.black),
+                    color: Colors.white,
+                    child: Column(children: [
+                      _plateTileWidget(context, widget.people.copper),
+                      Container(
+                        width: double.infinity,
+                        height: 1,
+                        color: Colors.black.withOpacity(0.2),
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 6, horizontal: 26),
+                      ),
+                      _plateTileWidget(context, widget.people.silver),
+                      Container(
+                        width: double.infinity,
+                        height: 1,
+                        color: Colors.black.withOpacity(0.2),
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 6, horizontal: 26),
+                      ),
+                      _plateTileWidget(context, widget.people.gold),
+                      Container(
+                        width: double.infinity,
+                        height: 1,
+                        color: Colors.black.withOpacity(0.2),
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 6, horizontal: 26),
+                      ),
+                      _plateTileWidget(context, widget.people.black),
+                    ])),
                 // Container(
                 //   width: double.infinity,
                 //   height: 1,
@@ -146,34 +156,41 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                 // ),
                 _sideDishListView(context)
               ],
-            ),
+            )),
           ),
           Container(
-              padding: const EdgeInsets.only(bottom: 16, top: 10),
+              decoration: BoxDecoration(
+                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
+              padding: const EdgeInsets.only(
+                  left: 20, right: 20, bottom: 16, top: 16),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    MelonBouncingButton(
-                        callback: () {
-                          Navigator.of(context).pop();
-                        },
-                        borderRadius: 100,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(100)),
-                          padding: const EdgeInsets.only(
-                              left: 60, right: 60, bottom: 12, top: 12),
-                          child: const Text(
-                            "ยกเลิก",
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.normal,
-                                fontFamily: 'Bai',
-                                color: Colors.black),
-                          ),
-                        )),
-                    MelonBouncingButton(
+                    Expanded(
+                        child: MelonBouncingButton(
+                            callback: () {
+                              Navigator.of(context).pop();
+                            },
+                            borderRadius: 100,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.grey.withOpacity(0.2),
+                                  borderRadius: BorderRadius.circular(100)),
+                              padding: const EdgeInsets.only(
+                                  left: 0, right: 0, bottom: 12, top: 12),
+                              alignment: Alignment.center,
+                              child: const Text(
+                                "ยกเลิก",
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.normal,
+                                    fontFamily: 'Bai',
+                                    color: Colors.black),
+                              ),
+                            ))),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: MelonBouncingButton(
                         callback: () {
                           widget.callback?.call(widget.people);
                           Navigator.of(context).pop();
@@ -184,7 +201,8 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                               color: Colors.amberAccent,
                               borderRadius: BorderRadius.circular(100)),
                           padding: const EdgeInsets.only(
-                              left: 60, right: 60, bottom: 12, top: 12),
+                              left: 0, right: 0, bottom: 12, top: 12),
+                          alignment: Alignment.center,
                           child: const Text(
                             "บันทึก",
                             style: TextStyle(
@@ -193,7 +211,9 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                                 fontFamily: 'Bai',
                                 color: Colors.black),
                           ),
-                        )),
+                        ),
+                      ),
+                    ),
                   ]))
         ],
       ),
@@ -201,6 +221,9 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
   }
 
   Widget _sideDishListView(BuildContext context) {
+    bool hasRefill = widget.people.plates
+            .firstWhereOrNull((element) => element is RefillDrinkPlateModel) !=
+        null;
     return Container(
       color: Colors.grey.shade300,
       padding: const EdgeInsets.only(left: 0, right: 0, top: 12, bottom: 30),
@@ -220,40 +243,68 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                       fontFamily: 'Bai',
                       color: Colors.black),
                 ),
-                MelonBouncingButton.text(
-                    enabledHover: true,
-                    text: "เพิ่มจาน",
-                    fontFamily: "Bai",
-                    textColor: Colors.white,
-                    fontSize: 16,
-                    height: 34,
-                    x: -2,
-                    borderRadius: 20,
-                    padding: const EdgeInsets.symmetric(horizontal: 16.0),
-                    color: Colors.black.withOpacity(0.8),
-                    callback: () {
-                      SushiroMainPage.showSmallDialog(
-                        context,
-                        pageHeight: size.resolve(context).height <
-                                size.resolve(context).width * 1.25
-                            ? 0.8
-                            : 0.45,
-                        (BuildContext modalSheetContext, TextTheme textTheme) =>
-                            addSideDishPage(
-                          modalSheetContext,
-                          textTheme,
-                          pageHeight: size.resolve(context).height <
-                                  size.resolve(context).width * 1.25
-                              ? 0.8
-                              : 0.45,
+                Row(children: [
+                  // if (!hasRefill)
+                  //   MelonBouncingButton(
+                  //       callback: () {
+                  //         if (!hasRefill) {
+                  //           widget.people.plates.add(RefillDrinkPlateModel());
+                  //           setState(() {});
+                  //         }
+                  //       },
+                  //       child: Container(
+                  //         height: 34,
+                  //         width: 34,
+                  //         alignment: Alignment.center,
+                  //         decoration: BoxDecoration(
+                  //             color: Colors.black.withOpacity(0.8),
+                  //             borderRadius: BorderRadius.circular(100)),
+                  //         child: const Icon(
+                  //           CupertinoIcons.drop_fill,
+                  //           color: Colors.white,
+                  //           size: 24,
+                  //         ),
+                  //       )).hover(y: -1, x: -0.5),
+                  if (!hasRefill)
+                    MelonBouncingButton.text(
+                        enabledHover: true,
+                        text: "เครื่องดื่ม",
+                        fontFamily: "Bai",
+                        textColor: Colors.black,
+                        fontSize: 16,
+                        height: 34,
+                        x: -2,
+                        borderRadius: 20,
+                        padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                        color: Colors.grey.shade400.withOpacity(0.8),
+                        callback: () {
+                          if (!hasRefill) {
+                            widget.people.plates.add(RefillDrinkPlateModel());
+                            setState(() {});
+                          }
+                        }),
+                  if (!hasRefill) const SizedBox(width: 10),
+                  MelonBouncingButton.text(
+                      enabledHover: true,
+                      text: "เพิ่มจาน",
+                      fontFamily: "Bai",
+                      textColor: Colors.white,
+                      fontSize: 16,
+                      height: 34,
+                      x: -2,
+                      borderRadius: 20,
+                      padding: const EdgeInsets.symmetric(horizontal: 16.0),
+                      color: Colors.black.withOpacity(0.8),
+                      callback: () {
+                        AddSidedishDialog(
                           callback: (int? index,
                               SideDishPlateModel newSideDishPlate) {
                             widget.people.plates.add(newSideDishPlate);
                             setState(() {});
                           },
-                        ),
-                      );
-                    })
+                        ).dialog(context);
+                      })
+                ])
               ],
             ),
           ),
@@ -361,65 +412,6 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                     )).hover(y: -1, x: -0.5)
               ],
             ),
-          if (plate is SideDishPlateModel)
-            Row(children: [
-              MelonBouncingButton(
-                  callback: () {
-                    if (index != null) {
-                      widget.people.plates.removeAt(index);
-                      setState(() {});
-                    }
-                  },
-                  child: Container(
-                    height: 38,
-                    width: 38,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(100)),
-                    child: const Icon(
-                      CupertinoIcons.trash,
-                      size: 22,
-                    ),
-                  )).hover(y: -1, x: -0.5),
-              const SizedBox(
-                width: 20,
-              ),
-              MelonBouncingButton(
-                  callback: () {
-                    SushiroMainPage.showSmallDialog(
-                      context,
-                      pageHeight: 0.45,
-                      (BuildContext modalSheetContext, TextTheme textTheme) =>
-                          addSideDishPage(
-                        modalSheetContext,
-                        textTheme,
-                        pageHeight: 0.45,
-                        plate: plate,
-                        index: index,
-                        callback:
-                            (int? index, SideDishPlateModel newSideDishPlate) {
-                          if (index != null) {
-                            widget.people.plates[index] = newSideDishPlate;
-                            setState(() {});
-                          }
-                        },
-                      ),
-                    );
-                  },
-                  child: Container(
-                    height: 40,
-                    width: 40,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(100)),
-                    child: const Icon(
-                      CupertinoIcons.pencil,
-                      size: 24,
-                    ),
-                  )).hover(y: -1, x: -0.5)
-            ])
         ],
       ),
     );
@@ -527,8 +519,14 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
               MelonBouncingButton(
                   callback: () {
                     if (index != null) {
-                      widget.people.plates.removeAt(index);
-                      setState(() {});
+                      context.confirmDialog('ยืนยันการลบ "${plate.name}"',
+                          positiveColor: Colors.red,
+                          positiveTextColor: Colors.white,
+                          onTapPositive: (){
+                            widget.people.plates.removeAt(index);
+                            setState(() {});
+                          });
+
                     }
                   },
                   child: Container(
@@ -543,19 +541,14 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                       size: 22,
                     ),
                   )).hover(y: -1, x: -0.5),
-              const SizedBox(
-                width: 20,
-              ),
-              MelonBouncingButton(
-                  callback: () {
-                    SushiroMainPage.showSmallDialog(
-                      context,
-                      pageHeight: 0.45,
-                      (BuildContext modalSheetContext, TextTheme textTheme) =>
-                          addSideDishPage(
-                        modalSheetContext,
-                        textTheme,
-                        pageHeight: 0.45,
+              if (plate is! RefillDrinkPlateModel)
+                const SizedBox(
+                  width: 10,
+                ),
+              if (plate is! RefillDrinkPlateModel)
+                MelonBouncingButton(
+                    callback: () {
+                      AddSidedishDialog(
                         plate: plate,
                         index: index,
                         callback:
@@ -565,21 +558,20 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                             setState(() {});
                           }
                         },
+                      ).dialog(context);
+                    },
+                    child: Container(
+                      height: 40,
+                      width: 40,
+                      alignment: Alignment.center,
+                      decoration: BoxDecoration(
+                          color: Colors.black.withOpacity(0.1),
+                          borderRadius: BorderRadius.circular(100)),
+                      child: const Icon(
+                        CupertinoIcons.pencil,
+                        size: 24,
                       ),
-                    );
-                  },
-                  child: Container(
-                    height: 40,
-                    width: 40,
-                    alignment: Alignment.center,
-                    decoration: BoxDecoration(
-                        color: Colors.black.withOpacity(0.1),
-                        borderRadius: BorderRadius.circular(100)),
-                    child: const Icon(
-                      CupertinoIcons.pencil,
-                      size: 24,
-                    ),
-                  )).hover(y: -1, x: -0.5)
+                    )).hover(y: -1, x: -0.5)
             ])
         ],
       ),

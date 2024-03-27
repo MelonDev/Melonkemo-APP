@@ -16,12 +16,16 @@ class AddSidedishDialog extends StatefulWidget {
       {super.key,
       this.plate,
       this.callback,
-      this.pageHeight = 0.4,
+        this.maxWidth = 360,
+        this.maxHeight = 600,
+        this.borderRadius = 20,
       this.index});
 
   final SideDishPlateModel? plate;
   final Function(int?, SideDishPlateModel)? callback;
-  final double pageHeight;
+  final double maxHeight;
+  final double maxWidth;
+  final double borderRadius;
   final int? index;
 
   @override
@@ -61,14 +65,17 @@ class _AddSidedishDialogState extends State<AddSidedishDialog> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
-      height: size.resolve(context).height * widget.pageHeight,
+      decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(widget.borderRadius)
+      ),
+      constraints: BoxConstraints(maxWidth: widget.maxWidth,maxHeight: widget.maxHeight),
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
           Container(
             height: 56,
             padding: const EdgeInsets.only(left: 20, right: 20),
-
             //color: Colors.blue,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -86,113 +93,117 @@ class _AddSidedishDialogState extends State<AddSidedishDialog> {
               ],
             ),
           ),
-          Expanded(
-            child: Container(
-                margin: const EdgeInsets.only(left: 20, right: 20),
-                child: Form(
-                  key: formkey,
-                  child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        _textfield(nameController, "ชื่อ"),
-                        const SizedBox(height: 16),
-                        Row(
-                          children: <Widget>[
-                            Expanded(
-                              child:_textfield(priceController, "ราคา",
-                                  inputType: TextInputType.number,
-                                  inputFormatters: [
-                                    FilteringTextInputFormatter.digitsOnly
-                                  ]),
-                            ),
-                            const SizedBox(width: 16),
-                             Row(
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                children: [
-                                  MelonBouncingButton(
-                                      callback: () {
-                                        if (value > 0) {
-                                          value -= 1;
-                                        }
-                                        setState(() {});
-                                      },
-                                      child: Container(
-                                        height: 38,
-                                        width: 38,
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                            color: Colors.black.withOpacity(0.1),
-                                            borderRadius: BorderRadius.circular(100)),
-                                        child: const Icon(
-                                          CupertinoIcons.minus,
-                                          size: 22,
-                                        ),
-                                      )).hover(y: -1, x: -0.5),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  Text(
-                                    value.toString(),
-                                    style: const TextStyle(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.bold,
-                                        fontFamily: 'Bai',
-                                        color: Colors.black),
-                                  ),
-                                  const SizedBox(
-                                    width: 20,
-                                  ),
-                                  MelonBouncingButton(
-                                      callback: () {
-                                        value += 1;
-                                        setState(() {});
-                                      },
-                                      child: Container(
-                                        height: 40,
-                                        width: 40,
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                            color: Colors.yellow,
-                                            borderRadius: BorderRadius.circular(100)),
-                                        child: const Icon(
-                                          CupertinoIcons.add,
-                                          size: 24,
-                                        ),
-                                      )).hover(y: -1, x: -0.5)
-                                ],
-                              ),
-                          ],
-                        ),
-                        const SizedBox(height: 26),
-                      ]),
-                )),
-          ),
           Container(
-              padding: const EdgeInsets.only(bottom: 16),
+              margin: const EdgeInsets.only(left: 20, right: 20),
+              child: Form(
+                key: formkey,
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      _textfield(nameController, "ชื่อ"),
+                      const SizedBox(height: 16),
+                      Row(
+                        children: <Widget>[
+                          Expanded(
+                            child:_textfield(priceController, "ราคา",
+                                inputType: TextInputType.number,
+                                inputFormatters: [
+                                  FilteringTextInputFormatter.digitsOnly
+                                ]),
+                          ),
+                          const SizedBox(width: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.end,
+                            children: [
+                              MelonBouncingButton(
+                                  callback: () {
+                                    if (value > 0) {
+                                      value -= 1;
+                                    }
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    height: 38,
+                                    width: 38,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color: Colors.black.withOpacity(0.1),
+                                        borderRadius: BorderRadius.circular(100)),
+                                    child: const Icon(
+                                      CupertinoIcons.minus,
+                                      size: 22,
+                                    ),
+                                  )).hover(y: -1, x: -0.5),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              Text(
+                                value.toString(),
+                                style: const TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'Bai',
+                                    color: Colors.black),
+                              ),
+                              const SizedBox(
+                                width: 20,
+                              ),
+                              MelonBouncingButton(
+                                  callback: () {
+                                    value += 1;
+                                    setState(() {});
+                                  },
+                                  child: Container(
+                                    height: 40,
+                                    width: 40,
+                                    alignment: Alignment.center,
+                                    decoration: BoxDecoration(
+                                        color: Colors.yellow,
+                                        borderRadius: BorderRadius.circular(100)),
+                                    child: const Icon(
+                                      CupertinoIcons.add,
+                                      size: 24,
+                                    ),
+                                  )).hover(y: -1, x: -0.5)
+                            ],
+                          ),
+                        ],
+                      ),
+                      const SizedBox(height: 26),
+                    ]),
+              )),
+          Container(
+              padding: const EdgeInsets.only(bottom: 16,right: 20,left:20),
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    MelonBouncingButton(
-                        callback: () {
-                          Navigator.of(context).pop();
-                        },
-                        borderRadius: 100,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(100)),
-                          padding: const EdgeInsets.only(
-                              left: 50, right: 50, bottom: 10, top: 10),
-                          child: const Text(
-                            "ยกเลิก",
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.normal,
-                                fontFamily: 'Bai',
-                                color: Colors.black),
-                          ),
-                        )),
-                    MelonBouncingButton(
+                    Expanded(
+                      child:MelonBouncingButton(
+                          callback: () {
+                            Navigator.of(context).pop();
+                          },
+                          borderRadius: 100,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(100)),
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.only(
+                                left: 0, right: 0, bottom: 10, top: 10),
+                            child: const Text(
+                              "ยกเลิก",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.normal,
+                                  fontFamily: 'Bai',
+                                  color: Colors.black),
+                            ),
+                          ))
+                    ),
+                    Container(
+                      width: 10,
+                    ),
+                    Expanded(child: MelonBouncingButton(
                         callback: () {
                           if (formkey.currentState?.validate() ?? false) {
                             widget.callback?.call(
@@ -209,8 +220,9 @@ class _AddSidedishDialogState extends State<AddSidedishDialog> {
                           decoration: BoxDecoration(
                               color: Colors.amberAccent,
                               borderRadius: BorderRadius.circular(100)),
+                          alignment: Alignment.center,
                           padding: const EdgeInsets.only(
-                              left: 50, right: 50, bottom: 10, top: 10),
+                              left: 0, right: 0, bottom: 10, top: 10),
                           child: const Text(
                             "ยืนยัน",
                             style: TextStyle(
@@ -219,7 +231,8 @@ class _AddSidedishDialogState extends State<AddSidedishDialog> {
                                 fontFamily: 'Bai',
                                 color: Colors.black),
                           ),
-                        )),
+                        )))
+                    ,
                   ]))
         ],
       ),
@@ -278,25 +291,4 @@ class _AddSidedishDialogState extends State<AddSidedishDialog> {
       ),
     );
   }
-}
-
-WoltModalSheetPage addSideDishPage(
-    BuildContext modalSheetContext, TextTheme textTheme,
-    {int? index,
-    SideDishPlateModel? plate,
-    Function(int?, SideDishPlateModel)? callback,
-    double pageHeight = 0.4}) {
-  return WoltModalSheetPage(
-    hasSabGradient: false,
-    forceMaxHeight: false,
-    navBarHeight: 0,
-    backgroundColor: Colors.white,
-    isTopBarLayerAlwaysVisible: false,
-    child: AddSidedishDialog(
-      index: index,
-      plate: plate,
-      callback: callback,
-      pageHeight: pageHeight,
-    ),
-  );
 }

@@ -136,22 +136,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
               callback: (PeopleModel newPeople){
                 _provider.addPeople(newPeople);
               },
-              borderRadius: 20,
-            ).dialog(context,borderRadius: 20);
-            // SushiroMainPage.showSmallDialog(
-            //   context,
-            //   pageHeight: 0.32,
-            //   (BuildContext modalSheetContext, TextTheme textTheme) =>
-            //       addPeoplePage(
-            //     modalSheetContext,
-            //     textTheme,
-            //     pageHeight: 0.32,
-            //     id: peoples.length.toString(),
-            //     callback: (PeopleModel newPeople) {
-            //       _provider.addPeople(newPeople);
-            //     },
-            //   ),
-            // );
+            ).dialog(context);
           },
           bottomSheet: Container(
             color: Colors.white,
@@ -173,6 +158,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
             (BuildContext modalSheetContext, TextTheme textTheme) =>
                 summaryPage(modalSheetContext, textTheme));
       },
+      isBouncing: false,
       child: Container(
         decoration: BoxDecoration(
             color: Colors.grey.withOpacity(0.2),
@@ -187,7 +173,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
           children: [
             Container(
               margin: const EdgeInsets.only(top: 17),
-              child: Text(
+              child: const Text(
                 "ราคารวม",
                 style: TextStyle(
                   fontSize: 20,
@@ -201,7 +187,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
               children: [
                 Text(
                   "${context.read<SushiroMainProvider>().calculatePrice(includeServiceCharge: true).toStringAsFixed(2)} บาท",
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 36,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 0,
@@ -212,7 +198,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                   margin: const EdgeInsets.only(top: 64),
                   child: Text(
                     "ราคาก่อนเซอร์วิส:  ${context.read<SushiroMainProvider>().calculatePrice().toStringAsFixed(2)} บาท",
-                    style: TextStyle(
+                    style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.normal,
                       fontFamily: 'Bai',
@@ -277,22 +263,13 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
               },
             onChangeNameTapped: (){
               Navigator.of(context).pop();
-              SushiroMainPage.showSmallDialog(
-                context,
-                pageHeight: 0.32,
-                    (BuildContext modalSheetContext, TextTheme textTheme) =>
-                    addPeoplePage(
-                      modalSheetContext,
-                      textTheme,
-                      pageHeight: 0.32,
-                      id: people.id,
-                      people: people,
-                      callback: (PeopleModel newPeople) {
-                        _provider.updatePeople(newPeople);
-                      },
-                    ),
-              );
-
+              AddPeopleDialog(
+                id: people.id,
+                people: people,
+                callback: (PeopleModel newPeople){
+                  _provider.updatePeople(newPeople);
+                },
+              ).dialog(context);
             }
           ),
         );
