@@ -131,20 +131,28 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
           ),
           buttonText: "เพิ่มคน",
           onButtonClick: () {
-            SushiroMainPage.showSmallDialog(
-              context,
+            AddPeopleDialog(
+              id: peoples.length.toString(),
+              callback: (PeopleModel newPeople){
+                _provider.addPeople(newPeople);
+              },
+              borderRadius: 20,
               pageHeight: 0.32,
-              (BuildContext modalSheetContext, TextTheme textTheme) =>
-                  addPeoplePage(
-                modalSheetContext,
-                textTheme,
-                pageHeight: 0.32,
-                id: peoples.length.toString(),
-                callback: (PeopleModel newPeople) {
-                  _provider.addPeople(newPeople);
-                },
-              ),
-            );
+            ).dialog(context,borderRadius: 20);
+            // SushiroMainPage.showSmallDialog(
+            //   context,
+            //   pageHeight: 0.32,
+            //   (BuildContext modalSheetContext, TextTheme textTheme) =>
+            //       addPeoplePage(
+            //     modalSheetContext,
+            //     textTheme,
+            //     pageHeight: 0.32,
+            //     id: peoples.length.toString(),
+            //     callback: (PeopleModel newPeople) {
+            //       _provider.addPeople(newPeople);
+            //     },
+            //   ),
+            // );
           },
           bottomSheet: Container(
             color: Colors.white,

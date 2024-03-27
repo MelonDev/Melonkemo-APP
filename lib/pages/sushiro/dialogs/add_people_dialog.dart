@@ -12,11 +12,15 @@ class AddPeopleDialog extends StatefulWidget {
     this.people,
     this.callback,
     this.pageHeight = 0.4,
+    this.maxWidth = 360,
+    this.borderRadius = 12
   });
 
   final PeopleModel? people;
   final Function(PeopleModel)? callback;
   final double pageHeight;
+  final double maxWidth;
+  final double borderRadius;
   final String id;
 
   @override
@@ -40,7 +44,11 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      color: Colors.white,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(widget.borderRadius)
+      ),
+      constraints: BoxConstraints(maxWidth: widget.maxWidth),
       height: size.resolve(context).height * widget.pageHeight,
       child: Column(
         children: [
