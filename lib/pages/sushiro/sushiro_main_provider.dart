@@ -1,20 +1,19 @@
-import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 import 'package:melonkemo/pages/sushiro/sushiro_main_model.dart';
 
 class SushiroMainProvider extends ChangeNotifier {
   List<PeopleModel> peoples = [
-    // PeopleModel("0", "คนที่ 1",
-    //     copper: SushiPlateModel(SushiPlateType.copper, 2),
-    //     silver: SushiPlateModel(SushiPlateType.silver, 1),
-    //     plates: []),
-    // PeopleModel("2", "คนที่ 2",
-    //     copper: SushiPlateModel(SushiPlateType.copper, 1),
-    //     plates: [
-    //       SideDishPlateModel("Ramen", 150.0, 1),
-    //     ]),
-    // PeopleModel("3", "คนที่ 3",
-    //     black: SushiPlateModel(SushiPlateType.black, 1), plates: [])
+    PeopleModel("0", "คนที่ 1",
+        copper: SushiPlateModel(SushiPlateType.copper, 2),
+        silver: SushiPlateModel(SushiPlateType.silver, 1),
+        plates: []),
+    PeopleModel("2", "คนที่ 2",
+        copper: SushiPlateModel(SushiPlateType.copper, 1),
+        plates: [
+          SideDishPlateModel("Ramen", 150.0, 1),
+        ]),
+    PeopleModel("3", "คนที่ 3",
+        black: SushiPlateModel(SushiPlateType.black, 1), plates: [])
   ];
 
   initialGroup(List<PeopleModel> peoples) {
@@ -121,6 +120,20 @@ class SushiroMainProvider extends ChangeNotifier {
       price += calculateSushi(SushiPlateType.black,people.black.value);
 
     }
+
+    return price * (includeServiceCharge ? 1.1 : 1);
+  }
+
+  static double calculatePricing({required PeopleModel people, bool includeServiceCharge = false}) {
+    double price = 0.0;
+
+    for (SideDishPlateModel plate in people.plates) {
+      price += (plate.price * plate.value);
+    }
+    price += calculateSushi(SushiPlateType.copper,people.copper.value);
+    price += calculateSushi(SushiPlateType.silver,people.silver.value);
+    price += calculateSushi(SushiPlateType.gold,people.gold.value);
+    price += calculateSushi(SushiPlateType.black,people.black.value);
 
     return price * (includeServiceCharge ? 1.1 : 1);
   }

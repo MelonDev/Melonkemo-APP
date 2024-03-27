@@ -122,10 +122,13 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
             children: [
               SizedBox(
                 width: areaWidth.resolve(context),
-                child: peoples.isNotEmpty ? _listView(ct) :  const Padding(
-                  padding: EdgeInsets.only(top: 180.0,bottom: 80.0),
-                  child: EmptyWidget(text: 'ไม่พบบุคคล\nกรุณากด "เพิ่มคน"'),
-                ),
+                child: peoples.isNotEmpty
+                    ? _listView(ct)
+                    : const Padding(
+                        padding: EdgeInsets.only(top: 180.0, bottom: 80.0),
+                        child:
+                            EmptyWidget(text: 'ไม่พบบุคคล\nกรุณากด "เพิ่มคน"'),
+                      ),
               )
             ],
           ),
@@ -133,7 +136,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
           onButtonClick: () {
             AddPeopleDialog(
               id: peoples.length.toString(),
-              callback: (PeopleModel newPeople){
+              callback: (PeopleModel newPeople) {
                 _provider.addPeople(newPeople);
               },
             ).dialog(context);
@@ -156,7 +159,8 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
         SushiroMainPage.showDialog(
             context,
             (BuildContext modalSheetContext, TextTheme textTheme) =>
-                summaryPage(modalSheetContext, textTheme));
+                summaryPage(modalSheetContext, textTheme,
+                    peoples: context.read<SushiroMainProvider>().peoples));
       },
       isBouncing: false,
       child: Container(
@@ -224,7 +228,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
           separatorBuilder: (BuildContext context, int index) => Container(
             width: 1,
             height: 1,
-            color: Colors.grey,
+            color: Colors.grey.shade400,
             margin: const EdgeInsets.only(bottom: 6),
           ),
           itemBuilder: (BuildContext context, int index) {
@@ -250,28 +254,23 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
       callback: () {
         SushiroMainPage.showDialog(
           context,
-          (BuildContext modalSheetContext, TextTheme textTheme) => peoplePage(
-            modalSheetContext,
-            textTheme,
-            people.copy(),
-            callback: (PeopleModel newPeople) {
-              _provider.updatePeople(newPeople.copy());
-            },
-              onDeleteTapped: (){
-                Navigator.of(context).pop();
-                _provider.removePeople(people);
+          (BuildContext modalSheetContext, TextTheme textTheme) =>
+              peoplePage(modalSheetContext, textTheme, people.copy(),
+                  callback: (PeopleModel newPeople) {
+            _provider.updatePeople(newPeople.copy());
+          }, onDeleteTapped: () {
+            Navigator.of(context).pop();
+            _provider.removePeople(people);
+          }, onChangeNameTapped: () {
+            Navigator.of(context).pop();
+            AddPeopleDialog(
+              id: people.id,
+              people: people,
+              callback: (PeopleModel newPeople) {
+                _provider.updatePeople(newPeople);
               },
-            onChangeNameTapped: (){
-              Navigator.of(context).pop();
-              AddPeopleDialog(
-                id: people.id,
-                people: people,
-                callback: (PeopleModel newPeople){
-                  _provider.updatePeople(newPeople);
-                },
-              ).dialog(context);
-            }
-          ),
+            ).dialog(context);
+          }),
         );
       },
       child: Container(
