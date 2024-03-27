@@ -13,7 +13,7 @@ class AddPeopleDialog extends StatefulWidget {
     this.callback,
     this.maxWidth = 360,
     this.maxHeight = 600,
-    this.borderRadius = 12
+    this.borderRadius = 20
   });
 
   final PeopleModel? people;
@@ -136,27 +136,33 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
               child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    MelonBouncingButton(
-                        callback: () {
-                          Navigator.of(context).pop();
-                        },
-                        borderRadius: 100,
-                        child: Container(
-                          decoration: BoxDecoration(
-                              color: Colors.grey.withOpacity(0.2),
-                              borderRadius: BorderRadius.circular(100)),
-                          padding: const EdgeInsets.only(
-                              left: 46, right: 46, bottom: 10, top: 10),
-                          child: const Text(
-                            "ยกเลิก",
-                            style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.normal,
-                                fontFamily: 'Bai',
-                                color: Colors.black),
-                          ),
-                        )),
-                    MelonBouncingButton(
+                    Expanded(
+                      child: MelonBouncingButton(
+                          callback: () {
+                            Navigator.of(context).pop();
+                          },
+                          borderRadius: 100,
+                          child: Container(
+                            decoration: BoxDecoration(
+                                color: Colors.grey.withOpacity(0.2),
+                                borderRadius: BorderRadius.circular(100)),
+                            alignment: Alignment.center,
+                            padding: const EdgeInsets.only(
+                                left: 0, right: 0, bottom: 10, top: 10),
+                            child: const Text(
+                              "ยกเลิก",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.normal,
+                                  fontFamily: 'Bai',
+                                  color: Colors.black),
+                            ),
+                          )),
+                    ),
+                    Container(
+                      width: 10,
+                    ),
+                    Expanded(child: MelonBouncingButton(
                         callback: () {
                           if (formkey.currentState?.validate() ?? false) {
                             widget.callback?.call(PeopleModel(
@@ -176,8 +182,9 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
                           decoration: BoxDecoration(
                               color: Colors.amberAccent,
                               borderRadius: BorderRadius.circular(100)),
+                          alignment: Alignment.center,
                           padding: const EdgeInsets.only(
-                              left: 46, right: 46, bottom: 10, top: 10),
+                              left: 0, right: 0, bottom: 10, top: 10),
                           child: const Text(
                             "ยืนยัน",
                             style: TextStyle(
@@ -186,7 +193,7 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
                                 fontFamily: 'Bai',
                                 color: Colors.black),
                           ),
-                        )),
+                        ))),
                   ]))
         ],
       ),

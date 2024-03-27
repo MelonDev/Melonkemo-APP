@@ -25,11 +25,15 @@ class PeopleModel {
       id,
       name,
       plates: plates
-          .map((plate) => SideDishPlateModel(
-              plate.name, plate.price, plate.value,
-              shared: plate.shared
-                  .map((shared) => PeopleShareModel(shared.peopleId))
-                  .toList()))
+          .map((plate) => plate is RefillDrinkPlateModel
+              ? RefillDrinkPlateModel(
+                  shared: plate.shared
+                      .map((shared) => PeopleShareModel(shared.peopleId))
+                      .toList())
+              : SideDishPlateModel(plate.name, plate.price, plate.value,
+                  shared: plate.shared
+                      .map((shared) => PeopleShareModel(shared.peopleId))
+                      .toList()))
           .toList(),
       copper: SushiPlateModel(copper.type, copper.value),
       silver: SushiPlateModel(silver.type, silver.value),
@@ -81,6 +85,16 @@ class SideDishPlateModel extends PlateModel {
 
   SideDishPlateModel copy() {
     return SideDishPlateModel(name, price, value,
+        shared:
+            shared.map((shared) => PeopleShareModel(shared.peopleId)).toList());
+  }
+}
+
+class RefillDrinkPlateModel extends SideDishPlateModel {
+  RefillDrinkPlateModel({super.shared}) : super("เครื่องดื่มรีฟิล", 40, 1);
+
+  RefillDrinkPlateModel copy() {
+    return RefillDrinkPlateModel(
         shared:
             shared.map((shared) => PeopleShareModel(shared.peopleId)).toList());
   }

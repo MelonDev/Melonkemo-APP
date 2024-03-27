@@ -26,9 +26,10 @@ extension WidgetExtension on Widget {
   dialog(BuildContext context, {double? borderRadius}) {
     Dialog dialog = Dialog(
       shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius ?? 12.0)),
+          borderRadius: BorderRadius.circular(borderRadius ?? 20.0)),
       child: this,
     );
     showDialog(context: context, builder: (BuildContext context) => dialog);
   }
+
 }
