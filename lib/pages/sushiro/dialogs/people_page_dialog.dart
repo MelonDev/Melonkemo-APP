@@ -41,9 +41,9 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
   Widget build(BuildContext context) {
     return Container(
       color: Colors.white,
-      // height: size.resolve(context).width < 560
-      //     ? size.resolve(context).height * 0.92
-      //     : size.resolve(context).height * 0.85,
+      height: size.resolve(context).width < 560
+          ? size.resolve(context).height * 0.92
+          : size.resolve(context).height * 0.85,
       child: Column(
         children: [
           Container(
