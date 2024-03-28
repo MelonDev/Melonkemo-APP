@@ -8,6 +8,7 @@ import 'package:flutter_keyboard_visibility/flutter_keyboard_visibility.dart';
 import 'package:layout/layout.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/core/extensions/context_extension.dart';
+import 'package:melonkemo/core/extensions/double_extension.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
 import 'package:melonkemo/pages/sushiro/dialogs/add_sidedish_dialog.dart';
 import 'package:melonkemo/pages/sushiro/sushiro_main_model.dart';
@@ -121,11 +122,12 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                 Container(
                     color: Colors.white,
                     child: Column(children: [
+                      const SizedBox(height: 4,),
                       _plateTileWidget(context, widget.people.copper),
                       Container(
                         width: double.infinity,
                         height: 1,
-                        color: Colors.black.withOpacity(0.2),
+                        color: Colors.black.withOpacity(0.1),
                         margin: const EdgeInsets.symmetric(
                             vertical: 6, horizontal: 26),
                       ),
@@ -133,7 +135,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                       Container(
                         width: double.infinity,
                         height: 1,
-                        color: Colors.black.withOpacity(0.2),
+                        color: Colors.black.withOpacity(0.1),
                         margin: const EdgeInsets.symmetric(
                             vertical: 6, horizontal: 26),
                       ),
@@ -141,11 +143,12 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                       Container(
                         width: double.infinity,
                         height: 1,
-                        color: Colors.black.withOpacity(0.2),
+                        color: Colors.black.withOpacity(0.1),
                         margin: const EdgeInsets.symmetric(
                             vertical: 6, horizontal: 26),
                       ),
                       _plateTileWidget(context, widget.people.black),
+                      const SizedBox(height: 10,)
                     ])),
                 // Container(
                 //   width: double.infinity,
@@ -321,7 +324,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
   Widget _plateTileWidget(BuildContext context, PlateModel plate,
       {int? index}) {
     return Container(
-      padding: const EdgeInsets.only(left: 26, right: 26, top: 16, bottom: 16),
+      padding: const EdgeInsets.only(left: 26, right: 26, top: 6, bottom: 6),
       child: Row(
         children: [
           if (plate is SushiPlateModel) getSushiPlateWidget(plate.type),
@@ -347,7 +350,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
               Text(
                 plate is SushiPlateModel
                     ? "${SushiroMainProvider.getSushiPlatePrice(plate.type)}"
-                    : "${plate is SideDishPlateModel ? plate.price : "-"} บาท x ${plate.value} จาน",
+                    : "${plate is SideDishPlateModel ? plate.price.toShortMoney : "-"} บาท x ${plate.value} จาน",
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
@@ -449,7 +452,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
               Text(
                 plate is SushiPlateModel
                     ? "${SushiroMainProvider.getSushiPlatePrice(plate.type)}"
-                    : "${plate is SideDishPlateModel ? plate.price : "-"} บาท x ${plate.value} จาน",
+                    : "${plate is SideDishPlateModel ? plate.price.toShortMoney : "-"} บาท x ${plate.value} จาน",
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
