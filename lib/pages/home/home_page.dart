@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:go_router/go_router.dart';
 import 'package:layout/layout.dart';
 import 'package:melonkemo/components/pro_animated_blur.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
@@ -14,6 +15,7 @@ import 'package:melonkemo/core/components/me/melon_scaffold_widget.dart';
 import 'package:melonkemo/core/components/segments/tab_segment_widget.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
 import 'package:melonkemo/pages/home/prototype_home_provider.dart';
+import 'package:melonkemo/pages/sushiro/sushiro_main_page.dart';
 import 'package:provider/provider.dart';
 import 'package:simple_icons/simple_icons.dart';
 
@@ -88,6 +90,10 @@ class _HomePageState extends State<HomePage> {
             extendBodyBehindAppBar: true,
             appBarColor: Colors.black.withOpacity(isAppbarBlur ? 0.1 : 0.0),
             appBarNameTitleColor: Colors.white,
+            onButtonClick: (){
+              context.go('/sushiro');
+            },
+            buttonText: "คำนวณ Sushiro",
             customAppbarBody: (double height, Widget body) {
               return ClipRect(
                 child: SizedBox(

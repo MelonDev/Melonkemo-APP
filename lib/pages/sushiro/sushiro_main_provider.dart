@@ -5,7 +5,7 @@ class SushiroMainProvider extends ChangeNotifier {
   List<PeopleModel> peoples = [
     // PeopleModel("0", "คนที่ 1",
     //     copper: SushiPlateModel(SushiPlateType.copper, 2),
-    //     silver: SushiPlateModel(SushiPlateType.silver, 1),
+    //     silver: SushiPlateModel(SushiPlateType.silver, 10),
     //     plates: []),
     // PeopleModel("2", "คนที่ 2",
     //     copper: SushiPlateModel(SushiPlateType.copper, 1),
@@ -13,7 +13,7 @@ class SushiroMainProvider extends ChangeNotifier {
     //       SideDishPlateModel("Ramen", 150.0, 1),
     //     ]),
     // PeopleModel("3", "คนที่ 3",
-    //     black: SushiPlateModel(SushiPlateType.black, 1), plates: [])
+    //     black: SushiPlateModel(SushiPlateType.black, 10), plates: [])
   ];
 
   initialGroup(List<PeopleModel> peoples) {

@@ -9,10 +9,10 @@ class PeopleModel {
 
   PeopleModel(this.id, this.name,
       {List<SideDishPlateModel>? plates,
-      SushiPlateModel? copper,
-      SushiPlateModel? silver,
-      SushiPlateModel? gold,
-      SushiPlateModel? black}) {
+        SushiPlateModel? copper,
+        SushiPlateModel? silver,
+        SushiPlateModel? gold,
+        SushiPlateModel? black}) {
     this.plates = plates ?? [];
     this.copper = copper ?? SushiPlateModel(SushiPlateType.copper, 0);
     this.silver = silver ?? SushiPlateModel(SushiPlateType.silver, 0);
@@ -25,15 +25,16 @@ class PeopleModel {
       id,
       name,
       plates: plates
-          .map((plate) => plate is RefillDrinkPlateModel
-              ? RefillDrinkPlateModel(
-                  shared: plate.shared
-                      .map((shared) => PeopleShareModel(shared.peopleId))
-                      .toList())
-              : SideDishPlateModel(plate.name, plate.price, plate.value,
-                  shared: plate.shared
-                      .map((shared) => PeopleShareModel(shared.peopleId))
-                      .toList()))
+          .map((plate) =>
+      plate is RefillDrinkPlateModel
+          ? RefillDrinkPlateModel(
+          shared: plate.shared
+              .map((shared) => PeopleShareModel(shared.peopleId))
+              .toList())
+          : SideDishPlateModel(plate.name, plate.price, plate.value,
+          shared: plate.shared
+              .map((shared) => PeopleShareModel(shared.peopleId))
+              .toList()))
           .toList(),
       copper: SushiPlateModel(copper.type, copper.value),
       silver: SushiPlateModel(silver.type, silver.value),
@@ -86,7 +87,7 @@ class SideDishPlateModel extends PlateModel {
   SideDishPlateModel copy() {
     return SideDishPlateModel(name, price, value,
         shared:
-            shared.map((shared) => PeopleShareModel(shared.peopleId)).toList());
+        shared.map((shared) => PeopleShareModel(shared.peopleId)).toList());
   }
 }
 
@@ -96,7 +97,7 @@ class RefillDrinkPlateModel extends SideDishPlateModel {
   RefillDrinkPlateModel copy() {
     return RefillDrinkPlateModel(
         shared:
-            shared.map((shared) => PeopleShareModel(shared.peopleId)).toList());
+        shared.map((shared) => PeopleShareModel(shared.peopleId)).toList());
   }
 }
 
@@ -105,3 +106,30 @@ class SushiroModel {
 
   SushiroModel({List<PlateModel>? plates}) : plates = plates ?? [];
 }
+
+class VoucherDiscountModel {
+  CashVoucherModel? cash;
+  ReceiptVoucherModel? receipt;
+
+  VoucherDiscountModel({this.cash, this.receipt});
+
+  VoucherDiscountModel copy() =>
+      VoucherDiscountModel(
+          cash: cash != null ? CashVoucherModel(cash!.value) : null,
+          receipt: receipt != null ? ReceiptVoucherModel() : null);
+}
+
+class VoucherModel {
+  double value;
+
+  VoucherModel(this.value);
+}
+
+class CashVoucherModel extends VoucherModel {
+  CashVoucherModel(super.value);
+}
+
+class ReceiptVoucherModel extends VoucherModel {
+  ReceiptVoucherModel() : super(20);
+}
+

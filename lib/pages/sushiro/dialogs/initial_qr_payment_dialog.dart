@@ -198,7 +198,7 @@ class _InitialQrPaymentDialogState extends State<InitialQrPaymentDialog> {
                             borderRadius: 100,
                             child: Container(
                               decoration: BoxDecoration(
-                                  color: Colors.amberAccent,
+                                  color: const Color(0xFF0F3E84),
                                   borderRadius: BorderRadius.circular(100)),
                               alignment: Alignment.center,
                               padding: const EdgeInsets.only(
@@ -209,7 +209,7 @@ class _InitialQrPaymentDialogState extends State<InitialQrPaymentDialog> {
                                     fontSize: 20,
                                     fontWeight: FontWeight.normal,
                                     fontFamily: 'Bai',
-                                    color: Colors.black),
+                                    color: Colors.white),
                               ),
                             ))),
                   ]))

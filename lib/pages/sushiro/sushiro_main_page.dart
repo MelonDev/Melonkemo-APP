@@ -7,6 +7,7 @@ import 'package:layout/layout.dart';
 import 'package:melonkemo/components/empty_widget/empty_widget.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/core/components/me/melon_scaffold_widget.dart';
+import 'package:melonkemo/core/extensions/double_extension.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
 import 'package:melonkemo/pages/infrastructure/under_construction_page.dart';
 import 'package:melonkemo/pages/sushiro/sushiro_main_model.dart';
@@ -114,7 +115,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
         List<PeopleModel> peoples = ct.watch<SushiroMainProvider>().peoples;
 
         return MelonScaffoldWidget(
-          //backgroundColor: Colors.white,
+          backgroundColor: Colors.white,
           body: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -141,6 +142,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
               },
             ).dialog(context);
           },
+
           bottomSheet: Container(
             color: Colors.white,
             child: Row(
@@ -190,7 +192,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
               alignment: Alignment.centerRight,
               children: [
                 Text(
-                  "${context.read<SushiroMainProvider>().calculatePrice(includeServiceCharge: true).toStringAsFixed(2)} บาท",
+                  "${context.read<SushiroMainProvider>().calculatePrice(includeServiceCharge: true).toMoney} บาท",
                   style: const TextStyle(
                     fontSize: 36,
                     fontWeight: FontWeight.bold,
@@ -201,7 +203,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                 Container(
                   margin: const EdgeInsets.only(top: 64),
                   child: Text(
-                    "ราคาก่อนเซอร์วิส:  ${context.read<SushiroMainProvider>().calculatePrice().toStringAsFixed(2)} บาท",
+                    "ราคาก่อนเซอร์วิส:  ${context.read<SushiroMainProvider>().calculatePrice().toMoney} บาท",
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.normal,
@@ -299,7 +301,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                     alignment: Alignment.centerRight,
                     children: [
                       Text(
-                        "${context.read<SushiroMainProvider>().calculatePrice(peopleId: people.id, includeServiceCharge: true).toStringAsFixed(2)} บาท",
+                        "${context.read<SushiroMainProvider>().calculatePrice(peopleId: people.id, includeServiceCharge: true).toMoney} บาท",
                         style: TextStyle(
                           fontSize: 24,
                           fontWeight: FontWeight.bold,
@@ -312,7 +314,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                         child: Text(
                           "ราคาก่อนเซอร์วิส:  ${context.read<SushiroMainProvider>().calculatePrice(
                                 peopleId: people.id,
-                              ).toStringAsFixed(2)} บาท",
+                              ).toMoney} บาท",
                           style: TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.normal,
@@ -381,7 +383,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
           height: 10,
         ),
         Text(
-          "${price > 0 ? price : "-"}",
+          price > 0 ? price.toShortMoney : "-",
           style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,

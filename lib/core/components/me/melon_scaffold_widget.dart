@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:go_router/go_router.dart';
 import 'package:layout/layout.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
@@ -7,7 +8,7 @@ import 'package:melonkemo/pages/infrastructure/under_construction_page.dart';
 import 'package:wolt_modal_sheet/wolt_modal_sheet.dart';
 
 typedef OverlayWidget = Widget Function(Widget body);
-typedef CustomAppbarBody = Widget Function(double height,Widget body);
+typedef CustomAppbarBody = Widget Function(double height, Widget body);
 
 class MelonScaffoldWidget extends StatelessWidget {
   const MelonScaffoldWidget(
@@ -16,12 +17,18 @@ class MelonScaffoldWidget extends StatelessWidget {
       this.overlayBody,
       required this.body,
       this.extendBodyBehindAppBar = false,
+      this.backgroundColor,
       this.customAppbarBody,
-      this.appBarColor,this.appBarNameTitleColor, this.buttonText, this.onButtonClick, this.bottomSheet});
+      this.appBarColor,
+      this.appBarNameTitleColor,
+      this.buttonText,
+      this.onButtonClick,
+      this.bottomSheet});
 
   final List<Widget>? children;
   final OverlayWidget? overlayBody;
   final CustomAppbarBody? customAppbarBody;
+  final Color? backgroundColor;
 
   final Widget body;
   final bool extendBodyBehindAppBar;
@@ -31,7 +38,6 @@ class MelonScaffoldWidget extends StatelessWidget {
   final String? buttonText;
   final VoidCallback? onButtonClick;
   final Widget? bottomSheet;
-
 
   @override
   Widget build(BuildContext context) {
@@ -67,7 +73,7 @@ class MelonScaffoldWidget extends StatelessWidget {
         child: Scaffold(
           extendBodyBehindAppBar: extendBodyBehindAppBar,
           appBar: appbar(context),
-          backgroundColor: Colors.transparent,
+          backgroundColor: backgroundColor ?? Colors.transparent,
           body: body,
           bottomSheet: bottomSheet,
         ),
@@ -79,7 +85,7 @@ class MelonScaffoldWidget extends StatelessWidget {
           alignment: Alignment.bottomCenter,
           children: [
             customAppbarBody != null
-                ? customAppbarBody!.call(46.0,_appbarBody(context))
+                ? customAppbarBody!.call(46.0, _appbarBody(context))
                 : _appbarBody(context),
           ],
         ),
@@ -94,14 +100,19 @@ class MelonScaffoldWidget extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            "メロンけも",
-            style: TextStyle(
-                color: appBarNameTitleColor ?? Colors.black.withOpacity(0.8),
-                fontSize: 22,
-                letterSpacing: 0.0,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'MPlus'),
+          MelonBouncingButton(
+            callback: (){
+              context.go("/");
+            },
+            child: Text(
+              "メロンけも",
+              style: TextStyle(
+                  color: appBarNameTitleColor ?? Colors.black.withOpacity(0.8),
+                  fontSize: 22,
+                  letterSpacing: 0.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'MPlus'),
+            ),
           ).hover(x: -2),
           MelonBouncingButton.text(
               enabledHover: true,
@@ -114,9 +125,10 @@ class MelonScaffoldWidget extends StatelessWidget {
               borderRadius: 20,
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               color: Colors.black.withOpacity(0.8),
-              callback: onButtonClick ?? () {
-                showDialog(context);
-              })
+              callback: onButtonClick ??
+                  () {
+                    showDialog(context);
+                  })
         ],
       ),
     );
