@@ -350,7 +350,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
               Text(
                 plate is SushiPlateModel
                     ? "${SushiroMainProvider.getSushiPlatePrice(plate.type)}"
-                    : "${plate is SideDishPlateModel ? plate.price.toShortMoney : "-"} บาท x ${plate.value} จาน",
+                    : "${plate is SideDishPlateModel ? plate.price.toShortMoney : "-"} บาท x ${plate.value} ${plate is RefillDrinkPlateModel ?"แก้ว" : "จาน"}",
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
@@ -452,7 +452,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
               Text(
                 plate is SushiPlateModel
                     ? "${SushiroMainProvider.getSushiPlatePrice(plate.type)}"
-                    : "${plate is SideDishPlateModel ? plate.price.toShortMoney : "-"} บาท x ${plate.value} จาน",
+                    : "${plate is SideDishPlateModel ? plate.price.toShortMoney : "-"} บาท x ${plate.value} ${plate is RefillDrinkPlateModel ?"แก้ว" : "จาน"}",
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
