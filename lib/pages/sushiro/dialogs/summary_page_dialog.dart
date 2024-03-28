@@ -256,6 +256,9 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
   }
 
   Widget _card(BuildContext context, PeopleModel people) {
+    double resultPrice = SushiroMainProvider.calculatePricing(
+            people: people, includeServiceCharge: true) -
+        discountPerPerson;
     return Container(
       width: size.resolve(context).width,
       //color: Colors.red,
@@ -286,24 +289,10 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
             discountPerPerson,
           ),
         if (discountPerPerson > 0.00) const SizedBox(height: 2),
-        _priceWidget(
-            "รวม",
-            SushiroMainProvider.calculatePricing(
-                    people: people, includeServiceCharge: true) -
-                discountPerPerson,
-            fontWeight: FontWeight.bold,
-            fontSize: 16),
-        if (accountId != null &&
-            SushiroMainProvider.calculatePricing(
-                        people: people, includeServiceCharge: true) -
-                    discountPerPerson >
-                0)
-          const SizedBox(height: 10),
-        if (accountId != null &&
-            SushiroMainProvider.calculatePricing(
-                        people: people, includeServiceCharge: true) -
-                    discountPerPerson >
-                0)
+        _priceWidget("รวม", resultPrice,
+            fontWeight: FontWeight.bold, fontSize: 16),
+        if (accountId != null && resultPrice > 0) const SizedBox(height: 10),
+        if (accountId != null && resultPrice > 0)
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
@@ -319,10 +308,7 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
                         if (accountId != null)
                           QRCodeGenerate(
                             promptPayId: accountId!,
-                            amount: SushiroMainProvider.calculatePricing(
-                                    people: people,
-                                    includeServiceCharge: true) -
-                                discountPerPerson,
+                            amount: resultPrice,
                             width: 400,
                             height: 400,
                             promptPayDetailCustom: Text(
@@ -334,7 +320,7 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
                                   color: Colors.black),
                             ),
                             amountDetailCustom: Text(
-                              "${(SushiroMainProvider.calculatePricing(people: people, includeServiceCharge: true) - discountPerPerson).toMoney} บาท",
+                              "${(resultPrice).toMoney} บาท",
                               style: const TextStyle(
                                   fontSize: 24,
                                   fontWeight: FontWeight.bold,
