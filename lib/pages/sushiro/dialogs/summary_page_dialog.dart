@@ -171,84 +171,86 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
   }
 
   Widget _discount(BuildContext context) {
-    return MelonBouncingButton(
-        active: voucher != null,
-        callback: () {
-          DiscountDialog(
-            voucher: voucher,
-            callback: (VoucherDiscountModel newVoucherDiscount) {
-              voucher = newVoucherDiscount;
-              if (widget.peoples.isNotEmpty) {
-                discountPerPerson = double.parse((((voucher?.cash?.value ?? 0.00) +
-                    (voucher?.receipt?.value ?? 0.00)) /
-                    widget.peoples.length).toStringAsFixed(2));
-              }
-              setState(() {});
-            },
-          ).dialog(context);
-        },
-        child: Container(
-          padding:
-              const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
-          margin: const EdgeInsets.only(bottom: 10),
-          decoration: BoxDecoration(
-              color: Colors.grey.shade200,
-              borderRadius: BorderRadius.circular(12)),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "ส่วนลด",
-                    style: const TextStyle(
-                        fontSize: 20,
-                        fontWeight: FontWeight.bold,
-                        fontFamily: 'Bai',
-                        color: Colors.black),
-                  ),
-                  if (voucher != null)
-                    const Text(
-                      "แตะเพื่อแก้ไข",
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
+    return IgnorePointer(
+      ignoring: voucher == null,
+      child: MelonBouncingButton(
+          callback: () {
+            DiscountDialog(
+              voucher: voucher,
+              callback: (VoucherDiscountModel newVoucherDiscount) {
+                voucher = newVoucherDiscount;
+                if (widget.peoples.isNotEmpty) {
+                  discountPerPerson = double.parse((((voucher?.cash?.value ?? 0.00) +
+                      (voucher?.receipt?.value ?? 0.00)) /
+                      widget.peoples.length).toStringAsFixed(2));
+                }
+                setState(() {});
+              },
+            ).dialog(context);
+          },
+          child: Container(
+            padding:
+            const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
+            margin: const EdgeInsets.only(bottom: 10),
+            decoration: BoxDecoration(
+                color: Colors.grey.shade200,
+                borderRadius: BorderRadius.circular(12)),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "ส่วนลด",
+                      style: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                           fontFamily: 'Bai',
                           color: Colors.black),
                     ),
-                  if (voucher == null)
-                    const Text(
-                      "ยอดรวมไม่สามารถใช้ส่วนลดได้",
-                      style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          fontFamily: 'Bai',
-                          color: Colors.red),
-                    ),
-                ],
-              ),
-              if (voucher?.cash != null || voucher?.receipt != null)
-                const SizedBox(height: 14),
-              if (voucher?.cash != null)
-                _priceWidget("คูปองแทนเงินสด", voucher?.cash?.value ?? 0.00,
-                    fontWeight: FontWeight.normal),
-              if (voucher?.cash != null) const SizedBox(height: 2),
-              if (voucher?.receipt != null)
-                _priceWidget(
-                    "คูปองท้ายใบเสร็จ", voucher?.receipt?.value ?? 0.00,
-                    fontWeight: FontWeight.normal),
-              if (voucher?.receipt != null) const SizedBox(height: 10),
-              if (voucher?.cash != null || voucher?.receipt != null)
-                _priceWidget(
-                    "รวม",
-                    (voucher?.cash?.value ?? 0.00) +
-                        (voucher?.receipt?.value ?? 0.00),
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16),
-            ],
-          ),
-        ));
+                    if (voucher != null)
+                      const Text(
+                        "แตะเพื่อแก้ไข",
+                        style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.normal,
+                            fontFamily: 'Bai',
+                            color: Colors.black),
+                      ),
+                    if (voucher == null)
+                      const Text(
+                        "ยอดรวมไม่สามารถใช้ส่วนลดได้",
+                        style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            fontFamily: 'Bai',
+                            color: Colors.red),
+                      ),
+                  ],
+                ),
+                if (voucher?.cash != null || voucher?.receipt != null)
+                  const SizedBox(height: 14),
+                if (voucher?.cash != null)
+                  _priceWidget("คูปองแทนเงินสด", voucher?.cash?.value ?? 0.00,
+                      fontWeight: FontWeight.normal),
+                if (voucher?.cash != null) const SizedBox(height: 2),
+                if (voucher?.receipt != null)
+                  _priceWidget(
+                      "คูปองท้ายใบเสร็จ", voucher?.receipt?.value ?? 0.00,
+                      fontWeight: FontWeight.normal),
+                if (voucher?.receipt != null) const SizedBox(height: 10),
+                if (voucher?.cash != null || voucher?.receipt != null)
+                  _priceWidget(
+                      "รวม",
+                      (voucher?.cash?.value ?? 0.00) +
+                          (voucher?.receipt?.value ?? 0.00),
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16),
+              ],
+            ),
+          )),
+    );
   }
 
   Widget _card(BuildContext context, PeopleModel people) {
