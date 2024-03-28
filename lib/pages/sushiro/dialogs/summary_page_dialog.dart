@@ -180,9 +180,11 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
               callback: (VoucherDiscountModel newVoucherDiscount) {
                 voucher = newVoucherDiscount;
                 if (widget.peoples.isNotEmpty) {
-                  discountPerPerson = double.parse((((voucher?.cash?.value ?? 0.00) +
-                      (voucher?.receipt?.value ?? 0.00)) /
-                      widget.peoples.length).toStringAsFixed(2));
+                  discountPerPerson = double.parse(
+                      (((voucher?.cash?.value ?? 0.00) +
+                                  (voucher?.receipt?.value ?? 0.00)) /
+                              widget.peoples.length)
+                          .toStringAsFixed(2));
                 }
                 setState(() {});
               },
@@ -190,7 +192,7 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
           },
           child: Container(
             padding:
-            const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
+                const EdgeInsets.only(left: 16, right: 16, top: 10, bottom: 10),
             margin: const EdgeInsets.only(bottom: 10),
             decoration: BoxDecoration(
                 color: Colors.grey.shade200,
@@ -287,17 +289,28 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
         _priceWidget(
             "รวม",
             SushiroMainProvider.calculatePricing(
-                people: people, includeServiceCharge: true) - discountPerPerson,
+                    people: people, includeServiceCharge: true) -
+                discountPerPerson,
             fontWeight: FontWeight.bold,
             fontSize: 16),
-        if (accountId != null) const SizedBox(height: 10),
-        if (accountId != null)
+        if (accountId != null &&
+            SushiroMainProvider.calculatePricing(
+                        people: people, includeServiceCharge: true) -
+                    discountPerPerson >
+                0)
+          const SizedBox(height: 10),
+        if (accountId != null &&
+            SushiroMainProvider.calculatePricing(
+                        people: people, includeServiceCharge: true) -
+                    discountPerPerson >
+                0)
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               MelonBouncingButton(
                 callback: () {
                   Container(
+                    color: Colors.white,
                     constraints: BoxConstraints(maxWidth: 360),
                     padding: EdgeInsets.all(20),
                     child: Column(
@@ -306,7 +319,10 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
                         if (accountId != null)
                           QRCodeGenerate(
                             promptPayId: accountId!,
-                            amount: SushiroMainProvider.calculatePricing(people: people, includeServiceCharge: true) - discountPerPerson,
+                            amount: SushiroMainProvider.calculatePricing(
+                                    people: people,
+                                    includeServiceCharge: true) -
+                                discountPerPerson,
                             width: 400,
                             height: 400,
                             promptPayDetailCustom: Text(
