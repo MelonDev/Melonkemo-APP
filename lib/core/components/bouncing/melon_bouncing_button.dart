@@ -50,10 +50,10 @@ class MelonBouncingButton extends StatelessWidget {
       double x = -5.0,
       double y = -1.0,
       double z = 1.04,
-        String? fontFamily = "Itim",
+      String? fontFamily = "Itim",
       double? fontSize,
       bool fakeLongEnable = true,
-        EdgeInsetsGeometry? padding,
+      EdgeInsetsGeometry? padding,
       double? borderRadius}) {
     return OnHover(
       x: x,
@@ -71,7 +71,7 @@ class MelonBouncingButton extends StatelessWidget {
             child: Container(
               height: height,
               width: width,
-                padding: padding,
+              padding: padding,
               decoration: BoxDecoration(
                   color: color ?? Colors.white,
                   borderRadius: BorderRadius.circular(borderRadius ?? 10)),

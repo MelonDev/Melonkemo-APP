@@ -80,27 +80,16 @@ class _DiscountDialogState extends State<DiscountDialog> {
                   width: 20,
                 ),
                 Expanded(
-                  child: Container(
-                    height: 36,
-                    child: ListView(
-                      primary: false,
-                      shrinkWrap: true,
-                      physics: const BouncingScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      children: [
-                        _noPrice(),
-                        const SizedBox(width: 4),
-                        _price(20),
-                        const SizedBox(width: 4),
-                        _price(40),
-                        const SizedBox(width: 4),
-                        _price(60),
-                        const SizedBox(width: 4),
-                        _price(80),
-                        const SizedBox(width: 4),
-                        _price(120),
-                      ],
-                    ),
+                  child: Wrap(
+                    alignment: WrapAlignment.end,
+                    children: [
+                      _noPrice(),
+                      _price(20),
+                      _price(40),
+                      _price(60),
+                      _price(80),
+                      _price(120),
+                    ],
                   ),
                 )
               ],
@@ -196,33 +185,41 @@ class _DiscountDialogState extends State<DiscountDialog> {
 
   Widget _price(int price) {
     bool isSelected = voucher.cash?.value == price;
-    return MelonBouncingButton.text(
-        text: price.toString(),
-        color: isSelected ? Colors.amberAccent : Colors.grey.shade200,
-        textColor: Colors.black,
-        fontSize: 18,
-        padding: const EdgeInsets.only(left: 20, right: 20),
-        borderRadius: 8,
-        fontFamily: "Bai",
-        callback: () {
-          voucher.cash = CashVoucherModel(price.toDouble());
-          setState(() {});
-        });
+    return Container(
+      constraints: const BoxConstraints(minWidth: 50,maxWidth: 60),
+      padding: const EdgeInsets.only(left: 4.0,top: 4.0),
+      child: MelonBouncingButton.text(
+          text: price.toString(),
+          color: isSelected ? Colors.amberAccent : Colors.grey.shade200,
+          textColor: Colors.black,
+          fontSize: 18,
+          padding: const EdgeInsets.only(left: 8, right: 8),
+          borderRadius: 8,
+          fontFamily: "Bai",
+          callback: () {
+            voucher.cash = CashVoucherModel(price.toDouble());
+            setState(() {});
+          }),
+    );
   }
 
   Widget _noPrice() {
     bool isSelected = voucher.cash == null;
-    return MelonBouncingButton.text(
-        text: "ไม่เลือก",
-        color: isSelected ? Colors.grey.shade600 : Colors.grey.shade200,
-        textColor: isSelected ? Colors.white :Colors.black,
-        fontSize: 14,
-        padding: const EdgeInsets.only(left: 20, right: 20),
-        borderRadius: 8,
-        fontFamily: "Bai",
-        callback: () {
-          voucher.cash = null;
-          setState(() {});
-        });
+    return Container(
+      padding: const EdgeInsets.only(left: 4.0,top: 4.0),
+      constraints: const BoxConstraints(minWidth: 50,maxWidth: 80),
+      child: MelonBouncingButton.text(
+          text: "ไม่เลือก",
+          color: isSelected ? Colors.grey.shade600 : Colors.grey.shade200,
+          textColor: isSelected ? Colors.white :Colors.black,
+          fontSize: 14,
+          padding: const EdgeInsets.only(left: 8, right: 8),
+          borderRadius: 8,
+          fontFamily: "Bai",
+          callback: () {
+            voucher.cash = null;
+            setState(() {});
+          }),
+    );
   }
 }
