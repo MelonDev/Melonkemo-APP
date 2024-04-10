@@ -42,7 +42,13 @@ class CoreApp extends BaseRouterWidget {
         url: 'https://1drv.ms/f/s!AgXh7wuvRh0Xi801NXxza4n0OoPoog?e=9M320r'),
     SharedPage.route(
         path: 'christmas-events-first-week',
-        url: 'https://1drv.ms/f/s!AgXh7wuvRh0Xi814Ft8Dd_8swMTJkw?e=ATHB2R')
+        url: 'https://1drv.ms/f/s!AgXh7wuvRh0Xi814Ft8Dd_8swMTJkw?e=ATHB2R'),
+    SharedPage.route(
+        path: 'thaitails2024',
+        url: 'https://1drv.ms/f/s!AgXh7wuvRh0Xi-ET6vK8Th4TOFYkrg?e=DNpSO1'),
+    SharedPage.route(
+        path: '500cafe-march-2024',
+        url: 'https://1drv.ms/f/s!AgXh7wuvRh0Xi-MbGtfg2aqQY11jJg?e=xWnyBv'),
   ];
 
   @override
