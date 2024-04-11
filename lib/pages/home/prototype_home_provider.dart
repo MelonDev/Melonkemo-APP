@@ -6,7 +6,7 @@ class PrototypeHomeProvider extends ChangeNotifier {
   bool isBGBlur = false;
   bool isAppbarBlur = false;
 
-  AboutLanguage language = AboutLanguage.thai;
+  AboutLanguage language = AboutLanguage.english;
 
   bool setBlur(double rawOffset) {
     if (isBGBlur != (rawOffset != 0)) {
