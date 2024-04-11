@@ -67,7 +67,6 @@ class _HomePageState extends State<HomePage> {
       }
     });
 
-    print("initState");
     super.initState();
   }
 
@@ -139,12 +138,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget _largeLayout(BuildContext context) {
-    print("width: ${MediaQuery.of(context).size.width}");
     double extraWidth = realCardWidth.resolve(context) > 1050
         ? (realCardWidth.resolve(context) - 1050) / 1.45
         : 0;
-    print("extraWidth: $extraWidth, right: ${20 + extraWidth}");
-
     return _listCards(context, extraWidth: extraWidth);
   }
 
