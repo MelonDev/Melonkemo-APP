@@ -94,7 +94,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
   late final SushiroMainProvider _provider;
 
   double tableWidth = 30;
-  double bottomSheetHeight = 100;
+  double bottomSheetHeight = 98;
 
   final LayoutValue<double> areaWidth = LayoutValue.builder((layout) {
     return layout.width <= 500 ? layout.width : 500;
@@ -169,7 +169,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
         decoration: BoxDecoration(
             color: Colors.grey.withOpacity(0.2),
             borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+                topLeft: Radius.circular(16), topRight: Radius.circular(16))),
         width: areaWidth.resolve(context),
         height: bottomSheetHeight,
         padding: const EdgeInsets.only(left: 20, right: 20, bottom: 0, top: 0),
@@ -178,7 +178,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              margin: const EdgeInsets.only(top: 17),
+              margin: const EdgeInsets.only(top: 8),
               child: const Text(
                 "ราคารวม",
                 style: TextStyle(

@@ -10,7 +10,7 @@ class InitialQrPaymentDialog extends StatefulWidget {
       this.callback,
       this.maxWidth = 360,
       this.maxHeight = 600,
-      this.borderRadius = 20});
+      this.borderRadius = 16});
 
   final Function(String)? callback;
   final double maxHeight;
@@ -172,13 +172,13 @@ class _InitialQrPaymentDialogState extends State<InitialQrPaymentDialog> {
                             alignment: Alignment.center,
                             padding: const EdgeInsets.only(
                                 left: 0, right: 0, bottom: 10, top: 10),
-                            child: const Text(
+                            child: Text(
                               "ยกเลิก",
                               style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.normal,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
                                   fontFamily: 'Bai',
-                                  color: Colors.black),
+                                  color: Colors.black.withOpacity(0.75)),
                             ),
                           )),
                     ),
@@ -206,8 +206,8 @@ class _InitialQrPaymentDialogState extends State<InitialQrPaymentDialog> {
                               child: const Text(
                                 "ยืนยัน",
                                 style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.normal,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
                                     fontFamily: 'Bai',
                                     color: Colors.white),
                               ),

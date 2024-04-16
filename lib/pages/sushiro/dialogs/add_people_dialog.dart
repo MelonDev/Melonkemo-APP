@@ -13,7 +13,7 @@ class AddPeopleDialog extends StatefulWidget {
     this.callback,
     this.maxWidth = 360,
     this.maxHeight = 600,
-    this.borderRadius = 20
+    this.borderRadius = 16
   });
 
   final PeopleModel? people;
@@ -56,7 +56,6 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
           Container(
             height: 56,
             padding: const EdgeInsets.only(left: 20, right: 20),
-
             //color: Colors.blue,
             child: Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -73,7 +72,7 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
             ),
           ),
           Container(
-              margin: const EdgeInsets.only(left: 20, right: 20),
+              margin: const EdgeInsets.only(left: 20, right: 20,top: 10),
               child: Form(
                 key: formkey,
                 child: Column(
@@ -149,13 +148,13 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
                             alignment: Alignment.center,
                             padding: const EdgeInsets.only(
                                 left: 0, right: 0, bottom: 10, top: 10),
-                            child: const Text(
+                            child: Text(
                               "ยกเลิก",
                               style: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.normal,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
                                   fontFamily: 'Bai',
-                                  color: Colors.black),
+                                  color: Colors.black.withOpacity(0.75)),
                             ),
                           )),
                     ),
@@ -185,13 +184,13 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
                           alignment: Alignment.center,
                           padding: const EdgeInsets.only(
                               left: 0, right: 0, bottom: 10, top: 10),
-                          child: const Text(
+                          child: Text(
                             "ยืนยัน",
                             style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.normal,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
                                 fontFamily: 'Bai',
-                                color: Colors.black),
+                                color: Colors.black.withOpacity(0.75)),
                           ),
                         ))),
                   ]))
