@@ -9,7 +9,7 @@ class DiscountDialog extends StatefulWidget {
       this.callback,
       this.maxWidth = 360,
       this.maxHeight = 600,
-      this.borderRadius = 20,
+      this.borderRadius = 16,
       this.voucher});
 
   final Function(VoucherDiscountModel)? callback;
@@ -142,13 +142,13 @@ class _DiscountDialogState extends State<DiscountDialog> {
                               alignment: Alignment.center,
                               padding: const EdgeInsets.only(
                                   left: 0, right: 0, bottom: 10, top: 10),
-                              child: const Text(
+                              child: Text(
                                 "ยกเลิก",
                                 style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.normal,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
                                     fontFamily: 'Bai',
-                                    color: Colors.black),
+                                    color: Colors.black.withOpacity(0.75)),
                               ),
                             ))),
                     Container(
@@ -168,13 +168,13 @@ class _DiscountDialogState extends State<DiscountDialog> {
                               alignment: Alignment.center,
                               padding: const EdgeInsets.only(
                                   left: 0, right: 0, bottom: 10, top: 10),
-                              child: const Text(
+                              child: Text(
                                 "ยืนยัน",
                                 style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.normal,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
                                     fontFamily: 'Bai',
-                                    color: Colors.black),
+                                    color: Colors.black.withOpacity(0.75)),
                               ),
                             ))),
                   ]))

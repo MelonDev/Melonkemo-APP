@@ -182,13 +182,13 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                               padding: const EdgeInsets.only(
                                   left: 0, right: 0, bottom: 12, top: 12),
                               alignment: Alignment.center,
-                              child: const Text(
+                              child: Text(
                                 "ยกเลิก",
                                 style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.normal,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
                                     fontFamily: 'Bai',
-                                    color: Colors.black),
+                                    color: Colors.black.withOpacity(0.75)),
                               ),
                             ))),
                     const SizedBox(width: 12),
@@ -206,13 +206,13 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                           padding: const EdgeInsets.only(
                               left: 0, right: 0, bottom: 12, top: 12),
                           alignment: Alignment.center,
-                          child: const Text(
+                          child: Text(
                             "บันทึก",
                             style: TextStyle(
-                                fontSize: 20,
-                                fontWeight: FontWeight.normal,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
                                 fontFamily: 'Bai',
-                                color: Colors.black),
+                                color: Colors.black.withOpacity(0.75)),
                           ),
                         ),
                       ),

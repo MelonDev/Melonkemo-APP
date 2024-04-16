@@ -77,7 +77,7 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
         children: [
           Container(
             height: 56,
-            padding: const EdgeInsets.only(left: 20, right: 20),
+            padding: const EdgeInsets.only(left: 20, right: 20,top: 10),
 
             //color: Colors.blue,
             child: Stack(
@@ -117,14 +117,14 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
                 Align(
                     alignment: Alignment.centerRight,
                     child: Container(
-                        constraints: BoxConstraints(
+                        constraints: const BoxConstraints(
                           maxWidth: 200,
                         ),
                         child: MelonBouncingButton.text(
                             text: accountId ?? "ตั้งค่าพร้อมเพย์ QR",
                             color: const Color(0xFF0F3E84),
                             textColor: Colors.white,
-                            fontSize: 18,
+                            fontSize: 16,
                             padding: const EdgeInsets.only(left: 20, right: 20),
                             borderRadius: 12,
                             fontFamily: "Bai",
@@ -333,7 +333,7 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
                         //   child: Image.network(
                         //       "https://promptpay.io/$accountId/${SushiroMainProvider.calculatePricing(people: people, includeServiceCharge: true).ceil()}.png"),
                         // ),
-                        SizedBox(height: 10),
+                        const SizedBox(height: 10),
                         // Text(
                         //   "${SushiroMainProvider.calculatePricing(people: people, includeServiceCharge: true).ceil().toStringAsFixed(2)} บาท",
                         //   style: TextStyle(
@@ -352,8 +352,7 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
                               fontFamily: 'Bai',
                               color: Colors.red),
                         ),
-                        SizedBox(height: 16),
-
+                        const SizedBox(height: 16),
                         MelonBouncingButton(
                             callback: () {
                               Navigator.of(context).pop();
@@ -362,17 +361,17 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
                             child: Container(
                               decoration: BoxDecoration(
                                   color: Colors.grey.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(100)),
+                                  borderRadius: BorderRadius.circular(8)),
                               alignment: Alignment.center,
                               padding: const EdgeInsets.only(
                                   left: 0, right: 0, bottom: 10, top: 10),
-                              child: const Text(
+                              child: Text(
                                 "ปิด",
                                 style: TextStyle(
-                                    fontSize: 20,
-                                    fontWeight: FontWeight.normal,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
                                     fontFamily: 'Bai',
-                                    color: Colors.black),
+                                    color: Colors.black.withOpacity(0.75)),
                               ),
                             ))
                       ],
@@ -384,7 +383,7 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
                       borderRadius: BorderRadius.circular(50),
                       color: Colors.black.withOpacity(0.05)),
                   padding:
-                      EdgeInsets.only(left: 16, right: 16, top: 6, bottom: 6),
+                      const EdgeInsets.only(left: 16, right: 16, top: 6, bottom: 6),
                   child: const Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
