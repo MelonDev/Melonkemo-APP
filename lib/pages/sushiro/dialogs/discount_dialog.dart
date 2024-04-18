@@ -125,59 +125,63 @@ class _DiscountDialogState extends State<DiscountDialog> {
             height: 20,
           ),
           Container(
-              padding: const EdgeInsets.only(bottom: 16, right: 20, left: 20),
-              child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Expanded(
-                        child: MelonBouncingButton(
-                            callback: () {
-                              Navigator.of(context).pop();
-                            },
-                            borderRadius: 100,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.grey.withOpacity(0.2),
-                                  borderRadius: BorderRadius.circular(100)),
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.only(
-                                  left: 0, right: 0, bottom: 10, top: 10),
-                              child: Text(
-                                "ยกเลิก",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'Bai',
-                                    color: Colors.black.withOpacity(0.75)),
-                              ),
-                            ))),
-                    Container(
-                      width: 10,
+            padding: const EdgeInsets.only(bottom: 16, right: 20, left: 20),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                Expanded(
+                    child: MelonBouncingButton(
+                        callback: () {
+                          Navigator.of(context).pop();
+                        },
+                        borderRadius: 100,
+                        child: Container(
+                          decoration: BoxDecoration(
+                              color: Colors.grey.withOpacity(0.2),
+                              borderRadius: BorderRadius.circular(100)),
+                          alignment: Alignment.center,
+                          padding: const EdgeInsets.only(
+                              left: 0, right: 0, bottom: 10, top: 10),
+                          child: Text(
+                            "ยกเลิก",
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                fontFamily: 'Bai',
+                                color: Colors.black.withOpacity(0.75)),
+                          ),
+                        ))),
+                Container(
+                  width: 10,
+                ),
+                Expanded(
+                  child: MelonBouncingButton(
+                    callback: () {
+                      widget.callback?.call(voucher);
+                      Navigator.of(context).pop();
+                    },
+                    borderRadius: 100,
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Colors.amberAccent,
+                          borderRadius: BorderRadius.circular(100)),
+                      alignment: Alignment.center,
+                      padding: const EdgeInsets.only(
+                          left: 0, right: 0, bottom: 10, top: 10),
+                      child: Text(
+                        "ยืนยัน",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            fontFamily: 'Bai',
+                            color: Colors.black.withOpacity(0.75)),
+                      ),
                     ),
-                    Expanded(
-                        child: MelonBouncingButton(
-                            callback: () {
-                              widget.callback?.call(voucher);
-                              Navigator.of(context).pop();
-                            },
-                            borderRadius: 100,
-                            child: Container(
-                              decoration: BoxDecoration(
-                                  color: Colors.amberAccent,
-                                  borderRadius: BorderRadius.circular(100)),
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.only(
-                                  left: 0, right: 0, bottom: 10, top: 10),
-                              child: Text(
-                                "ยืนยัน",
-                                style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                    fontFamily: 'Bai',
-                                    color: Colors.black.withOpacity(0.75)),
-                              ),
-                            ))),
-                  ]))
+                  ),
+                ),
+              ],
+            ),
+          )
         ],
       ),
     );
@@ -186,8 +190,8 @@ class _DiscountDialogState extends State<DiscountDialog> {
   Widget _price(int price) {
     bool isSelected = voucher.cash?.value == price;
     return Container(
-      constraints: const BoxConstraints(minWidth: 50,maxWidth: 60),
-      padding: const EdgeInsets.only(left: 4.0,top: 4.0),
+      constraints: const BoxConstraints(minWidth: 50, maxWidth: 60),
+      padding: const EdgeInsets.only(left: 4.0, top: 4.0),
       child: MelonBouncingButton.text(
           text: price.toString(),
           color: isSelected ? Colors.amberAccent : Colors.grey.shade200,
@@ -206,12 +210,12 @@ class _DiscountDialogState extends State<DiscountDialog> {
   Widget _noPrice() {
     bool isSelected = voucher.cash == null;
     return Container(
-      padding: const EdgeInsets.only(left: 4.0,top: 4.0),
-      constraints: const BoxConstraints(minWidth: 50,maxWidth: 80),
+      padding: const EdgeInsets.only(left: 4.0, top: 4.0),
+      constraints: const BoxConstraints(minWidth: 50, maxWidth: 80),
       child: MelonBouncingButton.text(
           text: "ไม่เลือก",
           color: isSelected ? Colors.grey.shade600 : Colors.grey.shade200,
-          textColor: isSelected ? Colors.white :Colors.black,
+          textColor: isSelected ? Colors.white : Colors.black,
           fontSize: 14,
           padding: const EdgeInsets.only(left: 8, right: 8),
           borderRadius: 8,
