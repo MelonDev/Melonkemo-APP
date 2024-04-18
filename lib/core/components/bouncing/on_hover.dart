@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class OnHover extends StatefulWidget {
@@ -9,16 +8,15 @@ class OnHover extends StatefulWidget {
   final double? z;
 
   const OnHover(
-      {Key? key,
+      {super.key,
         required this.builder,
         this.disableScale = false,
         this.x,
         this.y,
-        this.z})
-      : super(key: key);
+        this.z});
 
   @override
-  _OnHoverState createState() => _OnHoverState();
+  State<OnHover> createState() => _OnHoverState();
 }
 
 class _OnHoverState extends State<OnHover> {
