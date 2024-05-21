@@ -86,7 +86,7 @@ class SquircleBorder extends ShapeBorder {
   final BorderRadius? radius;
 
   const SquircleBorder({
-    this.side: BorderSide.none,
+    this.side= BorderSide.none,
     this.radius,
   });
 
