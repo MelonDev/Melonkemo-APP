@@ -27,7 +27,7 @@ jobs:
       - name: 'Run flutter_launcher_icons'
         run: flutter pub run flutter_launcher_icons
       - name: 'Build Web App'
-        run: flutter build web --release
+        run: flutter build web --wasm --release
       - name: 'Deploy to Firebase Hosting'
         uses: docker://w9jds/firebase-action:master
         with:
