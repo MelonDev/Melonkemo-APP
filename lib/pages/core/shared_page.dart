@@ -1,3 +1,6 @@
+import 'dart:js_interop' as js;
+import 'dart:js_interop_unsafe';
+
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'dart:js' as js;
