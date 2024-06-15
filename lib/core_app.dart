@@ -51,7 +51,7 @@ class CoreApp extends BaseRouterWidget {
         url: 'https://1drv.ms/f/s!AgXh7wuvRh0Xi-MbGtfg2aqQY11jJg?e=xWnyBv'),
     SharedPage.route(
         path: 'smart-buff-manager',
-        url: 'https://drive.google.com/file/d/1TFsqCss4ljreQ_PQX7nncbn0eyJow-ZX/view?usp=share_link'),
+        url: 'https://drive.google.com/file/d/1g6iwU7uKradb2oHf_aexFd-MCP7eEZQk/view?usp=share_link'),
   ];
 
   @override
