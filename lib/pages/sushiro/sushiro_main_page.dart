@@ -105,7 +105,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
     _provider = SushiroMainProvider();
     WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp){
       Future.delayed(const Duration(milliseconds: 500), () async {
-        _showAddPeopleDialog();
+        //_showAddPeopleDialog();
       });
     });
     super.initState();
@@ -130,10 +130,27 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                 width: areaWidth.resolve(context),
                 child: peoples.isNotEmpty
                     ? _listView(ct)
-                    : const Padding(
+                    : Padding(
                         padding: EdgeInsets.only(top: 180.0, bottom: 80.0),
                         child:
-                            EmptyWidget(text: 'ไม่พบบุคคล\nกรุณากด "เพิ่มคน"'),
+                            EmptyWidget(text: 'ไม่พบบุคคล\nกรุณากด "เพิ่มคน"',additionalWidget: Container(
+                                constraints: const BoxConstraints(
+                                  maxWidth: 200,
+                                ),
+                                child: MelonBouncingButton.text(
+                                    text: "เพิ่มคน",
+                                    color: Colors.black.withOpacity(0.8),
+                                    textColor: Colors.white,
+                                    fontSize: 18,
+                                    height: 56,
+                                    weight: 400,
+                                    fontWeight: FontWeight.bold,
+                                    padding: const EdgeInsets.only(left: 20, right: 20),
+                                    borderRadius: 30,
+                                    fontFamily: "Bai",
+                                    callback: () {
+                                      _showAddPeopleDialog(peoples: peoples);
+                                    })),),
                       ),
               )
             ],

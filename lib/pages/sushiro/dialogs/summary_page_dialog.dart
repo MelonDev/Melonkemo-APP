@@ -256,6 +256,8 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
   }
 
   Widget _card(BuildContext context, PeopleModel people) {
+    double resultPriceBeforeService = SushiroMainProvider.calculatePricing(
+        people: people, includeServiceCharge: false);
     double resultPrice = SushiroMainProvider.calculatePricing(
             people: people, includeServiceCharge: true) -
         discountPerPerson;
@@ -280,9 +282,12 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
         ...people.plates
             .map((plate) => _plate(plate.name ?? "", plate.price, plate.value)),
         const SizedBox(height: 14),
+        _priceWidget("ราคาก่อนเซอร์วิส", resultPriceBeforeService),
+        const SizedBox(height: 2),
         _priceWidget("ค่าเซอร์วิส",
             SushiroMainProvider.calculatePricing(people: people) * 0.1),
         const SizedBox(height: 2),
+
         if (discountPerPerson > 0.00)
           _priceWidget(
             "ส่วนลด",

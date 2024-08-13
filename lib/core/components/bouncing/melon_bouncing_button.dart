@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 
 import 'melon_bounce_widget.dart';
@@ -50,8 +52,10 @@ class MelonBouncingButton extends StatelessWidget {
       double x = -5.0,
       double y = -1.0,
       double z = 1.04,
+        FontWeight fontWeight = FontWeight.normal,
       String? fontFamily = "Itim",
       double? fontSize,
+        double? weight,
       bool fakeLongEnable = true,
       EdgeInsetsGeometry? padding,
       double? borderRadius}) {
@@ -82,6 +86,7 @@ class MelonBouncingButton extends StatelessWidget {
                   style: TextStyle(
                     color: textColor ?? Colors.black,
                     fontSize: fontSize,
+                    fontWeight: fontWeight,
                     letterSpacing: 0.0,
                     fontFamily: fontFamily,
                     //fontWeight: FontWeight.bold,

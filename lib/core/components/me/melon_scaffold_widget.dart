@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
@@ -23,6 +26,8 @@ class MelonScaffoldWidget extends StatelessWidget {
       this.appBarNameTitleColor,
       this.buttonText,
       this.onButtonClick,
+        this.fontWeight = FontWeight.normal,
+        this.height = 34.0,
       this.bottomSheet});
 
   final List<Widget>? children;
@@ -38,6 +43,8 @@ class MelonScaffoldWidget extends StatelessWidget {
   final String? buttonText;
   final VoidCallback? onButtonClick;
   final Widget? bottomSheet;
+  final double height;
+  final FontWeight fontWeight;
 
   @override
   Widget build(BuildContext context) {
@@ -120,7 +127,8 @@ class MelonScaffoldWidget extends StatelessWidget {
               fontFamily: "Itim",
               textColor: Colors.white,
               fontSize: 16,
-              height: 34,
+              height: height,
+              fontWeight: fontWeight,
               x: -2,
               borderRadius: 20,
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
