@@ -103,6 +103,11 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
   @override
   void initState() {
     _provider = SushiroMainProvider();
+    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp){
+      Future.delayed(const Duration(milliseconds: 500), () async {
+        _showAddPeopleDialog();
+      });
+    });
     super.initState();
   }
 
@@ -135,12 +140,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
           ),
           buttonText: "เพิ่มคน",
           onButtonClick: () {
-            AddPeopleDialog(
-              id: peoples.length.toString(),
-              callback: (PeopleModel newPeople) {
-                _provider.addPeople(newPeople);
-              },
-            ).dialog(context);
+            _showAddPeopleDialog(peoples: peoples);
           },
 
           bottomSheet: Container(
@@ -153,6 +153,16 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
         );
       },
     );
+  }
+
+  _showAddPeopleDialog({List<PeopleModel>? peoples}){
+    AddPeopleDialog(
+      id: peoples?.length.toString() ?? "0",
+      isNewPeople: true,
+      callback: (PeopleModel newPeople) {
+        _provider.addPeople(newPeople);
+      },
+    ).dialog(context);
   }
 
   Widget bottomSheet(BuildContext context) {
