@@ -108,7 +108,7 @@ extension ContextExtension on BuildContext {
                         borderRadius: 100,
                         child: Container(
                           decoration: BoxDecoration(
-                              color: positiveColor ?? Colors.amberAccent,
+                              color: positiveColor ?? Color(0xFFA83533),
                               borderRadius: BorderRadius.circular(100)),
                           padding: const EdgeInsets.only(
                               left: 0, right: 0, bottom: 12, top: 12),

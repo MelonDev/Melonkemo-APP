@@ -96,6 +96,9 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
   double tableWidth = 30;
   double bottomSheetHeight = 98;
 
+  final LayoutValue<double> width = LayoutValue.builder((layout) {
+    return layout.width;
+  });
   final LayoutValue<double> areaWidth = LayoutValue.builder((layout) {
     return layout.width <= 500 ? layout.width : 500;
   });
@@ -103,7 +106,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
   @override
   void initState() {
     _provider = SushiroMainProvider();
-    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp){
+    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timeStamp) {
       Future.delayed(const Duration(milliseconds: 500), () async {
         //_showAddPeopleDialog();
       });
@@ -120,7 +123,8 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
         List<PeopleModel> peoples = ct.watch<SushiroMainProvider>().peoples;
 
         return MelonScaffoldWidget(
-          backgroundColor: Colors.white,
+          appBarColor: Colors.transparent,
+          backgroundColor: Colors.grey.shade100,
           body: Row(
             mainAxisSize: MainAxisSize.max,
             mainAxisAlignment: MainAxisAlignment.center,
@@ -130,27 +134,30 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                 width: areaWidth.resolve(context),
                 child: peoples.isNotEmpty
                     ? _listView(ct)
-                    : Padding(
-                        padding: EdgeInsets.only(top: 180.0, bottom: 80.0),
-                        child:
-                            EmptyWidget(text: 'ไม่พบบุคคล\nกรุณากด "เพิ่มคน"',additionalWidget: Container(
-                                constraints: const BoxConstraints(
-                                  maxWidth: 200,
-                                ),
-                                child: MelonBouncingButton.text(
-                                    text: "เพิ่มคน",
-                                    color: Colors.black.withOpacity(0.8),
-                                    textColor: Colors.white,
-                                    fontSize: 18,
-                                    height: 56,
-                                    weight: 400,
-                                    fontWeight: FontWeight.bold,
-                                    padding: const EdgeInsets.only(left: 20, right: 20),
-                                    borderRadius: 30,
-                                    fontFamily: "Bai",
-                                    callback: () {
-                                      _showAddPeopleDialog(peoples: peoples);
-                                    })),),
+                    : Center(
+                        //padding: const EdgeInsets.only(top: 180.0, bottom: 80.0),
+                        child: EmptyWidget(
+                          text: 'ไม่พบบุคคล\nกรุณากด "เพิ่มคน"',
+                          additionalWidget: Container(
+                              constraints: const BoxConstraints(
+                                maxWidth: 300,
+                              ),
+                              child: MelonBouncingButton.text(
+                                  text: "เพิ่มคน",
+                                  color: Colors.black.withOpacity(0.8),
+                                  textColor: Colors.white,
+                                  fontSize: 18,
+                                  height: 56,
+                                  weight: 400,
+                                  fontWeight: FontWeight.bold,
+                                  padding: const EdgeInsets.only(
+                                      left: 20, right: 20),
+                                  borderRadius: 30,
+                                  fontFamily: "Bai",
+                                  callback: () {
+                                    _showAddPeopleDialog(peoples: peoples);
+                                  })),
+                        ),
                       ),
               )
             ],
@@ -159,9 +166,8 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
           onButtonClick: () {
             _showAddPeopleDialog(peoples: peoples);
           },
-
           bottomSheet: Container(
-            color: Colors.white,
+            //color: Colors.white,
             child: Row(
                 mainAxisSize: MainAxisSize.max,
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -172,7 +178,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
     );
   }
 
-  _showAddPeopleDialog({List<PeopleModel>? peoples}){
+  _showAddPeopleDialog({List<PeopleModel>? peoples}) {
     AddPeopleDialog(
       id: peoples?.length.toString() ?? "0",
       isNewPeople: true,
@@ -194,11 +200,24 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
       isBouncing: false,
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.grey.withOpacity(0.2),
-            borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(16), topRight: Radius.circular(16))),
-        width: areaWidth.resolve(context),
+          color: const Color(0xFFA83533).withOpacity(1.0),
+          borderRadius: const BorderRadius.only(
+              topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+          boxShadow: [
+            BoxShadow(
+              color: Color(0xFFA83533).withOpacity(0.2),
+              spreadRadius: 5,
+              blurRadius: 20,
+              offset: const Offset(0, 2), // changes position of shadow
+            ),
+          ],
+        ),
+        width: areaWidth.resolve(context) -
+            (width.resolve(context) < 560 ? 20 + 20 : 0),
         height: bottomSheetHeight,
+        margin: width.resolve(context) < 560
+            ? const EdgeInsets.only(left: 20, right: 20)
+            : EdgeInsets.zero,
         padding: const EdgeInsets.only(left: 20, right: 20, bottom: 0, top: 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -210,6 +229,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                 "ราคารวม",
                 style: TextStyle(
                   fontSize: 20,
+                  color: Colors.white,
                   fontWeight: FontWeight.bold,
                   fontFamily: 'Bai',
                 ),
@@ -224,6 +244,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                     fontSize: 36,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 0,
+                    color: Colors.white,
                     fontFamily: 'Bai',
                   ),
                 ),
@@ -234,6 +255,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                     style: const TextStyle(
                       fontSize: 18,
                       fontWeight: FontWeight.normal,
+                      color: Colors.white,
                       fontFamily: 'Bai',
                     ),
                   ),
@@ -253,12 +275,13 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
         behavior: ScrollConfiguration.of(context).copyWith(scrollbars: false),
         child: ListView.separated(
           itemCount: peoples.length,
-          padding: EdgeInsets.only(bottom: bottomSheetHeight + 50),
+          padding: EdgeInsets.only(bottom: bottomSheetHeight + 50, top: 20),
           separatorBuilder: (BuildContext context, int index) => Container(
             width: 1,
             height: 1,
-            color: Colors.grey.shade400,
-            margin: const EdgeInsets.only(bottom: 6),
+            color: Colors.transparent,
+            margin:
+                EdgeInsets.only(bottom: width.resolve(context) < 560 ? 14 : 16),
           ),
           itemBuilder: (BuildContext context, int index) {
             return _peopleListItem(context,
@@ -303,6 +326,21 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
         );
       },
       child: Container(
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(26),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.1),
+              spreadRadius: 5,
+              blurRadius: 20,
+              offset: const Offset(0, 12), // changes position of shadow
+            ),
+          ],
+        ),
+        margin: width.resolve(context) < 560
+            ? const EdgeInsets.only(left: 20, right: 20)
+            : EdgeInsets.zero,
         padding: const EdgeInsets.only(bottom: 20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,

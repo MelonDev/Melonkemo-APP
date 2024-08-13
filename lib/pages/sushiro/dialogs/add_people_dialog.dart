@@ -184,7 +184,7 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
                         borderRadius: 100,
                         child: Container(
                           decoration: BoxDecoration(
-                              color: Colors.amberAccent,
+                              color: Color(0xFFA83533),
                               borderRadius: BorderRadius.circular(100)),
                           alignment: Alignment.center,
                           padding: const EdgeInsets.only(
@@ -195,7 +195,7 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
                                 fontFamily: 'Bai',
-                                color: Colors.black.withOpacity(0.75)),
+                                color: Colors.white),
                           ),
                         ))),
                   ]))

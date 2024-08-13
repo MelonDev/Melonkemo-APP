@@ -112,7 +112,7 @@ class _DiscountDialogState extends State<DiscountDialog> {
                 ),
                 CupertinoSwitch(
                     value: voucher.receipt != null,
-                    activeColor: Colors.amberAccent,
+                    activeColor: Color(0xFFA83533),
                     onChanged: (value) {
                       voucher.receipt =
                           value == true ? ReceiptVoucherModel() : null;
@@ -163,7 +163,7 @@ class _DiscountDialogState extends State<DiscountDialog> {
                     borderRadius: 100,
                     child: Container(
                       decoration: BoxDecoration(
-                          color: Colors.amberAccent,
+                          color: Color(0xFFA83533),
                           borderRadius: BorderRadius.circular(100)),
                       alignment: Alignment.center,
                       padding: const EdgeInsets.only(
@@ -174,7 +174,7 @@ class _DiscountDialogState extends State<DiscountDialog> {
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
                             fontFamily: 'Bai',
-                            color: Colors.black.withOpacity(0.75)),
+                            color: Colors.white),
                       ),
                     ),
                   ),
@@ -194,8 +194,8 @@ class _DiscountDialogState extends State<DiscountDialog> {
       padding: const EdgeInsets.only(left: 4.0, top: 4.0),
       child: MelonBouncingButton.text(
           text: price.toString(),
-          color: isSelected ? Colors.amberAccent : Colors.grey.shade200,
-          textColor: Colors.black,
+          color: isSelected ? Color(0xFFA83533) : Colors.grey.shade200,
+          textColor: Colors.white,
           fontSize: 18,
           padding: const EdgeInsets.only(left: 8, right: 8),
           borderRadius: 8,
