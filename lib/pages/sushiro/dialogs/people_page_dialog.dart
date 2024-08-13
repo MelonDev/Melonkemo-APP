@@ -98,15 +98,31 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                           },
                           child: Container(
                             height: 32,
-                            width: 32,
+                            //width: 32,
+                            padding: EdgeInsets.only(left: 16,right: 16),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                                 color: Colors.red,
                                 borderRadius: BorderRadius.circular(100)),
-                            child: const Icon(
-                              CupertinoIcons.trash,
-                              size: 20,
-                              color: Colors.white,
+                            child: Row(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.only(top: 1),
+                                  child: Text("ลบ",
+                                    style: TextStyle(
+                                        fontSize: 16,
+                                        fontWeight: FontWeight.w600,
+                                        fontFamily: 'Bai',
+                                        color: Colors.white),
+                                  ),
+                                ),
+                                SizedBox(width: 10,),
+                                const Icon(
+                                  CupertinoIcons.trash,
+                                  size: 20,
+                                  color: Colors.white,
+                                ),
+                              ],
                             ),
                           )).hover(y: -1, x: -0.5)
                     ],
@@ -201,7 +217,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                         borderRadius: 100,
                         child: Container(
                           decoration: BoxDecoration(
-                              color: Colors.amberAccent,
+                              color: Color(0xFFA83533),
                               borderRadius: BorderRadius.circular(100)),
                           padding: const EdgeInsets.only(
                               left: 0, right: 0, bottom: 12, top: 12),
@@ -212,7 +228,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
                                 fontFamily: 'Bai',
-                                color: Colors.black.withOpacity(0.75)),
+                                color: Colors.white),
                           ),
                         ),
                       ),
