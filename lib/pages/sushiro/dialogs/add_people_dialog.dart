@@ -13,7 +13,8 @@ class AddPeopleDialog extends StatefulWidget {
     this.callback,
     this.maxWidth = 360,
     this.maxHeight = 600,
-    this.borderRadius = 16
+    this.borderRadius = 16,
+    this.isNewPeople = false
   });
 
   final PeopleModel? people;
@@ -22,12 +23,14 @@ class AddPeopleDialog extends StatefulWidget {
   final double maxWidth;
   final double borderRadius;
   final String id;
+  final bool isNewPeople;
 
   @override
   State<AddPeopleDialog> createState() => _AddPeopleDialogState();
 }
 
 class _AddPeopleDialogState extends State<AddPeopleDialog> {
+
   final LayoutValue<Size> size = LayoutValue.builder((layout) {
     return Size(layout.width, layout.size.height);
   });
@@ -43,6 +46,8 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
 
   @override
   Widget build(BuildContext context) {
+    String? hintName = "${widget.isNewPeople == true ? "คนที่ ${(int.tryParse(widget.id) ?? 0) + 1}" : null}";
+
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -87,9 +92,9 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
                           fontFamily: 'Bai',
                         ),
                         validator: (value) {
-                          if (value?.isEmpty ?? false) {
-                            return "กรุณากรอกชื่อ";
-                          }
+                          // if (value?.isEmpty ?? false) {
+                          //   return "กรุณากรอกชื่อ";
+                          // }
                         },
                         decoration: InputDecoration(
                           border: InputBorder.none,
@@ -120,10 +125,10 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
                             fontWeight: FontWeight.normal,
                             fontFamily: 'Bai',
                           ),
-                          labelStyle: TextStyle(
+                          labelStyle: const TextStyle(
                             color: Colors.red,
                           ),
-                          hintText: "ชื่อ",
+                          hintText: '$hintName' ?? "ชื่อ",
                           fillColor: Colors.black.withOpacity(0.05),
                         ),
                       ),
@@ -166,7 +171,7 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
                           if (formkey.currentState?.validate() ?? false) {
                             widget.callback?.call(PeopleModel(
                               widget.id,
-                              nameController.text,
+                              hintName ?? nameController.text,
                               copper: widget.people?.copper,
                               silver: widget.people?.silver,
                               gold: widget.people?.gold,
