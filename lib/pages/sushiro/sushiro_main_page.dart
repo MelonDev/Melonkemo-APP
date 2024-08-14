@@ -60,8 +60,8 @@ class SushiroMainPage extends StatefulWidget {
         } else {
           return MelonDialogType(constraint: (Size size){
             return BoxConstraints(
-              maxWidth: size.width > 880 ? 880 - 60 : (size.width > 560 ? size.width - 60 : size.width),
-              minWidth: size.width > 880 ? 880 - 60 : (size.width > 560 ? size.width - 60 : size.width),
+              maxWidth: 560 - 60,
+              minWidth: 560 - 60,
               minHeight: size.width < 560 ? size.height * 0.9 : size.height * 0.85,
               maxHeight: size.height,
             );
@@ -187,7 +187,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
           onButtonClick: () {
             _showAddPeopleDialog(peoples: peoples);
           },
-          bottomSheet: peoples.length > 0
+          bottomSheet: peoples.isNotEmpty
               ? Container(
                   //color: Colors.white,
                   child: Row(
