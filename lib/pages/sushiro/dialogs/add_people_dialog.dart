@@ -128,7 +128,7 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
                           labelStyle: const TextStyle(
                             color: Colors.red,
                           ),
-                          hintText: '$hintName' ?? "ชื่อ",
+                          hintText: 'ชื่อ$hintName' ?? "ชื่อ",
                           fillColor: Colors.black.withOpacity(0.05),
                         ),
                       ),

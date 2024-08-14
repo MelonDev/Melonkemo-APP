@@ -5,6 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:go_router/go_router.dart';
 import 'package:layout/layout.dart';
+import 'package:melonkemo/components/custom_sheet_type/melon_bottom_sheet_type.dart';
+import 'package:melonkemo/components/custom_sheet_type/melon_dialog_type.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
 import 'package:melonkemo/pages/infrastructure/under_construction_page.dart';
@@ -24,10 +26,13 @@ class MelonScaffoldWidget extends StatelessWidget {
       this.customAppbarBody,
       this.appBarColor,
       this.appBarNameTitleColor,
+      this.appBarSubTitleColor,
       this.buttonText,
       this.onButtonClick,
-        this.fontWeight = FontWeight.normal,
-        this.height = 34.0,
+      this.fontWeight = FontWeight.normal,
+      this.height = 34.0,
+      this.appBarName,
+      this.appBarSubTitle,
       this.bottomSheet});
 
   final List<Widget>? children;
@@ -39,12 +44,15 @@ class MelonScaffoldWidget extends StatelessWidget {
   final bool extendBodyBehindAppBar;
   final Color? appBarColor;
   final Color? appBarNameTitleColor;
+  final Color? appBarSubTitleColor;
 
   final String? buttonText;
   final VoidCallback? onButtonClick;
   final Widget? bottomSheet;
   final double height;
   final FontWeight fontWeight;
+  final String? appBarName;
+  final String? appBarSubTitle;
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +95,7 @@ class MelonScaffoldWidget extends StatelessWidget {
       );
 
   PreferredSizeWidget appbar(BuildContext context) => PreferredSize(
-        preferredSize: const Size.fromHeight(46.0),
+        preferredSize: Size.fromHeight(appBarSubTitle != null ? 56 : 46),
         child: Stack(
           alignment: Alignment.bottomCenter,
           children: [
@@ -100,25 +108,44 @@ class MelonScaffoldWidget extends StatelessWidget {
 
   Widget _appbarBody(BuildContext context) {
     return Container(
+
+      height: appBarSubTitle != null ? 56 : 46,
       decoration: BoxDecoration(color: appBarColor ?? Colors.white),
       alignment: Alignment.centerLeft,
       padding: const EdgeInsets.only(left: 14, right: 12),
-      height: 46,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           MelonBouncingButton(
-            callback: (){
+            callback: () {
               context.go("/");
             },
-            child: Text(
-              "メロンけも",
-              style: TextStyle(
-                  color: appBarNameTitleColor ?? Colors.black.withOpacity(0.8),
-                  fontSize: 22,
-                  letterSpacing: 0.0,
-                  fontWeight: FontWeight.bold,
-                  fontFamily: 'MPlus'),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  appBarName ?? "メロンけも",
+                  style: TextStyle(
+                      color:
+                          appBarNameTitleColor ?? Colors.black.withOpacity(0.8),
+                      fontSize: 22,
+                      letterSpacing: 0.0,
+                      fontWeight: FontWeight.bold,
+                      fontFamily: 'MPlus'),
+                ),
+                if (appBarSubTitle != null)
+                  Text(
+                    appBarSubTitle!,
+                    style: TextStyle(
+                        color: (appBarSubTitleColor ?? appBarNameTitleColor) ??
+                            Colors.black.withOpacity(0.8),
+                        fontSize: 10,
+                        letterSpacing: 0.0,
+                        fontWeight: FontWeight.bold,
+                        fontFamily: 'MPlus'),
+                  ),
+              ],
             ),
           ).hover(x: -2),
           MelonBouncingButton.text(
@@ -160,18 +187,32 @@ class MelonScaffoldWidget extends StatelessWidget {
       },
       modalTypeBuilder: (context) {
         if (width.resolve(context) < 560) {
-          return WoltModalType.bottomSheet;
+          //return WoltModalType.bottomSheet();
+          return MelonBottomSheetType(
+            constraint: (Size size){
+              return BoxConstraints(
+                maxWidth: size.width > (880 + 60) ? 880 : (size.width > 500 ? size.width - 60 : size.width),
+                minWidth: size.width <= 520 ? size.width : 520,
+                minHeight: size.width < 560 ? size.height * 0.9 : size.height * 0.85,
+                maxHeight: size.height,
+              );
+            }
+          );
         } else {
-          return WoltModalType.dialog;
+          return MelonDialogType(constraint: (Size size){
+            return BoxConstraints(
+              maxWidth: size.width > 880 ? 880 - 60 : (size.width > 560 ? size.width - 60 : size.width),
+              minWidth: size.width > 880 ? 880 - 60 : (size.width > 560 ? size.width - 60 : size.width),
+              minHeight: size.width < 560 ? size.height * 0.9 : size.height * 0.85,
+              maxHeight: size.height,
+            );
+          });
         }
       },
       onModalDismissedWithBarrierTap: () {
         Navigator.of(context).pop();
       },
-      maxDialogWidth: 880,
-      minDialogWidth: 520,
-      minPageHeight: width.resolve(context) < 560 ? 0.9 : 0.85,
-      maxPageHeight: 1.0,
+
     );
   }
 

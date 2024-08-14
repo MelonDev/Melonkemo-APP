@@ -38,25 +38,32 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
     return Size(layout.width, layout.size.height);
   });
 
+  bool isMobile(BuildContext context) {
+    final LayoutValue<Size> size = LayoutValue.builder((layout) {
+      return Size(layout.width, layout.size.height);
+    });
+    return size.resolve(context).width < 560;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
       color: Colors.grey.shade300,
-      height: size.resolve(context).width < 560
+      height: isMobile(context)
           ? size.resolve(context).height * 0.92
           : size.resolve(context).height * 0.85,
       child: Column(
         children: [
           Container(
-            height: 56,
-            padding: const EdgeInsets.only(left: 20, right: 20,top: 10),
+            height: 64,
+            padding: const EdgeInsets.only(left: 20, right: 20, top: 10),
             color: Colors.white,
             child: Stack(
               children: [
                 Align(
                   alignment: Alignment.centerLeft,
                   child: Padding(
-                    padding: const EdgeInsets.only(left: 10, right: 10),
+                    padding: const EdgeInsets.only(left: 0, right: 0),
                     child: Text(
                       widget.people.name,
                       style: const TextStyle(
@@ -91,7 +98,8 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                       const SizedBox(width: 12),
                       MelonBouncingButton(
                           callback: () {
-                            context.confirmDialog('ยืนยันการลบคุณ "${widget.people.name}"',
+                            context.confirmDialog(
+                                'ยืนยันการลบคุณ "${widget.people.name}"',
                                 positiveColor: Colors.red,
                                 positiveTextColor: Colors.white,
                                 onTapPositive: widget.onDeleteTapped);
@@ -99,7 +107,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                           child: Container(
                             height: 32,
                             //width: 32,
-                            padding: EdgeInsets.only(left: 16,right: 16),
+                            padding: EdgeInsets.only(left: 16, right: 16),
                             alignment: Alignment.center,
                             decoration: BoxDecoration(
                                 color: Colors.red,
@@ -108,7 +116,8 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsets.only(top: 1),
-                                  child: Text("ลบ",
+                                  child: Text(
+                                    "ลบ",
                                     style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.w600,
@@ -116,7 +125,9 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                                         color: Colors.white),
                                   ),
                                 ),
-                                SizedBox(width: 10,),
+                                SizedBox(
+                                  width: 10,
+                                ),
                                 const Icon(
                                   CupertinoIcons.trash,
                                   size: 20,
@@ -138,14 +149,16 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                 Container(
                     color: Colors.white,
                     child: Column(children: [
-                      const SizedBox(height: 4,),
+                      const SizedBox(
+                        height: 4,
+                      ),
                       _plateTileWidget(context, widget.people.copper),
                       Container(
                         width: double.infinity,
                         height: 1,
                         color: Colors.black.withOpacity(0.1),
                         margin: const EdgeInsets.symmetric(
-                            vertical: 6, horizontal: 26),
+                            vertical: 6, horizontal: 20),
                       ),
                       _plateTileWidget(context, widget.people.silver),
                       Container(
@@ -153,7 +166,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                         height: 1,
                         color: Colors.black.withOpacity(0.1),
                         margin: const EdgeInsets.symmetric(
-                            vertical: 6, horizontal: 26),
+                            vertical: 6, horizontal: 20),
                       ),
                       _plateTileWidget(context, widget.people.gold),
                       Container(
@@ -161,10 +174,12 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                         height: 1,
                         color: Colors.black.withOpacity(0.1),
                         margin: const EdgeInsets.symmetric(
-                            vertical: 6, horizontal: 26),
+                            vertical: 6, horizontal: 20),
                       ),
                       _plateTileWidget(context, widget.people.black),
-                      const SizedBox(height: 10,)
+                      const SizedBox(
+                        height: 10,
+                      )
                     ])),
                 // Container(
                 //   width: double.infinity,
@@ -179,7 +194,12 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
           ),
           Container(
               decoration: BoxDecoration(
-                  color: Colors.white, borderRadius: BorderRadius.circular(20)),
+                  color: Colors.white,
+                  borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(0),
+                      topRight: Radius.circular(0),
+                      bottomLeft: Radius.circular(isMobile(context) ? 0 :20),
+                      bottomRight: Radius.circular(isMobile(context) ? 0 : 20))),
               padding: const EdgeInsets.only(
                   left: 20, right: 20, bottom: 16, top: 16),
               child: Row(
@@ -250,7 +270,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
         children: [
           Padding(
             padding:
-                const EdgeInsets.only(left: 26, right: 26, top: 0, bottom: 0),
+                const EdgeInsets.only(left: 20, right: 20, top: 0, bottom: 0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
@@ -340,7 +360,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
   Widget _plateTileWidget(BuildContext context, PlateModel plate,
       {int? index}) {
     return Container(
-      padding: const EdgeInsets.only(left: 26, right: 26, top: 6, bottom: 6),
+      padding: const EdgeInsets.only(left: 20, right: 20, top: 6, bottom: 6),
       child: Row(
         children: [
           if (plate is SushiPlateModel) getSushiPlateWidget(plate.type),
@@ -366,7 +386,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
               Text(
                 plate is SushiPlateModel
                     ? "${SushiroMainProvider.getSushiPlatePrice(plate.type)}"
-                    : "${plate is SideDishPlateModel ? plate.price.toShortMoney : "-"} บาท x ${plate.value} ${plate is RefillDrinkPlateModel ?"แก้ว" : "จาน"}",
+                    : "${plate is SideDishPlateModel ? plate.price.toShortMoney : "-"} บาท x ${plate.value} ${plate is RefillDrinkPlateModel ? "แก้ว" : "จาน"}",
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
@@ -468,7 +488,7 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
               Text(
                 plate is SushiPlateModel
                     ? "${SushiroMainProvider.getSushiPlatePrice(plate.type)}"
-                    : "${plate is SideDishPlateModel ? plate.price.toShortMoney : "-"} บาท x ${plate.value} ${plate is RefillDrinkPlateModel ?"แก้ว" : "จาน"}",
+                    : "${plate is SideDishPlateModel ? plate.price.toShortMoney : "-"} บาท x ${plate.value} ${plate is RefillDrinkPlateModel ? "แก้ว" : "จาน"}",
                 style: TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.normal,
@@ -540,12 +560,10 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                     if (index != null) {
                       context.confirmDialog('ยืนยันการลบ "${plate.name}"',
                           positiveColor: Colors.red,
-                          positiveTextColor: Colors.white,
-                          onTapPositive: (){
-                            widget.people.plates.removeAt(index);
-                            setState(() {});
-                          });
-
+                          positiveTextColor: Colors.white, onTapPositive: () {
+                        widget.people.plates.removeAt(index);
+                        setState(() {});
+                      });
                     }
                   },
                   child: Container(
@@ -703,5 +721,6 @@ WoltModalSheetPage peoplePage(
         callback: callback,
         onChangeNameTapped: onChangeNameTapped,
         onDeleteTapped: onDeleteTapped,
-      ));
+      ),
+  );
 }
