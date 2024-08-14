@@ -195,7 +195,7 @@ class _DiscountDialogState extends State<DiscountDialog> {
       child: MelonBouncingButton.text(
           text: price.toString(),
           color: isSelected ? Color(0xFFA83533) : Colors.grey.shade200,
-          textColor: Colors.white,
+          textColor: isSelected ? Colors.white : Colors.black,
           fontSize: 18,
           padding: const EdgeInsets.only(left: 8, right: 8),
           borderRadius: 8,
