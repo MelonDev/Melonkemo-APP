@@ -4,6 +4,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:layout/layout.dart';
+import 'package:melonkemo/components/custom_sheet_type/melon_bottom_sheet_type.dart';
+import 'package:melonkemo/components/custom_sheet_type/melon_dialog_type.dart';
 import 'package:melonkemo/components/empty_widget/empty_widget.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/core/components/me/melon_scaffold_widget.dart';
@@ -46,18 +48,33 @@ class SushiroMainPage extends StatefulWidget {
       },
       modalTypeBuilder: (context) {
         if (width.resolve(context) < 560) {
-          return WoltModalType.bottomSheet;
+          return MelonBottomSheetType(constraint: (Size size){
+            return BoxConstraints(
+              maxWidth: size.width,
+              minWidth: size.width <= 520 ? size.width : 520,
+              minHeight: size.width < 560 ? size.height * 0.9 : size.height * 0.85,
+              maxHeight: size.height,
+            );
+          });
+          //return WoltModalType.bottomSheet();
         } else {
-          return WoltModalType.dialog;
+          return MelonDialogType(constraint: (Size size){
+            return BoxConstraints(
+              maxWidth: size.width > 880 ? 880 - 60 : (size.width > 560 ? size.width - 60 : size.width),
+              minWidth: size.width > 880 ? 880 - 60 : (size.width > 560 ? size.width - 60 : size.width),
+              minHeight: size.width < 560 ? size.height * 0.9 : size.height * 0.85,
+              maxHeight: size.height,
+            );
+          });
         }
       },
       onModalDismissedWithBarrierTap: () {
         Navigator.of(context).pop();
       },
-      maxDialogWidth: 880,
-      minDialogWidth: areaWidth.resolve(context),
-      minPageHeight: width.resolve(context) < 560 ? 0.9 : 0.85,
-      maxPageHeight: 1.0,
+      // maxDialogWidth: 880,
+      // minDialogWidth: areaWidth.resolve(context),
+      // minPageHeight: width.resolve(context) < 560 ? 0.9 : 0.85,
+      // maxPageHeight: 1.0,
     );
   }
 
@@ -74,15 +91,15 @@ class SushiroMainPage extends StatefulWidget {
         return [page.call(context, textTheme)];
       },
       modalTypeBuilder: (context) {
-        return WoltModalType.dialog;
+        return WoltModalType.dialog();
       },
       onModalDismissedWithBarrierTap: () {
         Navigator.of(context).pop();
       },
-      maxDialogWidth: 360,
-      minDialogWidth: 360,
-      minPageHeight: pageHeight,
-      maxPageHeight: pageHeight,
+      // maxDialogWidth: 360,
+      // minDialogWidth: 360,
+      // minPageHeight: pageHeight,
+      // maxPageHeight: pageHeight,
     );
   }
 
@@ -94,7 +111,9 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
   late final SushiroMainProvider _provider;
 
   double tableWidth = 30;
-  double bottomSheetHeight = 98;
+
+  //double bottomSheetHeight = 98;
+  double bottomSheetHeight = 108;
 
   final LayoutValue<double> width = LayoutValue.builder((layout) {
     return layout.width;
@@ -123,7 +142,9 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
         List<PeopleModel> peoples = ct.watch<SushiroMainProvider>().peoples;
 
         return MelonScaffoldWidget(
+          appBarName: "スシロー電卓",
           appBarColor: Colors.transparent,
+          appBarSubTitle: "Powered by メロンけも",
           backgroundColor: Colors.grey.shade100,
           body: Row(
             mainAxisSize: MainAxisSize.max,
@@ -152,7 +173,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                                   fontWeight: FontWeight.bold,
                                   padding: const EdgeInsets.only(
                                       left: 20, right: 20),
-                                  borderRadius: 30,
+                                  borderRadius: 16,
                                   fontFamily: "Bai",
                                   callback: () {
                                     _showAddPeopleDialog(peoples: peoples);
@@ -166,13 +187,15 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
           onButtonClick: () {
             _showAddPeopleDialog(peoples: peoples);
           },
-          bottomSheet: Container(
-            //color: Colors.white,
-            child: Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [bottomSheet(ct)]),
-          ),
+          bottomSheet: peoples.length > 0
+              ? Container(
+                  //color: Colors.white,
+                  child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [bottomSheet(ct)]),
+                )
+              : null,
         );
       },
     );
@@ -202,10 +225,10 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
         decoration: BoxDecoration(
           color: const Color(0xFFA83533).withOpacity(1.0),
           borderRadius: const BorderRadius.only(
-              topLeft: Radius.circular(20), topRight: Radius.circular(20)),
+              topLeft: Radius.circular(16), topRight: Radius.circular(16)),
           boxShadow: [
             BoxShadow(
-              color: Color(0xFFA83533).withOpacity(0.2),
+              color: const Color(0xFFA83533).withOpacity(0.2),
               spreadRadius: 5,
               blurRadius: 20,
               offset: const Offset(0, 2), // changes position of shadow
@@ -213,10 +236,10 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
           ],
         ),
         width: areaWidth.resolve(context) -
-            (width.resolve(context) < 560 ? 20 + 20 : 0),
+            (width.resolve(context) < 560 ? 16 + 16 : 0),
         height: bottomSheetHeight,
         margin: width.resolve(context) < 560
-            ? const EdgeInsets.only(left: 20, right: 20)
+            ? const EdgeInsets.only(left: 12, right: 12)
             : EdgeInsets.zero,
         padding: const EdgeInsets.only(left: 20, right: 20, bottom: 0, top: 0),
         child: Row(
@@ -261,7 +284,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                   ),
                 ),
               ],
-            )
+            ),
           ],
         ),
       ),
@@ -328,7 +351,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
       child: Container(
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(26),
+          borderRadius: BorderRadius.circular(16),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.1),
@@ -339,7 +362,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
           ],
         ),
         margin: width.resolve(context) < 560
-            ? const EdgeInsets.only(left: 20, right: 20)
+            ? const EdgeInsets.only(left: 12, right: 12)
             : EdgeInsets.zero,
         padding: const EdgeInsets.only(bottom: 20),
         child: Column(

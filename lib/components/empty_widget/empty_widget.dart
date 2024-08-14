@@ -13,10 +13,11 @@ class EmptyWidget extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 100),
       child: Container(
-        padding: EdgeInsets.all(20),
+        padding: const EdgeInsets.only(left: 40,right: 40,top: 60,bottom: 40),
+        margin: const EdgeInsets.only(left: 20,right: 20),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(26),
+          borderRadius: BorderRadius.circular(20),
           boxShadow: [
             BoxShadow(
               color: Colors.grey.withOpacity(0.1),
