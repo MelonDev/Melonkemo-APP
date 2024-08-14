@@ -24,3 +24,11 @@ body{
   color: white;
 }
 
+#melon-loader-title {
+  font-family: "Kanit", sans-serif;
+    font-weight: 400;
+    color: white;
+    font-size: 40px;
+    font-style: normal;
+}
+
