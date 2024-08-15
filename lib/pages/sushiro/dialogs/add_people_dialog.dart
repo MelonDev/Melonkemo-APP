@@ -171,7 +171,7 @@ class _AddPeopleDialogState extends State<AddPeopleDialog> {
                           if (formkey.currentState?.validate() ?? false) {
                             widget.callback?.call(PeopleModel(
                               widget.id,
-                              hintName ?? nameController.text,
+                              nameController.text.isEmpty ? hintName : nameController.text,
                               copper: widget.people?.copper,
                               silver: widget.people?.silver,
                               gold: widget.people?.gold,
