@@ -3,30 +3,21 @@ name: Deploy to Firebase Hosting
 on:
   push:
     branches:
-      - web-depleted
-  pull_request:
-    branches:
       - web
-
-  workflow_dispatch:
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
       - uses: subosito/flutter-action@v2
         with:
           channel: stable # or: 'beta' or 'master'
-          flutter-version: 3.22.0
+          flutter-version: 3.24.0
       - run: flutter --version
       - name: 'Run flutter pub get'
         run: flutter pub get
       - name: 'Enable flutter web'
         run: flutter config --enable-web
-      - name: 'Run flutter_launcher_icons'
-        run: flutter pub run flutter_launcher_icons
       - name: 'Build Web App'
         run: flutter build web --release
       - name: 'Deploy to Firebase Hosting'
