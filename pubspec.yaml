@@ -8,11 +8,13 @@ environment:
   sdk: '>=3.4.0 <4.0.0'
   flutter: 3.24.0
 
+dependency_overrides:
+  win32: ^5.5.4
+
 dependencies:
   flutter:
     sdk: flutter
 
-  win32: ^5.5.4
   dartx: ^1.2.0
   uuid: ^4.4.2
   flutter_animate: ^4.5.0
