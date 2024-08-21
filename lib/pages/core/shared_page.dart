@@ -1,12 +1,11 @@
-import 'dart:js_interop' as js;
-import 'dart:js_interop_unsafe';
-
+import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'dart:js' as js;
 
 import 'package:go_router/go_router.dart';
 import 'package:melonkemo/core/core/core_route.dart';
+import 'package:melonkemo/core/extensions/bot_toast_extension.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class SharedPage extends StatelessWidget {
   SharedPage({super.key, required this.url}) {
@@ -20,7 +19,19 @@ class SharedPage extends StatelessWidget {
 
   void openInWindow() {
     if (kIsWeb) {
-      js.context.callMethod('open', [url, '_self']);
+      _launchUrl(url);
+    }
+  }
+
+  Future<void> _launchUrl(String url) async {
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(
+        url,
+        mode: LaunchMode.platformDefault,
+        webOnlyWindowName: '_blank',
+      );
+    } else {
+      BotToast().component.error('Could not launch $url');
     }
   }
 

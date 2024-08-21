@@ -4,7 +4,7 @@ import 'package:melonkemo/core/components/base_stateless_widget.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/core/extensions/bot_toast_extension.dart';
 import 'package:melonkemo/core/extensions/widget_extension.dart';
-import 'package:url_launcher/url_launcher.dart';
+import 'package:url_launcher/url_launcher_string.dart';
 
 class CardListWidget extends BaseStatelessWidget {
   const CardListWidget(this.serviceName, this.link,
@@ -62,10 +62,9 @@ class CardListWidget extends BaseStatelessWidget {
   }
 
   Future<void> _launchUrl(String url) async {
-    Uri uri = Uri.parse(url);
-    if (await canLaunchUrl(uri)) {
-      await launchUrl(
-        uri,
+    if (await canLaunchUrlString(url)) {
+      await launchUrlString(
+        url,
         mode: LaunchMode.platformDefault,
         webOnlyWindowName: '_blank',
       );
