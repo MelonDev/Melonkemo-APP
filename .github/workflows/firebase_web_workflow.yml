@@ -3,7 +3,7 @@ name: Deploy to Firebase Hosting
 on:
   push:
     branches:
-      - web-depleted
+      - web
   pull_request:
     branches:
       - web
