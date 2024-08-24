@@ -77,9 +77,10 @@ class _HomePageState extends State<HomePage> {
         create: (_) => _provider,
         builder: (BuildContext ct, Widget? widget) {
           bool isAppbarBlur = ct.watch<PrototypeHomeProvider>().isAppbarBlur;
+          var brightness = MediaQuery.of(context).platformBrightness;
 
           return MelonScaffoldWidget(
-            backgroundColor: Colors.white,
+            backgroundColor: brightness == Brightness.dark ? Colors.black : Colors.white,
             body: _layout(ct)
                 .animate()
                 .fadeIn(delay: const Duration(milliseconds: 300))
