@@ -32,6 +32,21 @@ body {
     font-style: normal;
 }
 
+/* Circle Loader */
+.circle-loader {
+    border: 8px solid rgba(0, 0, 0, 0.1); /* สีพื้นหลัง */
+    border-left: 8px solid black; /* สีของวงกลมที่หมุน */
+    border-radius: 50%; /* ทำให้เป็นวงกลม */
+    width: 50px; /* ขนาดของวงกลม */
+    height: 50px; /* ขนาดของวงกลม */
+    animation: spin 1s linear infinite; /* การหมุน */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
 /* สไตล์สำหรับโหมด dark เพื่อเปลี่ยนสีพื้นหลัง */
 @media (prefers-color-scheme: dark) {
     #loader {
@@ -44,5 +59,9 @@ body {
 
     #melon-loader-title {
         color: white;
+    }
+
+    .circle-loader {
+        border-left: 8px solid white;
     }
 }

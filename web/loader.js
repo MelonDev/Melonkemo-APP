@@ -24,7 +24,7 @@ const rendererConfig = {
 const loaderHTML = `
     <div id="loader">
         <h1 id="melon-loader-title">กำลังโหลด...</h1>
-        <div class="lds-dual-ring"></div>
+        <div class="circle-loader"></div>
     </div>
 `;
 
