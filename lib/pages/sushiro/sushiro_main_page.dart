@@ -241,7 +241,7 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
         margin: width.resolve(context) < 560
             ? const EdgeInsets.only(left: 12, right: 12)
             : EdgeInsets.zero,
-        padding: const EdgeInsets.only(left: 20, right: 20, bottom: 0, top: 0),
+        padding: const EdgeInsets.only(left: 16, right: 16, bottom: 0, top: 0),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.start,
