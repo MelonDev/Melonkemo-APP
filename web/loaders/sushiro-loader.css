@@ -1,0 +1,34 @@
+body{
+    margin: 0;
+}
+
+#loader {
+  width: 100vw;
+  height: 100vh;
+  /* display: block; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+  background-color: #A83533;
+}
+
+#loader-title {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+
+  font-weight: 500;
+  font-size: 22;
+  color: white;
+}
+
+#melon-loader-title {
+  font-family: "Kanit", sans-serif;
+    font-weight: 400;
+    color: white;
+    font-size: 40px;
+    font-style: normal;
+}
+
