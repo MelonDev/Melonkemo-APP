@@ -58,6 +58,8 @@ class MelonScaffoldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Stack(
       children: [
+        if(backgroundColor != null)
+          Container(color: backgroundColor),
         ...?children,
         overlayBody != null
             ? overlayBody!.call(_area(context))
@@ -88,7 +90,8 @@ class MelonScaffoldWidget extends StatelessWidget {
         child: Scaffold(
           extendBodyBehindAppBar: extendBodyBehindAppBar,
           appBar: appbar(context),
-          backgroundColor: backgroundColor ?? Colors.transparent,
+          backgroundColor: Colors.transparent,
+          //backgroundColor: backgroundColor ?? Colors.transparent,
           body: body,
           bottomSheet: bottomSheet,
         ),
