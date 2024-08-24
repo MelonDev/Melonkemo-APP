@@ -79,6 +79,7 @@ class _HomePageState extends State<HomePage> {
           bool isAppbarBlur = ct.watch<PrototypeHomeProvider>().isAppbarBlur;
 
           return MelonScaffoldWidget(
+            backgroundColor: Colors.white,
             body: _layout(ct)
                 .animate()
                 .fadeIn(delay: const Duration(milliseconds: 300))
