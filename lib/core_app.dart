@@ -55,6 +55,9 @@ class CoreApp extends BaseRouterWidget {
     SharedPage.route(
         path: '500cafe-june-2024',
         url: 'https://1drv.ms/f/s!AgXh7wuvRh0Xl_AeAyiXBXZoNjOs5g?e=wSvhMJ'),
+    SharedPage.route(
+        path: 'furmily-2024',
+        url: 'https://1drv.ms/f/s!AgXh7wuvRh0Xl_0NjSPPH9zaFtEJgA?e=zIGNvH'),
   ];
 
   @override
