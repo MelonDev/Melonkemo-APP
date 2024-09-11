@@ -28,7 +28,8 @@ class SharedPage extends StatelessWidget {
       await launchUrlString(
         url,
         mode: LaunchMode.platformDefault,
-        webOnlyWindowName: '_blank',
+        //webOnlyWindowName: '_blank',
+        webOnlyWindowName: '_self',
       );
     } else {
       BotToast().component.error('Could not launch $url');
