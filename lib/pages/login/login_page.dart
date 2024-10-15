@@ -1,5 +1,6 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:melonkemo/core/components/bouncing/melon_bouncing_button.dart';
 import 'package:melonkemo/core/extensions/bot_toast_extension.dart';
 import 'package:provider/provider.dart';
@@ -95,59 +96,58 @@ class _LoginPageState extends State<LoginPage> {
                         ),
                       Expanded(
                           child: Material(
-                            color: Colors.white,
-                            elevation: 0,
-                            shape: const RoundedRectangleBorder(
-                              borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(0),
-                                bottomRight: Radius.circular(0),
-                                topLeft: Radius.circular(2),
-                                topRight: Radius.circular(0),
-                              ),
+                        color: Colors.white,
+                        elevation: 0,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.only(
+                            bottomLeft: Radius.circular(0),
+                            bottomRight: Radius.circular(0),
+                            topLeft: Radius.circular(2),
+                            topRight: Radius.circular(0),
+                          ),
+                        ),
+                        child: Container(
+                          height: MediaQuery.of(context).size.height * 1,
+                          decoration: const BoxDecoration(
+                            borderRadius: BorderRadius.only(
+                              bottomLeft: Radius.circular(0),
+                              bottomRight: Radius.circular(0),
+                              topLeft: Radius.circular(2),
+                              topRight: Radius.circular(0),
                             ),
-                            child: Container(
-                              height: MediaQuery.of(context).size.height * 1,
-                              decoration: const BoxDecoration(
-                                borderRadius: BorderRadius.only(
-                                  bottomLeft: Radius.circular(0),
-                                  bottomRight: Radius.circular(0),
-                                  topLeft: Radius.circular(2),
-                                  topRight: Radius.circular(0),
+                            shape: BoxShape.rectangle,
+                          ),
+                          child: Align(
+                            alignment: const AlignmentDirectional(0, 0),
+                            child: Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 0, 0, 30),
+                              child: Container(
+                                constraints: const BoxConstraints(
+                                  maxWidth: 320,
                                 ),
-                                shape: BoxShape.rectangle,
-                              ),
-                              child: Align(
-                                alignment: const AlignmentDirectional(0, 0),
-                                child: Padding(
-                                  padding:
-                                  const EdgeInsetsDirectional.fromSTEB(0, 0, 0, 30),
-                                  child: Container(
-                                    constraints: const BoxConstraints(
-                                      maxWidth: 320,
-                                    ),
-                                    decoration: const BoxDecoration(),
-                                    child: Align(
-                                      alignment: const AlignmentDirectional(0, 0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment: MainAxisAlignment.center,
-                                        crossAxisAlignment:
+                                decoration: const BoxDecoration(),
+                                child: Align(
+                                  alignment: const AlignmentDirectional(0, 0),
+                                  child: Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    crossAxisAlignment:
                                         CrossAxisAlignment.center,
-                                        children: [
-                                          ..._titleArea(ct),
-                                          _formArea(),
-                                          _forgetPasswordArea(),
-
-                                          _loginButton(context),
-                                          _registerArea()
-                                        ],
-                                      ),
-                                    ),
+                                    children: [
+                                      ..._titleArea(ct),
+                                      _formArea(),
+                                      _forgetPasswordArea(),
+                                      _loginButton(context),
+                                      _registerArea()
+                                    ],
                                   ),
                                 ),
                               ),
                             ),
-                          ))
+                          ),
+                        ),
+                      ))
                     ],
                   ),
                 ),
@@ -164,22 +164,34 @@ class _LoginPageState extends State<LoginPage> {
       SelectionArea(
           child: Text(
         'ยินดีต้อนรับกลับ',
-        style: TextStyle(
-            color: Colors.black.withOpacity(0.9),
-            fontSize: 32,
-            fontFamily: 'Itim',
-            fontWeight: FontWeight.w600),
+        style: GoogleFonts.itim(
+          color: Colors.black.withOpacity(0.9),
+          fontSize: 32,
+          fontWeight: FontWeight.w600,
+          letterSpacing: -1.5,
+        ),
+        // style: TextStyle(
+        //     color: Colors.black.withOpacity(0.9),
+        //     fontSize: 32,
+        //     fontFamily: 'Itim',
+        //     fontWeight: FontWeight.w600),
       )),
       Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
+        padding: const EdgeInsetsDirectional.fromSTEB(0, 8, 0, 0),
         child: SelectionArea(
             child: Text(
           'กรอกรายละเอียดของคุณด้านล่างได้เลย!',
-          style: TextStyle(
-              color: Colors.black.withOpacity(0.6),
-              fontSize: 16,
-              fontFamily: 'Itim',
-              fontWeight: FontWeight.normal),
+          // style: TextStyle(
+          //     color: Colors.black.withOpacity(0.6),
+          //     fontSize: 16,
+          //     fontFamily: 'Itim',
+          //     fontWeight: FontWeight.normal),
+              style: GoogleFonts.itim(
+                color: Colors.black.withOpacity(0.6),
+                fontSize: 18,
+                fontWeight: FontWeight.normal,
+                letterSpacing: 0.5,
+              ),
         )),
       ),
     ];
@@ -187,7 +199,7 @@ class _LoginPageState extends State<LoginPage> {
 
   Widget _formArea() {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0, 32, 0, 0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0, 32, 0, 0),
       child: Form(
         //key: _model.formKey,
         autovalidateMode: AutovalidateMode.disabled,
@@ -402,7 +414,7 @@ class _LoginPageState extends State<LoginPage> {
       padding: const EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
       child: MelonBouncingButton.text(
           enabledHover: true,
-          callback:(){
+          callback: () {
             if (_usernameController.text.isNotEmpty &&
                 _passwordController.text.isNotEmpty) {
               _provider.login(
@@ -425,18 +437,18 @@ class _LoginPageState extends State<LoginPage> {
   Widget _forgetPasswordArea() {
     return Padding(
         padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
-        child:
-        MelonBouncingButton.text(
+        child: MelonBouncingButton.text(
             enabledHover: true,
-            callback:(){
-              BotToast().component.dialog("ฟังก์ชันไม่พร้อมใช้งาน",color: Colors.redAccent);
+            callback: () {
+              BotToast()
+                  .component
+                  .dialog("ฟังก์ชันไม่พร้อมใช้งาน", color: Colors.redAccent);
             },
             text: "ลืมรหัสผ่าน?",
             textColor: Colors.blueAccent,
             fontSize: 16,
             height: 26,
-            color: Colors.transparent)
-    );
+            color: Colors.transparent));
     return Padding(
       padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
       child: SelectionArea(

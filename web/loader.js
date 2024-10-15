@@ -14,6 +14,17 @@ function insertLoaderHTML(html) {
     });
 }
 
+function setThemeColor(lightColor = '#FFFFFF', darkColor = '#000000') {
+    const themeColorMetaTag = document.querySelector('meta[name="theme-color"]');
+
+    // ตรวจสอบว่าผู้ใช้ตั้งค่า prefers-color-scheme: light หรือ dark
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        themeColorMetaTag.setAttribute('content', darkColor);  // ใช้สีที่ส่งเข้ามาสำหรับ dark theme
+    } else {
+        themeColorMetaTag.setAttribute('content', lightColor);  // ใช้สีที่ส่งเข้ามาสำหรับ light theme
+    }
+}
+
 // การตั้งค่าของ renderer
 const rendererConfig = {
     hostElement: document.querySelector("#flutter_app"), // เลือก element ที่จะใช้ renderer
@@ -34,7 +45,11 @@ const pathModels = [
         path: "/sushiro", // เส้นทางที่ตรงกับ model นี้
         cssFile: "loaders/sushiro-loader.css", // ที่อยู่ของไฟล์ CSS สำหรับ path นี้
         loaderHTML: loaderHTML, // HTML ของ loader
-        rendererConfig: rendererConfig // การตั้งค่า renderer
+        rendererConfig: rendererConfig, // การตั้งค่า renderer
+        color: {
+            light: '#FFFFFF',
+            dark: '#000000'
+        }
     },
     // เพิ่ม models อื่น ๆ ตามที่ต้องการ
 ];
@@ -43,7 +58,11 @@ const pathModels = [
 const defaultModel = {
     cssFile: "loaders/default-loader.css", // ที่อยู่ของไฟล์ CSS สำหรับโมเดลเริ่มต้น
     loaderHTML: loaderHTML, // HTML ของ loader
-    rendererConfig: rendererConfig // การตั้งค่า renderer
+    rendererConfig: rendererConfig, // การตั้งค่า renderer
+    color: {
+        light: '#000000',
+        dark: '#000000'
+    }
 };
 
 // ค้นหาโมเดลที่ตรงกับ path ปัจจุบัน หรือใช้โมเดลเริ่มต้น
@@ -54,3 +73,9 @@ loadCSS(currentPathModel.cssFile);
 
 // แทรก HTML ของ loader ตามโมเดลที่เลือก
 insertLoaderHTML(currentPathModel.loaderHTML);
+
+window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => {
+    setThemeColor(currentPathModel.color.light, currentPathModel.color.dark);
+});
+
+
