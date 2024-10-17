@@ -512,7 +512,7 @@ class _HomePageState extends State<HomePage> {
       CardLinkWidget("Mastadon", "https://kemonodon.club/@melonkemo",
           icon: SimpleIcons.mastodon),
       CardLinkWidget(
-          "Bluesky", "https://bsky.app/profile/melonkemo.bsky.social",
+          "Bluesky", "https://bsky.app/profile/melonkemo.com",
           icon: SimpleIcons.icloud),
       CardLinkWidget("Github", "https://github.com/melonkemo",icon: SimpleIcons.github)
     ];

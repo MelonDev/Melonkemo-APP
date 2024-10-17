@@ -44,7 +44,7 @@ class _MeProfilePageState extends State<MeProfilePage> {
       CardListWidget("Mastadon", "https://kemonodon.club/@melonkemo",
           icon: SimpleIcons.mastodon, width: cardWidth),
       CardListWidget(
-          "Bluesky", "https://bsky.app/profile/melonkemo.bsky.social",
+          "Bluesky", "https://bsky.app/profile/melonkemo.com",
           icon: SimpleIcons.icloud, width: cardWidth),
     ];
   }
