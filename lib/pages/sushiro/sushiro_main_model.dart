@@ -2,6 +2,7 @@ class PeopleModel {
   String id;
   String name;
   late List<SideDishPlateModel> plates;
+  late SushiPlateModel white;
   late SushiPlateModel copper;
   late SushiPlateModel silver;
   late SushiPlateModel gold;
@@ -9,11 +10,13 @@ class PeopleModel {
 
   PeopleModel(this.id, this.name,
       {List<SideDishPlateModel>? plates,
+        SushiPlateModel? white,
         SushiPlateModel? copper,
         SushiPlateModel? silver,
         SushiPlateModel? gold,
         SushiPlateModel? black}) {
     this.plates = plates ?? [];
+    this.white = white ?? SushiPlateModel(SushiPlateType.white, 0);
     this.copper = copper ?? SushiPlateModel(SushiPlateType.copper, 0);
     this.silver = silver ?? SushiPlateModel(SushiPlateType.silver, 0);
     this.gold = gold ?? SushiPlateModel(SushiPlateType.gold, 0);
@@ -36,6 +39,7 @@ class PeopleModel {
               .map((shared) => PeopleShareModel(shared.peopleId))
               .toList()))
           .toList(),
+      white: SushiPlateModel(white.type, white.value),
       copper: SushiPlateModel(copper.type, copper.value),
       silver: SushiPlateModel(silver.type, silver.value),
       gold: SushiPlateModel(gold.type, gold.value),
@@ -70,7 +74,7 @@ class PlateModel {
       : shared = shared ?? [];
 }
 
-enum SushiPlateType { copper, silver, gold, black }
+enum SushiPlateType { white,copper, silver, gold, black }
 
 class SushiPlateModel extends PlateModel {
   SushiPlateType type;

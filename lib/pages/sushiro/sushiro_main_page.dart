@@ -48,21 +48,23 @@ class SushiroMainPage extends StatefulWidget {
       },
       modalTypeBuilder: (context) {
         if (width.resolve(context) < 560) {
-          return MelonBottomSheetType(constraint: (Size size){
+          return MelonBottomSheetType(constraint: (Size size) {
             return BoxConstraints(
               maxWidth: size.width,
               minWidth: size.width <= 520 ? size.width : 520,
-              minHeight: size.width < 560 ? size.height * 0.9 : size.height * 0.85,
+              minHeight:
+                  size.width < 560 ? size.height * 0.9 : size.height * 0.85,
               maxHeight: size.height,
             );
           });
           //return WoltModalType.bottomSheet();
         } else {
-          return MelonDialogType(constraint: (Size size){
+          return MelonDialogType(constraint: (Size size) {
             return BoxConstraints(
               maxWidth: 560 - 60,
               minWidth: 560 - 60,
-              minHeight: size.width < 560 ? size.height * 0.9 : size.height * 0.85,
+              minHeight:
+                  size.width < 560 ? size.height * 0.9 : size.height * 0.85,
               maxHeight: size.height,
             );
           });
@@ -424,6 +426,9 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
                     scrollDirection: Axis.horizontal,
                     padding: const EdgeInsets.symmetric(horizontal: 20),
                     children: [
+                      getCounterPlateWidget(SushiPlateType.white,
+                          plates: [people.white]),
+                      const SizedBox(width: 16),
                       getCounterPlateWidget(SushiPlateType.copper,
                           plates: [people.copper]),
                       const SizedBox(width: 16),
@@ -483,7 +488,10 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
   }
 
   Widget getSushiPlateWidget(SushiPlateType? type) {
-    if (type == SushiPlateType.copper) {
+    if (type == SushiPlateType.white) {
+      return plateWidget(getSushiPlateColor(type),
+          borderColor: getSushiPlateBorderColor(type));
+    } else if (type == SushiPlateType.copper) {
       return plateWidget(getSushiPlateColor(type),
           borderColor: getSushiPlateBorderColor(type));
     } else if (type == SushiPlateType.silver) {
@@ -502,10 +510,12 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
   }
 
   Color getSushiPlateColor(SushiPlateType? type) {
-    if (type == SushiPlateType.copper) {
+    if (type == SushiPlateType.white) {
+      return const Color(0xFFFFFFFF);
+    } else if (type == SushiPlateType.copper) {
       return const Color(0xFF7C2A3D);
     } else if (type == SushiPlateType.silver) {
-      return const Color(0xFFD7D9D7);
+      return const Color(0xFFCECECE);
     } else if (type == SushiPlateType.gold) {
       return const Color(0xFFE5C27C);
     } else if (type == SushiPlateType.black) {
@@ -516,7 +526,9 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
   }
 
   Color getSushiPlateBorderColor(SushiPlateType? type) {
-    if (type == SushiPlateType.copper) {
+    if (type == SushiPlateType.white) {
+      return const Color(0xFFAD8E50);
+    } else if (type == SushiPlateType.copper) {
       return const Color(0xFF591525);
     } else if (type == SushiPlateType.silver) {
       return const Color(0xFFABABAB);
@@ -530,7 +542,9 @@ class _SushiroMainPageState extends State<SushiroMainPage> {
   }
 
   Color getSushiPlateTextColor(SushiPlateType? type) {
-    if (type == SushiPlateType.copper) {
+    if (type == SushiPlateType.white) {
+      return Colors.black;
+    } else if (type == SushiPlateType.copper) {
       return Colors.white;
     } else if (type == SushiPlateType.silver) {
       return Colors.black;

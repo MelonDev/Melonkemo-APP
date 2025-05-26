@@ -152,6 +152,14 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
                       const SizedBox(
                         height: 4,
                       ),
+                      _plateTileWidget(context, widget.people.white),
+                      Container(
+                        width: double.infinity,
+                        height: 1,
+                        color: Colors.black.withOpacity(0.1),
+                        margin: const EdgeInsets.symmetric(
+                            vertical: 6, horizontal: 20),
+                      ),
                       _plateTileWidget(context, widget.people.copper),
                       Container(
                         width: double.infinity,
@@ -616,7 +624,10 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
   }
 
   Widget getSushiPlateWidget(SushiPlateType? type) {
-    if (type == SushiPlateType.copper) {
+    if (type == SushiPlateType.white) {
+      return plateWidget(getSushiPlateColor(type),
+          borderColor: getSushiPlateBorderColor(type));
+    }else if (type == SushiPlateType.copper) {
       return plateWidget(getSushiPlateColor(type),
           borderColor: getSushiPlateBorderColor(type));
     } else if (type == SushiPlateType.silver) {
@@ -635,10 +646,12 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
   }
 
   Color getSushiPlateColor(SushiPlateType? type) {
-    if (type == SushiPlateType.copper) {
+    if (type == SushiPlateType.white) {
+      return const Color(0xFFFFFFFF);
+    } else if (type == SushiPlateType.copper) {
       return const Color(0xFF7C2A3D);
     } else if (type == SushiPlateType.silver) {
-      return const Color(0xFFD7D9D7);
+      return const Color(0xFFCECECE);
     } else if (type == SushiPlateType.gold) {
       return const Color(0xFFE5C27C);
     } else if (type == SushiPlateType.black) {
@@ -649,7 +662,9 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
   }
 
   Color getSushiPlateBorderColor(SushiPlateType? type) {
-    if (type == SushiPlateType.copper) {
+    if (type == SushiPlateType.white) {
+      return const Color(0xFFAD8E50);
+    } else if (type == SushiPlateType.copper) {
       return const Color(0xFF591525);
     } else if (type == SushiPlateType.silver) {
       return const Color(0xFFABABAB);
@@ -664,6 +679,9 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
 
   Color getSushiPlateTextColor(SushiPlateType? type) {
     if (type == SushiPlateType.copper) {
+      return Colors.black;
+    }
+    else if (type == SushiPlateType.copper) {
       return Colors.white;
     } else if (type == SushiPlateType.silver) {
       return Colors.black;
@@ -677,7 +695,9 @@ class _PeoplePageDialogState extends State<PeoplePageDialog> {
   }
 
   String getSushiPlateName(SushiPlateType? type) {
-    if (type == SushiPlateType.copper) {
+    if (type == SushiPlateType.white) {
+      return "จานขาว";
+    }else if (type == SushiPlateType.copper) {
       return "จานแดง";
     } else if (type == SushiPlateType.silver) {
       return "จานเงิน";

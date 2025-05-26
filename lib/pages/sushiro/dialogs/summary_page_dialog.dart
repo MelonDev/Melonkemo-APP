@@ -275,6 +275,7 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
               color: Colors.black),
         ),
         const SizedBox(height: 10),
+        if (people.white.value > 0) _plate("จานขาว", 30, people.white.value),
         if (people.copper.value > 0) _plate("จานแดง", 40, people.copper.value),
         if (people.silver.value > 0) _plate("จานเงิน", 60, people.silver.value),
         if (people.gold.value > 0) _plate("จานทอง", 80, people.gold.value),

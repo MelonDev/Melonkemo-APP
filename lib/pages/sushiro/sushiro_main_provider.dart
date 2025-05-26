@@ -74,7 +74,9 @@ class SushiroMainProvider extends ChangeNotifier {
   }
 
   static double getSushiPlatePrice(SushiPlateType type){
-    if (type == SushiPlateType.copper) {
+    if (type == SushiPlateType.white) {
+      return 30;
+    } else if (type == SushiPlateType.copper) {
       return 40;
     } else if (type == SushiPlateType.silver) {
       return 60;
