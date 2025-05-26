@@ -109,7 +109,6 @@ class SushiroMainProvider extends ChangeNotifier {
 
   double calculatePrice({String? peopleId, bool includeServiceCharge = false}) {
     double price = 0.0;
-
     for (PeopleModel people in peopleId != null
         ? peoples.where((element) => element.id == peopleId)
         : peoples) {
