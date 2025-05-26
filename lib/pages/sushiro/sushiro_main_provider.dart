@@ -116,6 +116,7 @@ class SushiroMainProvider extends ChangeNotifier {
       for (SideDishPlateModel plate in people.plates) {
         price += (plate.price * plate.value);
       }
+      price += calculateSushi(SushiPlateType.white,people.white.value);
       price += calculateSushi(SushiPlateType.copper,people.copper.value);
       price += calculateSushi(SushiPlateType.silver,people.silver.value);
       price += calculateSushi(SushiPlateType.gold,people.gold.value);
@@ -132,6 +133,7 @@ class SushiroMainProvider extends ChangeNotifier {
     for (SideDishPlateModel plate in people.plates) {
       price += (plate.price * plate.value);
     }
+    price += calculateSushi(SushiPlateType.white,people.white.value);
     price += calculateSushi(SushiPlateType.copper,people.copper.value);
     price += calculateSushi(SushiPlateType.silver,people.silver.value);
     price += calculateSushi(SushiPlateType.gold,people.gold.value);
