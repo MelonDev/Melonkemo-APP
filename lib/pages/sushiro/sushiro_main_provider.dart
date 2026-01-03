@@ -83,7 +83,7 @@ class SushiroMainProvider extends ChangeNotifier {
     } else if (type == SushiPlateType.gold) {
       return 80;
     } else if (type == SushiPlateType.black) {
-      return 120;
+      return 100;
     }else {
       return 0;
     }
