@@ -279,7 +279,7 @@ class _SummaryPageDialogState extends State<SummaryPageDialog> {
         if (people.copper.value > 0) _plate("จานแดง", 40, people.copper.value),
         if (people.silver.value > 0) _plate("จานเงิน", 60, people.silver.value),
         if (people.gold.value > 0) _plate("จานทอง", 80, people.gold.value),
-        if (people.black.value > 0) _plate("จานดำ", 120, people.black.value),
+        if (people.black.value > 0) _plate("จานดำ", 100, people.black.value),
         ...people.plates
             .map((plate) => _plate(plate.name ?? "", plate.price, plate.value)),
         const SizedBox(height: 14),
