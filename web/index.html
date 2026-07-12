@@ -1,54 +1,75 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
+  <!-- ตั้งค่า Base URL สำหรับ URL ที่สัมพันธ์กันทั้งหมด -->
   <base href="$FLUTTER_BASE_HREF">
 
+  <!-- การตั้งค่าการเข้ารหัสตัวอักษรเป็น UTF-8 -->
   <meta charset="UTF-8">
+
+  <!-- การตั้งค่าความเข้ากันได้กับ Internet Explorer -->
   <meta content="IE=Edge" http-equiv="X-UA-Compatible">
+
+  <!-- คำอธิบายเกี่ยวกับเว็บไซต์ -->
   <meta name="description" content="A new Flutter project.">
 
-  <!-- iOS meta tags & icons -->
+  <!-- ตั้งค่าสีธีมสำหรับโหมดสว่างและโหมดมืด -->
+  <meta name="theme-color" media="(prefers-color-scheme: light)" content="white" />
+  <meta name="theme-color" media="(prefers-color-scheme: dark)" content="white" />
+
+  <!-- ระบุสีสันที่รองรับ -->
+  <meta name="color-scheme" content="light dark">
+
+  <script src="loader.js"></script>
+
+  <!-- การเชื่อมต่อกับ Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="fonts.css">
+
+  <!-- เมต้าแท็กและไอคอนสำหรับ iOS -->
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black">
-  <meta name="apple-mobile-web-app-title" content="melonkemo">
+  <meta name="apple-mobile-web-app-status-bar-style" content="white">
+  <meta name="apple-mobile-web-app-title" content="Melonkemo">
   <link rel="apple-touch-icon" href="icons/Icon-192.png">
 
-  <!-- Favicon -->
-  <link rel="icon" type="image/png" href="favicon.png"/>
+  <!-- ไอคอนฟาเวอิคอนของเว็บไซต์ -->
+  <link rel="icon" type="image/png" href="favicon.png" />
 
+  <!-- ชื่อของหน้าเว็บ -->
   <title>melonkemo</title>
+
+  <!-- ลิงก์ไปยังไฟล์ Web App Manifest -->
   <link rel="manifest" href="manifest.json">
 
+  <!-- JavaScript สำหรับโหลดเวอร์ชันของ Service Worker -->
   <script>
-    // The value below is injected by flutter build, do not touch.
-    var serviceWorkerVersion = null;
+    // ค่าด้านล่างนี้ถูกแทรกโดยการสร้าง Flutter, อย่าปรับเปลี่ยน
+    var serviceWorkerVersion = {{ flutter_service_worker_version }};
   </script>
-  <!-- This script adds the flutter initialization JS code -->
+
+  <!-- JavaScript สำหรับการเริ่มต้นแอป Flutter -->
   <script src="flutter.js" defer></script>
 </head>
+
 <body>
+  <!-- JavaScript สำหรับโหลดและรันแอป Flutter -->
+  <script src="main.dart.js" type="application/javascript" onendload="document.getElementById('loader').remove();"></script>
+  
+  <!-- สคริปต์สำหรับการเริ่มต้น Flutter, โหลดแบบอะซิงโครนัส -->
+  <script src="flutter_bootstrap.js" async></script>
+
+  <!-- สคริปต์ที่ใช้ในการเริ่มต้นเอนจินของ Flutter และรันแอป -->
   <script>
-    window.addEventListener('load', function(ev) {
-      // Download main.dart.js
-      _flutter.loader.loadEntrypoint({
+    window.addEventListener('load', function () {
+      _flutter.loader.load({
         serviceWorker: {
           serviceWorkerVersion: serviceWorkerVersion,
         },
-        onEntrypointLoaded: function(engineInitializer) {
-          engineInitializer.initializeEngine().then(function(appRunner) {
+        onEntrypointLoaded: function (engineInitializer) {
+          engineInitializer.initializeEngine(currentPathModel.rendererConfig).then(function (appRunner) {
             appRunner.runApp();
           });
         }
@@ -56,4 +77,5 @@
     });
   </script>
 </body>
+
 </html>

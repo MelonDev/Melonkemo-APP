@@ -1,0 +1,49 @@
+body{
+    margin: 0;
+}
+
+#loader {
+  width: 100vw;
+  height: 100vh;
+  /* display: block; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  justify-items: center;
+  align-items: center;
+  align-content: center;
+  background-color: #A83533;
+}
+
+#loader-title {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+
+  font-weight: 500;
+  font-size: 22;
+  color: white;
+}
+
+/* Circle Loader */
+.circle-loader {
+    border: 8px solid rgba(0, 0, 0, 0.1); /* สีพื้นหลัง */
+    border-left: 8px solid white; /* สีของวงกลมที่หมุน */
+    border-radius: 50%; /* ทำให้เป็นวงกลม */
+    width: 50px; /* ขนาดของวงกลม */
+    height: 50px; /* ขนาดของวงกลม */
+    animation: spin 1s linear infinite; /* การหมุน */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+#melon-loader-title {
+  font-family: "Kanit", sans-serif;
+    font-weight: 400;
+    color: white;
+    font-size: 40px;
+    font-style: normal;
+}
+

@@ -1,0 +1,139 @@
+class PeopleModel {
+  String id;
+  String name;
+  late List<SideDishPlateModel> plates;
+  late SushiPlateModel white;
+  late SushiPlateModel copper;
+  late SushiPlateModel silver;
+  late SushiPlateModel gold;
+  late SushiPlateModel black;
+
+  PeopleModel(this.id, this.name,
+      {List<SideDishPlateModel>? plates,
+        SushiPlateModel? white,
+        SushiPlateModel? copper,
+        SushiPlateModel? silver,
+        SushiPlateModel? gold,
+        SushiPlateModel? black}) {
+    this.plates = plates ?? [];
+    this.white = white ?? SushiPlateModel(SushiPlateType.white, 0);
+    this.copper = copper ?? SushiPlateModel(SushiPlateType.copper, 0);
+    this.silver = silver ?? SushiPlateModel(SushiPlateType.silver, 0);
+    this.gold = gold ?? SushiPlateModel(SushiPlateType.gold, 0);
+    this.black = black ?? SushiPlateModel(SushiPlateType.black, 0);
+  }
+
+  PeopleModel copy() {
+    return PeopleModel(
+      id,
+      name,
+      plates: plates
+          .map((plate) =>
+      plate is RefillDrinkPlateModel
+          ? RefillDrinkPlateModel(
+          shared: plate.shared
+              .map((shared) => PeopleShareModel(shared.peopleId))
+              .toList())
+          : SideDishPlateModel(plate.name, plate.price, plate.value,
+          shared: plate.shared
+              .map((shared) => PeopleShareModel(shared.peopleId))
+              .toList()))
+          .toList(),
+      white: SushiPlateModel(white.type, white.value),
+      copper: SushiPlateModel(copper.type, copper.value),
+      silver: SushiPlateModel(silver.type, silver.value),
+      gold: SushiPlateModel(gold.type, gold.value),
+      black: SushiPlateModel(black.type, black.value),
+    );
+  }
+}
+
+class PeopleShareModel {
+  String peopleId;
+
+  PeopleShareModel(this.peopleId);
+}
+
+class PeopleSharePercentModel extends PeopleShareModel {
+  double percent;
+
+  PeopleSharePercentModel(super.peopleId, this.percent);
+}
+
+class PeopleSharePartialModel extends PeopleShareModel {
+  double price;
+
+  PeopleSharePartialModel(super.peopleId, this.price);
+}
+
+class PlateModel {
+  List<PeopleShareModel> shared;
+  int value;
+
+  PlateModel(this.value, {List<PeopleShareModel>? shared})
+      : shared = shared ?? [];
+}
+
+enum SushiPlateType { white,copper, silver, gold, black }
+
+class SushiPlateModel extends PlateModel {
+  SushiPlateType type;
+
+  SushiPlateModel(this.type, super.value, {super.shared});
+}
+
+class SideDishPlateModel extends PlateModel {
+  String? name;
+  double price;
+
+  SideDishPlateModel(this.name, this.price, super.value, {super.shared});
+
+  SideDishPlateModel copy() {
+    return SideDishPlateModel(name, price, value,
+        shared:
+        shared.map((shared) => PeopleShareModel(shared.peopleId)).toList());
+  }
+}
+
+class RefillDrinkPlateModel extends SideDishPlateModel {
+  RefillDrinkPlateModel({super.shared}) : super("เครื่องดื่มรีฟิล", 40, 1);
+
+  RefillDrinkPlateModel copy() {
+    return RefillDrinkPlateModel(
+        shared:
+        shared.map((shared) => PeopleShareModel(shared.peopleId)).toList());
+  }
+}
+
+class SushiroModel {
+  List<PlateModel> plates;
+
+  SushiroModel({List<PlateModel>? plates}) : plates = plates ?? [];
+}
+
+class VoucherDiscountModel {
+  CashVoucherModel? cash;
+  ReceiptVoucherModel? receipt;
+
+  VoucherDiscountModel({this.cash, this.receipt});
+
+  VoucherDiscountModel copy() =>
+      VoucherDiscountModel(
+          cash: cash != null ? CashVoucherModel(cash!.value) : null,
+          receipt: receipt != null ? ReceiptVoucherModel() : null);
+}
+
+class VoucherModel {
+  double value;
+
+  VoucherModel(this.value);
+}
+
+class CashVoucherModel extends VoucherModel {
+  CashVoucherModel(super.value);
+}
+
+class ReceiptVoucherModel extends VoucherModel {
+  ReceiptVoucherModel() : super(20);
+}
+

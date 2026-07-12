@@ -1,0 +1,67 @@
+/* ปรับแต่ง margin ของ body ให้เป็น 0 เพื่อให้แน่ใจว่าไม่มีช่องว่างรอบๆ */
+body {
+    margin: 0;
+}
+
+/* สไตล์สำหรับ #loader ซึ่งจะเป็นส่วนที่ใช้ในการแสดงโลโก้หรือเนื้อหาการโหลด */
+#loader {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+}
+
+/* สไตล์สำหรับ #loader-title ซึ่งเป็นส่วนที่ใช้แสดงชื่อหรือข้อความที่สำคัญ */
+#loader-title {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+        Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
+    font-weight: 500;
+    font-size: 22px;
+    color: black;
+}
+
+/* สไตล์สำหรับ #melon-loader-title ซึ่งเป็นข้อความเพิ่มเติมหรือเนื้อหาที่แสดงในช่วงโหลด */
+#melon-loader-title {
+    font-family: "Kanit", sans-serif;
+    font-weight: 400;
+    color: black;
+    font-size: 40px;
+    font-style: normal;
+}
+
+/* Circle Loader */
+.circle-loader {
+    border: 8px solid rgba(0, 0, 0, 0.1); /* สีพื้นหลัง */
+    border-left: 8px solid black; /* สีของวงกลมที่หมุน */
+    border-radius: 50%; /* ทำให้เป็นวงกลม */
+    width: 50px; /* ขนาดของวงกลม */
+    height: 50px; /* ขนาดของวงกลม */
+    animation: spin 1s linear infinite; /* การหมุน */
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* สไตล์สำหรับโหมด dark เพื่อเปลี่ยนสีพื้นหลัง */
+@media (prefers-color-scheme: dark) {
+    #loader {
+        background-color: #000000;
+    }
+
+    #loader-title {
+        color: white;
+    }
+
+    #melon-loader-title {
+        color: white;
+    }
+
+    .circle-loader {
+        border-left: 8px solid white;
+    }
+}
