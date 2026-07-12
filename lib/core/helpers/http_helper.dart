@@ -6,10 +6,7 @@ class HttpHelper {
   static const String _baseUrl = "https://api.melonkemo.com/v1/melonkemo";
 
   static const Map<String, String> headers = {
-    //'Authorization': 'Basic ***REMOVED***=',
-    //'x-api-key': '***REMOVED***',
     'Content-Type': 'application/json'
-    //'Content-Type': 'application/x-www-form-urlencoded'
   };
 
   // static Future<http.StreamedResponse?> get(
